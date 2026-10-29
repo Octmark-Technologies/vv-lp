@@ -1,0 +1,138 @@
+/* Pay 5% offer countdown (Countdown.tsx). Shared by all four landing pages. */
+.sv-cd {
+  --cd-orange: var(--sv-orange, #f95300);
+  --cd-navy: var(--sv-navy, #00355d);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.sv-cd-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.sv-cd-units {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sv-cd-units li {
+  min-width: 58px;
+  padding: 8px 6px 6px;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 1;
+}
+.sv-cd-units strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.sv-cd-units span {
+  display: block;
+  margin-top: 5px;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* light: on the sky / paper backgrounds */
+.sv-cd-light .sv-cd-label {
+  color: var(--cd-navy);
+}
+.sv-cd-light .sv-cd-units li {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 53, 93, 0.14);
+  backdrop-filter: blur(6px);
+}
+.sv-cd-light .sv-cd-units strong {
+  color: var(--cd-navy);
+}
+.sv-cd-light .sv-cd-units span {
+  color: rgba(0, 53, 93, 0.6);
+}
+
+/* dark: on navy / night backgrounds */
+.sv-cd-dark .sv-cd-label {
+  color: #fff;
+}
+.sv-cd-dark .sv-cd-units li {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+}
+.sv-cd-dark .sv-cd-units strong {
+  color: #fff;
+}
+.sv-cd-dark .sv-cd-units span {
+  color: rgba(255, 255, 255, 0.65);
+}
+.sv-cd .sv-cd-units li:first-child strong {
+  color: var(--cd-orange);
+}
+
+@media (max-width: 639px) {
+  .sv-cd-units li {
+    min-width: 50px;
+  }
+  .sv-cd-units strong {
+    font-size: 20px;
+  }
+}
+
+/* Compact version in the sticky top bar: hidden until the hero countdown is out of sight. */
+.sv-cd-bar {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--sv-navy, #00355d);
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    max-width 0.4s ease;
+}
+.sv-cd-bar.is-on {
+  max-width: 260px;
+  opacity: 1;
+}
+.sv-cd-bar strong {
+  color: var(--sv-orange, #f95300);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.sv-cd-bar-label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+@media (max-width: 479px) {
+  .sv-cd-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+  .sv-cd-bar-label {
+    font-size: 9px;
+  }
+  .sv-cd-bar-sec {
+    display: none;
+  }
+}
+/* inside a dark strip (LP3/LP4 offer strip) */
+.sv-cd-bar.sv-cd-bar-dark {
+  color: #fff;
+}
+.sv-cd.sv-cd-start {
+  align-items: flex-start;
+}

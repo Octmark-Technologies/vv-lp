@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e1714;
+  --color-forest: #1f3a32;
+  --color-moss: #2f5246;
+  --color-ivory: #f6f2ea;
+  --color-stone: #ece5d8;
+  --color-sand: #dccfb9;
+  --color-brass: #b08d57;
+  --color-brass-light: #d6bd8f;
+  --color-muted: #5f6b66;
+
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* SkyVue brand (Skyvue_Brand Guidelines.pdf) — used by /lp/ landing pages */
+  --color-sv-navy: #002e58;
+  --color-sv-navy-deep: #001b36;
+  --color-sv-orange: #f95300;
+  --color-sv-blush: #f5ddd8;
+  --color-sv-sky: #d2e3f1;
+  --color-sv-mist: #f4f7fb;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    font-variant-numeric: lining-nums;
+  }
+  ::selection {
+    @apply bg-brass text-ivory;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.01em;
+    font-variant-numeric: lining-nums;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-brass;
+  &::before {
+    content: "";
+    @apply h-px w-8 bg-current;
+  }
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] transition-all duration-500 ease-luxe;
+}
+@utility btn-primary {
+  @apply btn bg-brass text-ink hover:bg-brass-light;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-ivory hover:bg-forest;
+}
+@utility btn-ghost {
+  @apply btn border border-current/30 hover:border-current hover:bg-white/5;
+}
+@utility figure {
+  @apply font-sans font-extralight tracking-tight;
+}
+@utility field {
+  @apply w-full rounded-none border-0 border-b border-ink/20 bg-transparent px-0 py-3 text-[15px] text-ink transition-colors placeholder:text-ink/40 focus:border-brass focus:ring-0 focus:outline-none;
+}
+@utility field-dark {
+  @apply field border-ivory/25 text-ivory placeholder:text-ivory/40;
+}
+
+/* Motion (anime.js) — initial states, only when html.motion is set */
+html.motion [data-anim="fade"],
+html.motion [data-anim="stagger"] > *,
+html.motion [data-anim="split"],
+html.motion [data-hero-title],
+html.motion [data-hero-item],
+html.motion [data-hero-stat],
+html.motion [data-anim="rise"] [data-tower],
+html.motion [data-anim="rise"] [data-sun],
+html.motion [data-anim="draw"] {
+  opacity: 0;
+}
+[data-tower] {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+/* Subtle film grain for depth on dark panels */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* SkyVue landing pages — brochure "sky" gradient */
+.sv-sky {
+  background: linear-gradient(115deg, var(--color-sv-blush) 0%, #ecdfe6 40%, var(--color-sv-sky) 100%);
+}
