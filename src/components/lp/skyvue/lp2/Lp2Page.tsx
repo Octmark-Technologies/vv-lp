@@ -5,6 +5,7 @@ import { lp2, lp2Faqs } from "@/data/skyvue-lp2";
 import { Amenities } from "../lp1/Amenities";
 import { Approvals, Builder, Compare, Faq, Footer, Homes, Location, Visit } from "../lp1/Sections";
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "../lp1/Chrome";
+import { ScrollCue } from "../ScrollCue";
 import { EnquiryDrawer } from "../lp1/EnquiryDrawer";
 import { LpProvider } from "../lp1/PageConfig";
 import { Story3D } from "./Story3D";
@@ -46,6 +47,7 @@ export function Lp2Page() {
         <Footer />
         <FactRail />
         <ProgressPillar />
+        <ScrollCue tone="dark" onImage />
         <DesktopWhatsApp />
         <OfferNudge />
         <ScrollReveal />

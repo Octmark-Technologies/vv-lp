@@ -1,0 +1,118 @@
+/* "Scroll" heads-up (ScrollCue.tsx) */
+.sv-cue {
+  position: fixed;
+  left: max(14px, calc((100vw - 1360px) / 2 - 26px));
+  bottom: calc(var(--sv-cue-bottom, 72px) + 24px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+.sv-cue.is-on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.sv-cue-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.sv-cue-track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 64px;
+  overflow: hidden;
+}
+.sv-cue-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 24px;
+  background: var(--sv-orange, #f95300);
+  animation: sv-cue-flow 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes sv-cue-flow {
+  0% {
+    transform: translateY(-24px);
+  }
+  70%,
+  100% {
+    transform: translateY(64px);
+  }
+}
+.sv-cue-light .sv-cue-label {
+  color: var(--sv-navy, #00355d);
+}
+.sv-cue-light .sv-cue-track {
+  background: rgba(0, 53, 93, 0.2);
+}
+.sv-cue-dark .sv-cue-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+.sv-cue-dark .sv-cue-track {
+  background: rgba(255, 255, 255, 0.25);
+}
+.sv-cue:focus-visible {
+  outline: 2px solid var(--sv-orange, #f95300);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+/* Phones: the bottom bar is taller (facts + Call · WhatsApp · Enquire). */
+@media (max-width: 767px) {
+  .sv-cue {
+    --sv-cue-bottom: 112px;
+    left: 10px;
+  }
+  .sv-cue-track {
+    height: 48px;
+  }
+  @keyframes sv-cue-flow {
+    0% {
+      transform: translateY(-24px);
+    }
+    70%,
+    100% {
+      transform: translateY(48px);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-cue-dot {
+    animation: none;
+    transform: translateY(20px);
+  }
+}
+/* LP2 phones: the left edge is the hero copy, so the cue sits over the aerial image at the top instead. */
+@media (max-width: 767px) {
+  .sv-cue.sv-cue-onimage {
+    top: clamp(84px, calc(38svh - 160px), 200px);
+    bottom: auto;
+    left: 8px;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
+  }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .sv-cue.sv-cue-onimage {
+    top: 78px;
+  }
+  .sv-cue.sv-cue-onimage .sv-cue-track {
+    height: 36px;
+  }
+}

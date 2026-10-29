@@ -188,7 +188,7 @@ export function Neighbourhood() {
 
   const [line1, line2] = lp1Angle.title.split(/(?<=\.)\s+/);
   return (
-    <section ref={ref} className="sv-hood sv-pin bg-white" style={{ ["--pin" as string]: "380svh" }} aria-labelledby="hood-title">
+    <section ref={ref} className="sv-hood sv-pin bg-white" style={{ ["--pin" as string]: "240svh" }} aria-labelledby="hood-title">
       <div className="sv-stage sv-hood-stage">
         <div className="sv-wrap sv-hood-wrap">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
@@ -226,7 +226,7 @@ export function Neighbourhood() {
               </div>
             </div>
 
-            <figure className="sv-hood-fig min-w-0" data-fig aria-label="One dot per home: SkyVue 570 homes against 759 to 2,055 homes at branded projects nearby">
+            <figure className="sv-hood-fig min-w-0" data-fig aria-label="One dot per home: SkyVue 570 homes against 759 to 2,055 homes at other projects nearby">
               <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] items-end gap-6">
                 <div className="min-w-0" data-fig-a>
                   <canvas ref={a} className="block w-full" aria-hidden="true" />
@@ -237,7 +237,7 @@ export function Neighbourhood() {
                 </div>
                 <div className="min-w-0" data-fig-b>
                   <canvas ref={b} className="block w-full" aria-hidden="true" />
-                  <p className="mt-3 text-[13px] font-semibold text-[var(--sv-navy)]">Branded projects nearby</p>
+                  <p className="mt-3 text-[13px] font-semibold text-[var(--sv-navy)]">Other projects nearby</p>
                   <p className="sv-display sv-tnum text-[28px] font-light leading-none">
                     <span data-min-b>{townshipMin.toLocaleString("en-IN")}–</span>
                     <span data-count-b>{townshipMax.toLocaleString("en-IN")}</span> homes
@@ -257,10 +257,10 @@ export function Neighbourhood() {
 
 /**
  * Phones / short screens · the 570-vs-township comparison as one pinned scene, at one scale.
- * One full-width field of 2,055 dots (one per home in the largest branded project nearby):
+ * One full-width field of 2,055 dots (one per home in the largest other project nearby):
  *   1. the field fills, counting to 2,055 ("A township nearby")
  *   2. it dims and SkyVue's 570 fill in orange inside the same field ("570 homes is a neighbourhood")
- *   3. the summary: SkyVue 570 vs branded projects nearby 759–2,055
+ *   3. the summary: SkyVue 570 vs other projects nearby 759–2,055
  * Reduced motion / no JS: the final frame, not pinned.
  */
 function HoodMobileChart({ min, max }: { min: number; max: number }) {
@@ -379,7 +379,7 @@ function HoodMobileChart({ min, max }: { min: number; max: number }) {
   }, [min, max]);
 
   return (
-    <div ref={wrap} className="sv-hood-m" aria-label={`One dot per home: SkyVue ${570} homes against ${min.toLocaleString("en-IN")} to ${max.toLocaleString("en-IN")} homes at branded projects nearby`} role="img">
+    <div ref={wrap} className="sv-hood-m" aria-label={`One dot per home: SkyVue ${570} homes against ${min.toLocaleString("en-IN")} to ${max.toLocaleString("en-IN")} homes at other projects nearby`} role="img">
       <div className="sv-hood-m-stage">
         <div className="sv-hood-m-head">
           <p ref={label} className="sv-eyebrow">A township nearby</p>
@@ -400,7 +400,7 @@ function HoodMobileChart({ min, max }: { min: number; max: number }) {
             <b className="sv-tnum">
               {min.toLocaleString("en-IN")}–{max.toLocaleString("en-IN")}
             </b>{" "}
-            branded projects nearby
+            other projects nearby
           </span>
         </div>
       </div>

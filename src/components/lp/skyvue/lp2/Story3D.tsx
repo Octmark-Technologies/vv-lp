@@ -94,7 +94,7 @@ export function Story3D() {
 
   const v = lp2.hero[lp2.defaultVersion];
   return (
-    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "520svh" }} aria-label="Vaishno SkyVue, the 5% plan">
+    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "320svh" }} aria-label="Vaishno SkyVue, the 5% plan">
       <div className="sv-stage sv-story-stage">
         <div className="sv-story-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}

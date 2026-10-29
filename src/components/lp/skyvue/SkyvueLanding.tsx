@@ -25,6 +25,7 @@ import { Check, Phone, Pin, Plus, WhatsApp } from "@/components/Icons";
 import { HeroCopy, HeroText } from "./HeroCopy";
 import { LeadForm } from "./LeadForm";
 import { PlanTabs } from "./PlanTabs";
+import { FooterCredit } from "./FooterCredit";
 import { OfferCountdown } from "./Countdown";
 
 const HERO_FORM = "enquire";
@@ -311,7 +312,7 @@ function Comparison() {
       <Heading
         eyebrow="Compare base to base"
         title="A lower base price, a smaller community, a larger home."
-        sub="Before you decide, put SkyVue next to the branded projects on your shortlist."
+        sub="Before you decide, put SkyVue next to the other projects on your shortlist."
       />
       <div className="mt-10 overflow-hidden rounded-2xl bg-white">
         <table className="w-full text-left text-sm sm:text-base">
@@ -319,7 +320,7 @@ function Comparison() {
             <tr className="text-[11px] uppercase tracking-[0.16em]">
               <th className="px-4 py-4 font-semibold text-sv-navy/50 sm:px-6"> </th>
               <th className="bg-sv-navy px-4 py-4 font-semibold text-white sm:px-6">SkyVue</th>
-              <th className="px-4 py-4 font-semibold text-sv-navy/60 sm:px-6">Branded projects nearby</th>
+              <th className="px-4 py-4 font-semibold text-sv-navy/60 sm:px-6">Other projects nearby</th>
             </tr>
           </thead>
           <tbody>
@@ -543,9 +544,12 @@ function Footer() {
             offer or a contract.
           </p>
           <p>
-            <Link href={privacyUrl} className="underline">Privacy policy</Link> · © 2026 {company.name}
+            <Link href={privacyUrl} className="underline">Privacy policy</Link>
           </p>
         </div>
+      </div>
+      <div className="mx-auto max-w-6xl px-4 sm:px-8">
+        <FooterCredit />
       </div>
     </footer>
   );

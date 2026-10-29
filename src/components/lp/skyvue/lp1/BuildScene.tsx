@@ -92,7 +92,7 @@ export function BuildScene({ mode = "parts", aside }: { mode?: "parts" | "pay"; 
   };
 
   return (
-    <section ref={ref} className="sv-pin sv-build sv-sky" style={{ ["--pin" as string]: "420svh" }} aria-labelledby="build-title">
+    <section ref={ref} className="sv-pin sv-build sv-sky" style={{ ["--pin" as string]: "260svh" }} aria-labelledby="build-title">
       <div className="sv-stage">
         <div className="sv-wrap h-full py-[max(72px,9svh)]">
           <div className="sv-build-grid">

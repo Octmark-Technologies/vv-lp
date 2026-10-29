@@ -11,6 +11,7 @@ import { Amenities } from "./Amenities";
 import { LpProvider } from "./PageConfig";
 import { Approvals, Builder, Care, Compare, Enquire, Faq, Footer, Homes, Location, PaymentPlan, Visit } from "./Sections";
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "./Chrome";
+import { ScrollCue } from "../ScrollCue";
 import { EnquiryDrawer } from "./EnquiryDrawer";
 
 /**
@@ -50,6 +51,7 @@ export function Lp1Page() {
       <Footer />
       <FactRail />
       <ProgressPillar />
+      <ScrollCue tone="light" />
       <DesktopWhatsApp />
       <EnquiryDrawer pageId={lp1.id} pageSlug={lp1.slug} title={lp1.formTitle} cta={lp1.formCta} />
     </div>

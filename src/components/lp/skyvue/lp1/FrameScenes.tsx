@@ -41,7 +41,7 @@ export function PodiumFilm() {
         shot="podium-lawn"
         frames={59}
         mobileFrames={29}
-        heightClass="[html.motion_&]:h-[200vh] md:[html.motion_&]:h-[220vh]"
+        heightClass="[html.motion_&]:h-[150vh] md:[html.motion_&]:h-[170vh]"
         alt="The landscaped podium lawn between SkyVue's two towers"
         focusX={0.45}
       >
@@ -63,7 +63,7 @@ export function TowersFilm() {
         shot="towers-dusk"
         frames={116}
         mobileFrames={58}
-        heightClass="[html.motion_&]:h-[320vh] md:[html.motion_&]:h-[400vh]"
+        heightClass="[html.motion_&]:h-[200vh] md:[html.motion_&]:h-[240vh]"
         alt="SkyVue's two towers lit up at dusk, seen from the road in Tellapur"
         focusX={0.45}
         minVisibleW={0.55}
@@ -87,7 +87,7 @@ export function ClubhouseFilm() {
         shot="clubhouse"
         frames={59}
         mobileFrames={29}
-        heightClass="[html.motion_&]:h-[200vh] md:[html.motion_&]:h-[220vh]"
+        heightClass="[html.motion_&]:h-[150vh] md:[html.motion_&]:h-[170vh]"
         alt="The double-height SkyVue clubhouse lounge with glass walls"
         focusX={0.35}
       >
@@ -110,7 +110,7 @@ export function HorizonFilm() {
         shot="horizon"
         frames={60}
         mobileFrames={30}
-        heightClass="[html.motion_&]:h-[200vh] md:[html.motion_&]:h-[220vh]"
+        heightClass="[html.motion_&]:h-[150vh] md:[html.motion_&]:h-[170vh]"
         alt="SkyVue's balconies looking out over the green horizon of Tellapur"
         focusX={0.62}
         minVisibleW={0.62}
@@ -134,7 +134,7 @@ export function BalconyFilm() {
         shot="balcony"
         frames={27}
         mobileFrames={14}
-        heightClass="[html.motion_&]:h-[160vh] md:[html.motion_&]:h-[170vh]"
+        heightClass="[html.motion_&]:h-[140vh] md:[html.motion_&]:h-[150vh]"
         alt="A wide SkyVue balcony with lounge chairs, looking over the city at sunset"
         focusX={0.6}
         minVisibleW={0.66}

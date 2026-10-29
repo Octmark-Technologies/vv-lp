@@ -168,7 +168,7 @@ export const approvals: { label: string; value: string | null; note?: string }[]
 
 /**
  * Comparison — base price to base price, no competitor names in page copy.
- * Source: Confirmed-Project-Facts (23 Oct 2026). Range = 4 branded projects in
+ * Source: Confirmed-Project-Facts (23 Oct 2026). Range = 4 other projects in
  * the Tellapur–Kollur belt. TODO(Octmark): on-site/broker verification before launch.
  */
 export const comparison = {
@@ -180,7 +180,7 @@ export const comparison = {
     { label: "Clinic & pharmacy inside the gate", skyvue: "Yes", others: "Varies" },
   ],
   footnote:
-    "Others = 4 branded projects near SkyVue, base prices from public sources, October 2026. Compare base to base, not an all-in quote against a base price. Ask for the named comparison sheet on WhatsApp.",
+    "Others = 4 other projects near SkyVue, base prices from public sources, October 2026. Compare base to base, not an all-in quote against a base price. Ask for the named comparison sheet on WhatsApp.",
 } as const;
 
 export const locationGuide = {

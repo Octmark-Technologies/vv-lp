@@ -22,6 +22,7 @@ import {
 } from "@/data/skyvue-landing";
 import { useLp } from "./PageConfig";
 import { withStar } from "../Terms";
+import { FooterCredit } from "../FooterCredit";
 import { Check, Phone, Pin, Plus, WhatsApp } from "@/components/Icons";
 import { LeadForm, UNLOCK_EVENT, UNLOCK_KEY } from "../LeadForm";
 import { revealOnEnter, useAnime } from "./anim";
@@ -77,7 +78,7 @@ export function Compare() {
           id="compare-title"
           eyebrow="Compare base to base"
           title="A lower base price. A smaller community. A larger home."
-          sub="Put SkyVue next to the branded projects on your shortlist, base price against base price."
+          sub="Put SkyVue next to the other projects on your shortlist, base price against base price."
         />
         <div data-bars className="mt-12 grid gap-10 lg:grid-cols-2">
           <div className="rounded-3xl bg-white/80 p-6 sm:p-8" data-reveal>
@@ -92,7 +93,7 @@ export function Compare() {
               </div>
               <div>
                 <div className="flex justify-between text-sm">
-                  <span className="font-semibold">4 branded projects nearby</span>
+                  <span className="font-semibold">4 other projects nearby</span>
                   <span className="sv-tnum">₹7,999 – ₹8,950</span>
                 </div>
                 <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">
@@ -114,7 +115,7 @@ export function Compare() {
               </div>
               <div>
                 <div className="flex justify-between text-sm">
-                  <span className="font-semibold">Branded projects nearby</span>
+                  <span className="font-semibold">Other projects nearby</span>
                   <span className="sv-tnum">759 – 2,055</span>
                 </div>
                 <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">
@@ -639,10 +640,12 @@ export function Footer() {
           <p>
             <Link href={privacyUrl} className="underline">
               Privacy policy
-            </Link>{" "}
-            · © 2026 Vaishno Ventures
+            </Link>
           </p>
         </div>
+      </div>
+      <div className="sv-wrap">
+        <FooterCredit />
       </div>
     </footer>
   );

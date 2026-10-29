@@ -35,6 +35,18 @@ export function Opening() {
     const dx = (innerWidth * 0.95) / unit;
     const dy = (innerHeight * 1.15) / unit;
 
+    // The towers start hidden behind the "I" (centred on the pillar) and travel to their resting place
+    // (the right side on desktop, bottom centre on phones) as the pillar splits.
+    const towers = root.querySelector<HTMLElement>("[data-open-towers]")!;
+    const saved = towers.style.transform;
+    towers.style.transform = "none";
+    const tr = towers.getBoundingClientRect();
+    towers.style.transform = saved;
+    const pr = pillar.getBoundingClientRect();
+    const stageTop = root.querySelector<HTMLElement>(".sv-stage")!.getBoundingClientRect().top;
+    const fromX = pr.left + pr.width / 2 - (tr.left + tr.width / 2);
+    const fromY = (pr.top - stageTop + pr.height / 2 - (tr.top - stageTop + tr.height / 2)) * 0.45;
+
     const tl = createTimeline({ autoplay: pinnedScroll(root), defaults: { ease: "inOutQuad" } });
     tl
       .add("[data-open-intro]", { opacity: [1, 0], translateY: [0, -40], duration: 160, ease: "linear" }, 30)
@@ -42,7 +54,7 @@ export function Opening() {
       .add("[data-open-towers]", { opacity: [0, 1], duration: 60, ease: "linear" }, 240)
       .add("[data-open-orange]", { translateX: [0, dx], translateY: [0, -dy], duration: 380, ease: "inOutCubic" }, 300)
       .add("[data-open-navy]", { translateX: [0, -dx], translateY: [0, dy], duration: 380, ease: "inOutCubic" }, 300)
-      .add("[data-open-towers]", { scale: [1.22, 1], translateY: ["10%", "0%"], duration: 420, ease: "outCubic" }, 300)
+      .add(towers, { translateX: [fromX, 0], translateY: [fromY, 0], scale: [0.72, 1], duration: 440, ease: "inOutCubic" }, 300)
       .add(pillar, { opacity: [1, 0], duration: 40, ease: "linear" }, 660)
       .add(root.querySelector<HTMLElement>(".sv-stage")!, { "--copy-veil": [0, 1], duration: 160, ease: "linear" }, 680)
       .add("[data-open-end]", { opacity: [0, 1], translateY: [26, 0], duration: 220, delay: stagger(45), ease: "outCubic" }, 700)
@@ -58,7 +70,7 @@ export function Opening() {
 
   const v = lp.hero[lp.defaultVersion];
   return (
-    <section ref={ref} className="sv-pin sv-open sv-sky" style={{ ["--pin" as string]: "300svh" }} aria-label="Vaishno SkyVue">
+    <section ref={ref} className="sv-pin sv-open sv-sky" style={{ ["--pin" as string]: "200svh" }} aria-label="Vaishno SkyVue">
       <div className="sv-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

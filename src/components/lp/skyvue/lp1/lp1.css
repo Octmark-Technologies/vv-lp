@@ -131,6 +131,7 @@ html.motion .sv-pin > .sv-stage {
   right: max(-6vw, -80px);
   height: min(94svh, 150vw);
   width: auto;
+  aspect-ratio: 1200 / 1178; /* known before the image loads, so the opening can measure where it lands */
   max-width: none;
   pointer-events: none;
   z-index: 1;
@@ -1404,7 +1405,7 @@ html.motion .sv-frames-cta {
     margin-top: 28px;
   }
   html.motion .sv-hood-m {
-    height: 280svh;
+    height: 170svh;
   }
   .sv-hood-m-stage {
     display: flex;

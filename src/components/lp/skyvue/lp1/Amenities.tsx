@@ -87,7 +87,7 @@ export function Amenities() {
   };
 
   return (
-    <section ref={ref} className="sv-pin sv-amen bg-[var(--sv-paper)]" style={{ ["--pin" as string]: "460svh" }} aria-labelledby="amen-title" id="amenities">
+    <section ref={ref} className="sv-pin sv-amen bg-[var(--sv-paper)]" style={{ ["--pin" as string]: "280svh" }} aria-labelledby="amen-title" id="amenities">
       <div className="sv-stage">
         <div className="sv-wrap sv-amen-wrap">
           <div className="sv-amen-head">
