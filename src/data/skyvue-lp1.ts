@@ -18,7 +18,7 @@ export const lp1 = {
       size: "Every home starts at 2,010 sq ft. Up to 2,890.",
     },
     buyer: {
-      eyebrow: "Tellapur · From ₹7,399 per sq ft",
+      eyebrow: "Tellapur · Starting from ₹1.6 Cr",
       title: "Bigger projects don't mean bigger homes.",
       sub: "570 exclusive 3 BHK homes in a luxury community of only 2 towers.",
       size: "3 BHK only. 2,010 to 2,890 sq ft. No small units.",
@@ -35,7 +35,7 @@ export const lp1 = {
   seo: {
     title: "Vaishno SkyVue Tellapur | 570 Exclusive 3 BHK Luxury Homes | RERA P01100010545",
     description:
-      "570 exclusive 3 BHK luxury homes in 2 towers on 3.76 acres in Tellapur. 3 BHK, 2,010–2,890 sq ft, from ₹7,399 per sq ft. 75% open space. Possession Mar 2030. RERA P01100010545.",
+      "570 exclusive 3 BHK luxury homes in 2 towers on 3.76 acres in Tellapur. 3 BHK, 2,010–2,890 sq ft, starting from ₹1.6 Cr. 75% open space. RERA P01100010545.",
   },
 };
 

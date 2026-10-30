@@ -10,9 +10,9 @@ import { openEnquiry } from "./EnquiryDrawer";
  * for the other landing pages.
  */
 
-type CopyProps = { eyebrow: string; title: string; body: string; cta?: { label: string; onClick: () => void } };
+export type CopyProps = { eyebrow: string; title: string; body: string; cta?: { label: string; onClick: () => void } };
 
-function Copy({ eyebrow, title, body, cta }: CopyProps) {
+export function Copy({ eyebrow, title, body, cta }: CopyProps) {
   return (
     <div className="sv-frames-copy">
       <div className="sv-wrap">

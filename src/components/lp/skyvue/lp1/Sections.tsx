@@ -12,8 +12,6 @@ import {
   comparison,
   delivered,
   faqs,
-  formatCr,
-  formatLakh,
   locationGuide,
   masterPlans,
   skyvue,
@@ -23,6 +21,7 @@ import {
 import { useLp } from "./PageConfig";
 import { withStar } from "../Terms";
 import { FooterCredit } from "../FooterCredit";
+import { BangalorePortfolio, Progress, SiteMap } from "../Proof";
 import { Check, Phone, Pin, Plus, WhatsApp } from "@/components/Icons";
 import { LeadForm, UNLOCK_EVENT, UNLOCK_KEY } from "../LeadForm";
 import { revealOnEnter, useAnime } from "./anim";
@@ -48,7 +47,12 @@ function Head({ eyebrow, title, sub, id, light }: { eyebrow: string; title: stri
   );
 }
 
-/* ───────────── B10 · Compare base to base ───────────── */
+/* ───────────── Building proof · construction progress ───────────── */
+export function ProgressBlock() {
+  return <Progress tone="light" onCta={() => openEnquiry("progress", "site_visit")} />;
+}
+
+/* ───────────── B10 · Compare ───────────── */
 export function Compare() {
   const ref = useRef<HTMLElement>(null);
   useAnime(ref, (root) => {
@@ -61,7 +65,6 @@ export function Compare() {
       autoplay: onScroll({ target: root.querySelector<HTMLElement>("[data-bars]")!, enter: { target: "top", container: "bottom-=120" }, repeat: false }),
     });
   });
-  const priceMax = 9000;
   const homesMax = 2100;
   const bar = (from: number, to: number, max: number, cls: string, label: string) => (
     <span
@@ -76,33 +79,11 @@ export function Compare() {
       <div className="sv-wrap" data-reveal-group>
         <Head
           id="compare-title"
-          eyebrow="Compare base to base"
-          title="A lower base price. A smaller community. A larger home."
-          sub="Put SkyVue next to the other projects on your shortlist, base price against base price."
+          eyebrow="Compare before you choose"
+          title="A smaller community. A larger home."
+          sub="Put SkyVue next to the other projects on your shortlist."
         />
-        <div data-bars className="mt-12 grid gap-10 lg:grid-cols-2">
-          <div className="rounded-3xl bg-white/80 p-6 sm:p-8" data-reveal>
-            <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[var(--sv-muted)]">Base price, ₹ per sq ft</p>
-            <div className="mt-6 grid gap-5">
-              <div>
-                <div className="flex justify-between text-sm">
-                  <span className="font-semibold">SkyVue</span>
-                  <span className="sv-tnum font-semibold text-[var(--sv-orange)]">₹7,399</span>
-                </div>
-                <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">{bar(0, 7399, priceMax, "bg-[var(--sv-orange)]", "SkyVue ₹7,399")}</div>
-              </div>
-              <div>
-                <div className="flex justify-between text-sm">
-                  <span className="font-semibold">4 other projects nearby</span>
-                  <span className="sv-tnum">₹7,999 – ₹8,950</span>
-                </div>
-                <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">
-                  {bar(0, 7999, priceMax, "bg-[rgba(0,53,93,0.35)]", "Lowest ₹7,999")}
-                  {bar(7999, 8950, priceMax, "bg-[var(--sv-navy)]", "Range up to ₹8,950")}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div data-bars className="mt-12 grid gap-10">
           <div className="rounded-3xl bg-white/80 p-6 sm:p-8" data-reveal>
             <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[var(--sv-muted)]">Homes in the community</p>
             <div className="mt-6 grid gap-5">
@@ -129,7 +110,7 @@ export function Compare() {
         <div className="mt-6 overflow-x-auto rounded-3xl bg-white/80" data-reveal>
           <table className="w-full min-w-[520px] text-left text-[15px]">
             <tbody>
-              {comparison.rows.slice(2).map((r) => (
+              {comparison.rows.slice(1).map((r) => (
                 <tr key={r.label} className="border-t border-[var(--sv-line)] first:border-t-0">
                   <td className="px-6 py-4 text-[var(--sv-muted)]">{r.label}</td>
                   <td className="px-6 py-4 font-semibold text-[var(--sv-navy)]">SkyVue: {r.skyvue}</td>
@@ -250,9 +231,8 @@ export function Homes() {
                 ["Size", `${u.size.toLocaleString("en-IN")} sq ft`],
                 ["Unit", `Tower ${v.tower} · ${v.unit}`],
                 ["Facing", v.facing],
-                ["Price", `₹${skyvue.basePrice.toLocaleString("en-IN")} / sq ft`],
               ].map(([k, val]) => (
-                <div key={k} className={k === "Home" || k === "Price" ? "col-span-2" : ""}>
+                <div key={k} className={k === "Home" ? "col-span-2" : ""}>
                   <dt className="text-[11px] uppercase tracking-[0.2em] text-[var(--sv-muted)]">{k}</dt>
                   <dd className="sv-tnum mt-1 text-lg">{val}</dd>
                 </div>
@@ -261,7 +241,7 @@ export function Homes() {
             <div className="sv-plan-offer">
               <p className="sv-plan-offer-hook">Book this home with just 5%.</p>
               <p className="sv-plan-offer-body">
-                {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI* meanwhile, so your savings stay with you while your home goes up.")}
+                {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* Your savings stay with you while your home goes up.")}
               </p>
               <p className="sv-plan-offer-when">Only on bookings made by 31 Dec 2026.</p>
             </div>
@@ -347,9 +327,9 @@ export function Location() {
             <Pin /> Get the location pin
           </a>
         </div>
-        <a href={locationGuide.map} target="_blank" rel="noopener" className="relative block aspect-[1.4] max-w-full overflow-hidden rounded-3xl bg-white" data-reveal>
-          <Image src={locationGuide.map} alt="SkyVue location map, Tellapur" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-        </a>
+        <div className="min-w-0" data-reveal>
+          <SiteMap aspect="4 / 3" />
+        </div>
       </div>
     </section>
   );
@@ -388,7 +368,7 @@ export function Builder() {
   const ref = useRef<HTMLElement>(null);
   useAnime(ref, (root) => {
     revealOnEnter(root);
-    animate(root.querySelectorAll<HTMLElement>("[data-tile]"), {
+    animate(root.querySelectorAll<HTMLElement>("[data-tiles] li"), {
       opacity: [0, 1],
       scale: [0.9, 1],
       duration: 900,
@@ -404,17 +384,9 @@ export function Builder() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/lp/skyvue/brand/pillar-of-trust-on-dark.svg" alt="" aria-hidden="true" className="mb-6 h-14 w-auto" data-reveal />
           <Head light id="builder-title" eyebrow="Who is Vaishno?" title={`${trackRecord.families} families in homes we've delivered.`} sub={`Vaishno Ventures has ${trackRecord.projectsLine}. SkyVue brings the same team to Tellapur, registered with Telangana RERA (${skyvue.rera}).`} />
-          <ul data-tiles className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {delivered.map((d) => (
-              <li key={d.name} data-tile className="rounded-xl border border-white/15 bg-white/5 px-3 py-2.5">
-                <span className="block text-[14px] font-semibold">{d.name.replace("Vaishno ", "")}</span>
-                <span className="sv-tnum text-[12px] text-white/60">
-                  {d.area} · {d.homes} homes
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 text-[12px] text-white/50">Delivered projects in Bangalore, from vaishnoventures.com.</p>
+          <div data-tiles className="mt-8">
+            <BangalorePortfolio tone="dark" />
+          </div>
         </div>
         <figure className="min-w-0" data-reveal>
           <video
@@ -450,13 +422,13 @@ export function PaymentPlan() {
   const steps = [
     { t: "Book with 5%", d: "Choose your home and book it with 5%." },
     { t: "Pay nothing more", d: "Until the structure of your block is complete." },
-    { t: "No-cost EMI", d: "On what follows, as per the payment schedule." },
+    { t: "No-cost EMI", d: "On bookings till 31 Dec 2026, as per the payment schedule." },
     { t: "Possession", d: `Planned for ${skyvue.possession}.` },
   ];
   return (
     <section ref={ref} className="sv-section bg-[var(--sv-navy)] text-white" aria-labelledby="plan-title" id="payment-plan">
       <div className="sv-wrap" data-reveal-group>
-        <Head light id="plan-title" eyebrow={`Offer · bookings till ${skyvue.offer.validTill}`} title="Pay 5%. Then nothing more until your block's structure is complete.*" sub="No-cost EMI.* Ask for the full payment schedule for the size you like." />
+        <Head light id="plan-title" eyebrow={`Offer · bookings till ${skyvue.offer.validTill}`} title="Pay 5%. Then nothing more until your block's structure is complete.*" sub="No-cost EMI on bookings till 31 Dec 2026.* Ask for the full payment schedule for the size you like." />
         <div data-plan className="relative mt-12">
           <svg className="absolute left-0 right-0 top-[18px] hidden h-2 w-full md:block" viewBox="0 0 1000 8" preserveAspectRatio="none" aria-hidden="true">
             <path d="M 12 4 L 988 4" stroke="rgba(255,255,255,0.18)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
@@ -472,30 +444,16 @@ export function PaymentPlan() {
             ))}
           </ol>
         </div>
-        <div className="mt-12 overflow-x-auto rounded-2xl ring-1 ring-white/15" data-reveal>
-          <table className="w-full min-w-[460px] text-left text-[15px]">
-            <thead className="bg-white/10 text-[11px] uppercase tracking-[0.16em] text-white/70">
-              <tr>
-                <th className="px-5 py-3 font-semibold">Home size</th>
-                <th className="px-5 py-3 font-semibold">Base value*</th>
-                <th className="px-5 py-3 font-semibold text-[var(--sv-orange)]">5% to book*</th>
-              </tr>
-            </thead>
-            <tbody className="sv-tnum">
-              {units.map((u) => {
-                const v = u.size * skyvue.basePrice;
-                return (
-                  <tr key={u.size} className="border-t border-white/10">
-                    <td className="px-5 py-3.5">{u.size.toLocaleString("en-IN")} sq ft</td>
-                    <td className="px-5 py-3.5">{formatCr(v)}</td>
-                    <td className="px-5 py-3.5 font-semibold text-[var(--sv-orange)]">{formatLakh(v * 0.05)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="border-t border-white/10 px-5 py-3 text-[11px] leading-relaxed text-white/55">
-            *Approximate, on the base price of ₹{skyvue.basePrice.toLocaleString("en-IN")} per sq ft only. GST, parking and other charges are extra and shown in the cost sheet. Offer valid on bookings till {skyvue.offer.validTill}.
+        <div className="mt-12 grid gap-4 rounded-2xl p-6 ring-1 ring-white/15 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-8" data-reveal>
+          <p>
+            <span className="block text-[11px] uppercase tracking-[0.16em] text-white/60">Homes starting from</span>
+            <span className="sv-display mt-1 block text-[40px] font-light leading-none text-[var(--sv-orange)]">{skyvue.priceFrom}</span>
+          </p>
+          <p className="text-[14px] leading-relaxed text-white/70">
+            Exclusive 3 BHK homes from 2,010 to 2,890 sq ft. Your cost sheet shows the exact 5% booking amount for the home you choose. Offer on bookings till {skyvue.offer.validTill}.
+            <a href="#terms" className="ml-1 underline underline-offset-2">
+              *Conditions apply
+            </a>
           </p>
         </div>
         <button type="button" onClick={() => openEnquiry("payment-plan")} className="sv-btn sv-btn-primary mt-8" data-reveal>

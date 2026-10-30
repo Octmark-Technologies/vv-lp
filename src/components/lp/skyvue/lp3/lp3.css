@@ -1,0 +1,298 @@
+/* LP3 · "Life starts 70 ft up." (Lp3Scenes.tsx). Uses lp1.css tokens: --sv-navy, --sv-orange, --sv-ink, --sv-muted, --sv-line. */
+
+/* ── Altitude hero ───────────────────────────────────────────── */
+.sv-alt-stage {
+  display: flex;
+  align-items: center;
+}
+.sv-alt-grid {
+  display: grid;
+  gap: 32px;
+  width: 100%;
+  padding-top: calc(var(--sv-head, 64px) + 28px);
+  padding-bottom: 96px;
+}
+@media (min-width: 1000px) {
+  .sv-alt-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 56px;
+  }
+  html.motion .sv-alt.is-pinned .sv-alt-grid {
+    padding-top: calc(var(--sv-head, 64px) + 12px);
+    padding-bottom: 72px;
+  }
+}
+.sv-alt-copy {
+  min-width: 0;
+}
+.sv-alt-frame {
+  position: relative;
+  margin: 0;
+  height: min(78svh, 760px);
+  min-height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #cfe2f1;
+  box-shadow: 0 40px 80px -40px rgba(0, 27, 54, 0.45);
+}
+.sv-alt-cam {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.sv-alt-cam img {
+  position: absolute;
+  left: 60%;
+  top: 0;
+  height: 140%;
+  width: auto;
+  min-width: 100%;
+  max-width: none;
+  translate: -50% 0;
+  object-fit: cover;
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+html:not(.motion) .sv-alt-cam img {
+  height: 100%;
+}
+.sv-alt-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(249, 83, 0, 0) 0%, var(--sv-orange) 18%, var(--sv-orange) 82%, rgba(249, 83, 0, 0) 100%);
+  box-shadow: 0 0 18px rgba(249, 83, 0, 0.75);
+  pointer-events: none;
+}
+.sv-alt-read {
+  position: absolute;
+  right: 14px;
+  top: -34px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--sv-orange);
+  white-space: nowrap;
+}
+.sv-alt-gauge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: min(38%, 210px);
+  margin: 0;
+  padding: 12px 12px 12px 18px;
+  list-style: none;
+  border-radius: 18px;
+  background: rgba(251, 250, 248, 0.7);
+  backdrop-filter: blur(8px);
+  border-left: 2px solid rgba(0, 53, 93, 0.15);
+}
+.sv-alt-gauge li {
+  position: relative;
+  opacity: 0.45;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.sv-alt-gauge li::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fbfaf8;
+  border: 2px solid rgba(0, 53, 93, 0.3);
+}
+.sv-alt-gauge li.is-done {
+  opacity: 0.7;
+}
+.sv-alt-gauge li.is-done::before {
+  background: var(--sv-orange);
+  border-color: var(--sv-orange);
+}
+.sv-alt-gauge li.is-on {
+  opacity: 1;
+  transform: translateX(4px);
+}
+.sv-alt-gauge li.is-on::before {
+  background: var(--sv-orange);
+  border-color: var(--sv-orange);
+  box-shadow: 0 0 0 5px rgba(249, 83, 0, 0.2);
+}
+.sv-alt-k {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sv-navy);
+}
+.sv-alt-d {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--sv-muted);
+}
+.sv-alt-gauge li:not(.is-on) .sv-alt-d {
+  display: none;
+}
+@media (max-width: 999px), (max-height: 639px) {
+  html.motion .sv-alt.sv-pin {
+    height: auto;
+  }
+  html.motion .sv-alt.sv-pin > .sv-stage {
+    position: relative;
+    height: auto;
+  }
+  .sv-alt-frame {
+    height: 72svh;
+    min-height: 380px;
+  }
+}
+@media (max-width: 639px) {
+  .sv-alt-grid {
+    padding-bottom: 48px;
+  }
+  .sv-alt-gauge {
+    width: 46%;
+    padding: 10px 10px 10px 16px;
+  }
+  .sv-alt-k {
+    font-size: 12px;
+  }
+  .sv-alt-d {
+    font-size: 11px;
+  }
+}
+
+/* ── The view (3D) ───────────────────────────────────────────── */
+.sv-view-stage {
+  height: 100svh;
+  overflow: hidden;
+  background: #0a1730;
+}
+html:not(.motion) .sv-view-stage {
+  height: auto;
+  min-height: 100svh;
+}
+.sv-view-poster,
+.sv-view-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+.sv-view-poster {
+  transition: opacity 0.5s ease;
+}
+.sv-view-poster.is-hidden {
+  opacity: 0;
+}
+.sv-view-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 18, 34, 0.75) 0%, rgba(5, 18, 34, 0.35) 42%, rgba(5, 18, 34, 0) 70%);
+  pointer-events: none;
+}
+.sv-view-copy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  pointer-events: none;
+}
+.sv-view-beat {
+  grid-area: 1 / 1;
+  max-width: 480px;
+  color: #fff;
+}
+html:not(.motion) .sv-view-copy {
+  position: relative;
+  padding-block: 120px;
+  gap: 32px;
+}
+html:not(.motion) .sv-view-beat {
+  grid-area: auto;
+}
+@media (max-width: 767px) {
+  .sv-view-scrim {
+    background: linear-gradient(180deg, rgba(5, 18, 34, 0) 30%, rgba(5, 18, 34, 0.85) 75%);
+  }
+  .sv-view-copy {
+    align-items: end;
+    padding-bottom: calc(var(--sv-rail-h, 104px) + 28px);
+  }
+  .sv-view-poster,
+  .sv-view-canvas {
+    object-position: 62% 50%;
+  }
+}
+
+/* ── Down there / Up here ───────────────────────────────────── */
+.sv-downup {
+  background: var(--sv-paper, #fbfaf8);
+}
+.sv-downup-grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 800px) {
+  .sv-downup-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.sv-downup-col {
+  border-radius: 24px;
+  padding: clamp(20px, 3vw, 32px);
+}
+.sv-downup-col.is-down {
+  background: #e9e6e1;
+  color: #4a4f57;
+}
+.sv-downup-col.is-up {
+  background: var(--sv-navy);
+  color: #fff;
+}
+.sv-downup-k {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.sv-downup-col.is-up .sv-downup-k {
+  color: #ffb08a;
+}
+.sv-downup-col ul {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  font-size: clamp(16px, 1.6vw, 19px);
+}
+.sv-downup-col li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.sv-downup-col.is-down li::before {
+  content: "—";
+  opacity: 0.5;
+}
+.sv-downup-col.is-up li::before {
+  content: "↑";
+  color: var(--sv-orange);
+  font-weight: 700;
+}

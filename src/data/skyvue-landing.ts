@@ -30,6 +30,7 @@ export type SectionKey =
   | "location"
   | "approvals"
   | "builder"
+  | "progress"
   | "faq"
   | "visit";
 
@@ -39,30 +40,30 @@ export const skyvue = {
   location: "Tellapur, West Hyderabad",
   rera: "P01100010545",
   reraUrl: "https://rerait.telangana.gov.in/SearchList/Search",
-  basePrice: 7399,
-  priceFrom: "₹1.49 Cr",
-  priceTo: "₹2.14 Cr",
+  /** The only price shown on the pages. No per-sq-ft or per-plan prices anywhere. */
+  priceFrom: "₹1.6 Cr",
+  priceLine: "Starting from ₹1.6 Cr",
   sizeRange: "2,010 – 2,890 sq ft",
-  possession: "March 2030",
+  /** Possession date (the first-screen countdown runs to it). */
+  possession: "31 March 2030",
+  possessionAt: "2030-03-31T23:59:59+05:30",
   offer: {
-    text: "Pay 5%, then nothing more until your block's structure is complete.* No-cost EMI.*",
+    text: "Pay 5%, then nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.*",
     short: "Pay 5%, then nothing more till your block's structure is complete*",
     validTill: "31 December 2026",
     /** The note every * on the pages points to (footer, id="terms"). */
     terms:
-      "*Conditions apply. Offer on bookings till 31 December 2026. The 5% booking amount, the payment schedule, the no-cost EMI terms and the structure-completion milestone for the block your home is in are given in your cost sheet and agreement. GST, parking and other charges are extra.",
+      "*Conditions apply. Offer on bookings till 31 December 2026. The 5% booking amount, the payment schedule, the no-cost EMI terms (no-cost EMI on bookings till 31 December 2026) and the structure-completion milestone for the block your home is in are given in your cost sheet and agreement. GST, parking and other charges are extra.",
   },
-  // TODO(client): confirm the SkyVue sales number and WhatsApp number.
-  phone: "+918484845566",
-  phoneLabel: "+91 84848 45566",
-  whatsapp: "918484845566",
+  phone: "+919696965566",
+  phoneLabel: "+91 96969 65566",
+  whatsapp: "919696965566",
   facts: [
     { value: "570", label: "Homes only" },
     { value: "2", label: "Towers, 36 storeys" },
     { value: "3.76", label: "Acres" },
     { value: "75%", label: "Open space" },
     { value: "70 ft", label: "Above the podium" },
-    { value: "Mar 2030", label: "Possession" },
   ],
 } as const;
 
@@ -163,7 +164,7 @@ export const approvals: { label: string; value: string | null; note?: string }[]
   { label: "HMDA building permission", value: null }, // TODO(client): HMDA permit number
   { label: "Lake & water-body clearance", value: null }, // TODO(client): status / NOC reference
   { label: "Construction finance partner", value: null }, // TODO(client): bank / NBFC name
-  { label: "Possession (as committed)", value: "March 2030" },
+  { label: "Possession (as committed)", value: "31 March 2030" },
 ];
 
 /**
@@ -173,14 +174,13 @@ export const approvals: { label: string; value: string | null; note?: string }[]
  */
 export const comparison = {
   rows: [
-    { label: "Base price (per sq ft)", skyvue: "₹7,399", others: "₹7,999 – ₹8,950" },
     { label: "Homes in the community", skyvue: "570", others: "759 – 2,055" },
     { label: "Every home has a study", skyvue: "Yes", others: "Rarely" },
     { label: "Homes start above a car-free podium", skyvue: "70 ft up", others: "Varies" },
     { label: "Clinic & pharmacy inside the gate", skyvue: "Yes", others: "Varies" },
   ],
   footnote:
-    "Others = 4 other projects near SkyVue, base prices from public sources, October 2026. Compare base to base, not an all-in quote against a base price. Ask for the named comparison sheet on WhatsApp.",
+    "Others = 4 other projects near SkyVue, from public sources, October 2026. Ask for the named comparison sheet on WhatsApp.",
 } as const;
 
 export const locationGuide = {
@@ -214,9 +214,9 @@ export const faqs = [
   { q: "Where exactly is Vaishno SkyVue?", a: "In Tellapur, West Hyderabad, close to the Financial District and the Outer Ring Road. Share your number and we'll send the location pin on WhatsApp." },
   { q: "What is the RERA number?", a: "SkyVue is registered with Telangana RERA under P01100010545. You can check it on the Telangana RERA website before you call us." },
   { q: "What homes are available?", a: "Only exclusive 3 BHK homes, and every one has a study or multipurpose room. Sizes range from 2,010 to 2,890 sq ft, with east- and west-facing options and extended balconies on select floors." },
-  { q: "What is the price?", a: "The base price is ₹7,399 per sq ft, which puts homes at about ₹1.49 Cr to ₹2.14 Cr on base price. Taxes, parking and other charges are extra and are listed in the cost sheet." },
-  { q: "How does the payment plan work?", a: "Pay 5% to book, then pay nothing more until the structure of your block is complete, with no-cost EMI. This plan applies to bookings made until 31 December 2026. Conditions apply." },
-  { q: "When is possession?", a: "Possession is planned for March 2030." },
+  { q: "What is the price?", a: "Homes start from ₹1.6 Cr. Share your number and we will send the cost sheet for the home you choose. Taxes, parking and other charges are listed in it." },
+  { q: "How does the payment plan work?", a: "Pay 5% to book, then pay nothing more until the structure of your block is complete. No-cost EMI is available on bookings till 31 December 2026. This plan applies to bookings made until 31 December 2026. Conditions apply." },
+  { q: "When is possession?", a: "Possession is planned for 31 March 2030. The countdown at the top of this page runs to that date." },
   { q: "How many homes are there in the community?", a: "570 homes in 2 towers of 36 storeys, on 3.76 acres with 75% open space." },
   { q: "Where do cars go?", a: "Cars stay on 6 parking levels. The ground and the podium are kept for people: gardens, a Miyawaki forest, play areas and a jogging track." },
   { q: "What is inside the clubhouse?", a: "A G+5 clubhouse that is part of 2 lakh sq ft set aside for lifestyle, with a rooftop pool, gym, double-height badminton court, banquet hall, crèche, indoor games, mini theatres, guest rooms, a clinic and a pharmacy." },
@@ -277,7 +277,7 @@ export const landingPages: LandingPage[] = [
         sub: "Two towers on 3.76 acres with 75% open space. A community small enough to know your neighbours, with a G+5 clubhouse shared by 570 families.",
       },
       buyer: {
-        eyebrow: "Tellapur · From ₹7,399 per sq ft",
+        eyebrow: "Tellapur · Starting from ₹1.6 Cr",
         title: "Bigger projects don't mean bigger homes.",
         sub: "Every home at SkyVue is a 3 BHK with a study, 2,010 to 2,890 sq ft, in a community of only 570 homes.",
       },
@@ -300,13 +300,13 @@ export const landingPages: LandingPage[] = [
       img: r("aerial-forest.jpg"),
       imgAlt: "Aerial view of SkyVue towers surrounded by green",
     },
-    order: ["facts", "angle", "comparison", "homes", "lifestyle", "location", "approvals", "builder", "plan", "faq", "visit"],
+    order: ["facts", "angle", "comparison", "homes", "lifestyle", "location", "approvals", "progress", "builder", "plan", "faq", "visit"],
     formTitle: "Get the floor plans & cost sheet",
     ctaLabel: "Send me the details",
     seo: {
       title: "Vaishno SkyVue Tellapur | 570 Homes, 3 BHK | RERA P01100010545",
       description:
-        "570 homes in 2 towers on 3.76 acres in Tellapur. 3 BHK, 2,010–2,890 sq ft, from ₹7,399 per sq ft. 75% open space. Possession Mar 2030. RERA P01100010545.",
+        "570 homes in 2 towers on 3.76 acres in Tellapur. 3 BHK, 2,010–2,890 sq ft, starting from ₹1.6 Cr. 75% open space. RERA P01100010545.",
       index: true,
     },
   },
@@ -323,17 +323,17 @@ export const landingPages: LandingPage[] = [
       buyer: {
         eyebrow: "Offer on bookings till 31 Dec 2026",
         title: "Pay 5%. Then stay hands-free until your tower's structure is complete.",
-        sub: "No-cost EMI. 3 BHK homes in Tellapur from ₹7,399 per sq ft, 2,010 to 2,890 sq ft.",
+        sub: "No-cost EMI on bookings till 31 Dec 2026. 3 BHK homes in Tellapur starting from ₹1.6 Cr, 2,010 to 2,890 sq ft.",
       },
       family: {
         eyebrow: "Offer on bookings till 31 Dec 2026",
         title: "Move up to a 3 BHK with a study. Start with 5%.",
-        sub: "Pay 5% to book, then stay hands-free until your tower's structure is complete, with no-cost EMI.",
+        sub: "Pay 5% to book, then stay hands-free until your tower's structure is complete. No-cost EMI on bookings till 31 Dec 2026.",
       },
       parents: {
-        eyebrow: "RERA P01100010545 · Possession Mar 2030",
+        eyebrow: "RERA P01100010545 · Starting from ₹1.6 Cr",
         title: "Book with 5%. Check every detail before you do.",
-        sub: "Pay 5%, then stay hands-free until your tower's structure is complete, with no-cost EMI. Check our RERA number before you call us.",
+        sub: "Pay 5%, then stay hands-free until your tower's structure is complete. No-cost EMI on bookings till 31 Dec 2026. Check our RERA number before you call us.",
       },
     },
     angleBlock: {
@@ -343,19 +343,19 @@ export const landingPages: LandingPage[] = [
       points: [
         { title: "1 · Pay 5% to book", text: "Choose your home and book it with 5% of the agreement value." },
         { title: "2 · Stay hands-free", text: "No further payment is asked until the structure of your tower is complete." },
-        { title: "3 · No-cost EMI", text: "Spread what follows with no-cost EMI. Our team shares the exact schedule in your cost sheet." },
+        { title: "3 · No-cost EMI", text: "On bookings till 31 Dec 2026. Our team shares the exact schedule in your cost sheet." },
         { title: "4 · Check the progress", text: "Track construction against the RERA schedule before every payment." },
       ],
       img: r("tower-single.jpg"),
       imgAlt: "SkyVue tower",
     },
-    order: ["facts", "angle", "plan", "homes", "approvals", "comparison", "lifestyle", "location", "builder", "faq", "visit"],
+    order: ["facts", "angle", "plan", "homes", "approvals", "progress", "comparison", "lifestyle", "location", "builder", "faq", "visit"],
     formTitle: "Get the payment schedule for your size",
     ctaLabel: "Get my cost sheet",
     seo: {
       title: "Vaishno SkyVue Tellapur | Pay 5% & Stay Hands-Free | 3 BHK",
       description:
-        "Pay 5%, then stay hands-free until your tower's structure is complete, with no-cost EMI (bookings till 31 Dec 2026). 3 BHK in Tellapur from ₹7,399 per sq ft. RERA P01100010545.",
+        "Pay 5%, then stay hands-free until your tower's structure is complete. No-cost EMI on bookings till 31 Dec 2026. 3 BHK in Tellapur starting from ₹1.6 Cr. RERA P01100010545.",
       index: false,
     },
   },
@@ -398,7 +398,7 @@ export const landingPages: LandingPage[] = [
       img: r("aerial-podium.jpg"),
       imgAlt: "Aerial view of the SkyVue podium and gardens",
     },
-    order: ["facts", "angle", "lifestyle", "homes", "location", "comparison", "approvals", "builder", "plan", "faq", "visit"],
+    order: ["facts", "angle", "lifestyle", "homes", "location", "comparison", "approvals", "progress", "builder", "plan", "faq", "visit"],
     formTitle: "Get the brochure & floor plans",
     ctaLabel: "Send me the brochure",
     seo: {
@@ -442,18 +442,18 @@ export const landingPages: LandingPage[] = [
         { title: "Is it registered?", text: "Yes. Telangana RERA P01100010545. Check it yourself on the RERA website." },
         { title: "What have they delivered?", text: "Homes for 900+ families across 9 projects in East Bangalore, from Hoodi to Varthur." },
         { title: "How will I see progress?", text: "Construction updates against the RERA schedule, shared with every buyer." },
-        { title: "When is possession?", text: "Planned for March 2030." },
+        { title: "When is possession?", text: "Planned for 31 March 2030." },
       ],
       img: r("street-view.jpg"),
       imgAlt: "SkyVue street view",
     },
-    order: ["facts", "angle", "builder", "approvals", "homes", "plan", "comparison", "lifestyle", "location", "faq", "visit"],
+    order: ["facts", "angle", "builder", "approvals", "progress", "homes", "plan", "comparison", "lifestyle", "location", "faq", "visit"],
     formTitle: "Get our approvals & track record",
     ctaLabel: "Send me the proof pack",
     seo: {
       title: "Vaishno SkyVue Tellapur | By Vaishno Ventures | RERA P01100010545",
       description:
-        "Who is Vaishno? Homes for 900+ families delivered in Bangalore. Now Vaishno SkyVue in Tellapur: 570 homes, 3 BHK. RERA P01100010545. Possession Mar 2030.",
+        "Who is Vaishno? Homes for 900+ families delivered in Bangalore. Now Vaishno SkyVue in Tellapur: 570 homes, 3 BHK, starting from ₹1.6 Cr. RERA P01100010545.",
       index: false,
     },
   },
@@ -463,7 +463,7 @@ export const getLandingPage = (id: LandingPage["id"]) => landingPages.find((p) =
 
 /** Form qualifiers (Channel & Funnel Architecture, instant-form bands). */
 export const formOptions = {
-  budget: ["Under ₹1.8 Cr", "₹1.8 – 2.2 Cr", "Above ₹2.2 Cr"],
+  budget: ["₹1.6 – 1.8 Cr", "₹1.8 – 2.2 Cr", "Above ₹2.2 Cr"],
   timeline: ["Within 3 months", "3 – 6 months", "After 6 months"],
 } as const;
 

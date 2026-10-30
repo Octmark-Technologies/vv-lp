@@ -40,11 +40,11 @@ export const company = {
     city: "Hyderabad, Telangana 500019",
   },
   phones: {
-    hyderabad: "+91 84848 45566",
+    hyderabad: "+91 96969 65566",
     bengaluru: "+91 89888 95566",
   },
   email: "support@vaishnoventures.com",
-  whatsapp: "918484845566",
+  whatsapp: "919696965566",
   socials: {
     instagram: "https://www.instagram.com/vaishno_ventures/",
     facebook: "https://www.facebook.com/vaishnoventures/",
@@ -124,6 +124,6 @@ export const faqs = [
   },
   {
     q: "What payment plans are available?",
-    a: "Plans vary by project. SkyVue, for example, offers a 5% booking with no further payments until your tower’s structure is complete, plus no-cost EMI.",
+    a: "Plans vary by project. SkyVue, for example, offers a 5% booking with no further payments until your tower’s structure is complete, plus no-cost EMI on bookings till 31 Dec 2026.",
   },
 ];

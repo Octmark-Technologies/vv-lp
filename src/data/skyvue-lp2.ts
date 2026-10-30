@@ -19,19 +19,19 @@ export const lp2 = {
     buyer: {
       eyebrow: "Offer on bookings till 31 Dec 2026",
       title: "Pay 5%. Then nothing more until your block's structure is complete.*",
-      sub: "No-cost EMI.* Exclusive 3 BHK luxury homes in Tellapur from ₹7,399 per sq ft.",
+      sub: "No-cost EMI on bookings till 31 Dec 2026.* Exclusive 3 BHK luxury homes in Tellapur, starting from ₹1.6 Cr.",
       size: "3 BHK only. 2,010 to 2,890 sq ft. No small units.",
     },
     family: {
       eyebrow: "Offer on bookings till 31 Dec 2026",
       title: "Move up to an exclusive 3 BHK. Pay 5%, then relax while your block rises.*",
-      sub: "Nothing more to pay until your block's structure is complete.* No-cost EMI.* A luxury community of only 570 homes in Tellapur.",
+      sub: "Nothing more to pay until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* A luxury community of only 570 homes in Tellapur.",
       size: "Every home starts at 2,010 sq ft. Up to 2,890.",
     },
     parents: {
-      eyebrow: "TS RERA P01100010545 · Possession Mar 2030",
+      eyebrow: "TS RERA P01100010545 · Starting from ₹1.6 Cr",
       title: "Book with 5%. Pay nothing more till your block's structure is complete.*",
-      sub: "Exclusive 3 BHK luxury homes with a clinic, pharmacy and senior citizen gym inside the gate. No-cost EMI.*",
+      sub: "Exclusive 3 BHK luxury homes with a clinic, pharmacy and senior citizen gym inside the gate. No-cost EMI on bookings till 31 Dec 2026.*",
       size: "A room for everyone. Every home from 2,010 sq ft, with a study.",
     },
   } satisfies Record<Version, HeroCopy>,
@@ -52,7 +52,7 @@ export const lp2 = {
   seo: {
     title: "Vaishno SkyVue Tellapur | Pay 5% to Book | Exclusive 3 BHK Luxury Homes",
     description:
-      "Pay 5%, then nothing more until your block's structure is complete, with no-cost EMI (conditions apply; bookings till 31 Dec 2026). Exclusive 3 BHK luxury homes in Tellapur from ₹7,399 per sq ft. RERA P01100010545.",
+      "Pay 5%, then nothing more until your block's structure is complete. No-cost EMI on bookings till 31 Dec 2026 (conditions apply). Exclusive 3 BHK luxury homes in Tellapur, starting from ₹1.6 Cr. RERA P01100010545.",
   },
 };
 
@@ -60,15 +60,15 @@ export const lp2 = {
 export const paySteps = [
   { t: "Book with 5%", d: "Choose your home and pay 5% to book it.*" },
   { t: "Pay nothing more", d: "Your block rises; you stay hands-free until its structure is complete." },
-  { t: "No-cost EMI*", d: "On what follows, as per your payment schedule." },
-  { t: "Possession", d: "Planned for March 2030." },
+  { t: "No-cost EMI*", d: "On bookings till 31 Dec 2026, as per your payment schedule." },
+  { t: "Possession", d: "Planned for 31 March 2030." },
 ] as const;
 
 /** Meter status per phase of the scene (0 rising · 1 structure complete · 2 possession). */
 export const payStatus = [
   { k: "Hands-free", t: "Your block is rising. Nothing more to pay until its structure is complete.*" },
-  { k: "Structure complete", t: "No-cost EMI* on what follows, as per your payment schedule." },
-  { k: "Possession", t: "Planned for March 2030. Your exclusive 3 BHK, ready to move in." },
+  { k: "Structure complete", t: "No-cost EMI* on bookings till 31 Dec 2026, as per your payment schedule." },
+  { k: "Possession", t: "Planned for 31 March 2030. Your exclusive 3 BHK, ready to move in." },
 ] as const;
 
 /**
@@ -78,8 +78,8 @@ export const payStatus = [
 export const valueStack = [
   { k: "What you get", v: "An exclusive 3 BHK", d: "2,010 to 2,890 sq ft, in a luxury community of only 570 homes with 40 amenities." },
   { k: "Why you can trust it", v: "TS RERA P01100010545", d: "By Vaishno Ventures: 10+ projects across Bangalore and Hyderabad, 900+ families in delivered homes." },
-  { k: "What it takes today", v: "Only 5% to book*", d: "Then nothing more until your block's structure is complete.* No-cost EMI.*" },
-  { k: "How long you wait", v: "Possession Mar 2030", d: "Track your block's progress against the RERA schedule before every payment." },
+  { k: "What it takes today", v: "Only 5% to book*", d: "Then nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.*" },
+  { k: "How long you wait", v: "31 March 2030", d: "Track your block's progress against the RERA schedule before every payment." },
 ] as const;
 
 /** Sent on WhatsApp after the form, for the size the visitor picked. */
@@ -94,11 +94,11 @@ export const whatYouGet = [
 export const lp2Faqs = [
   {
     q: "How does the 5% plan work?",
-    a: "You pay 5% to book your home. While the block your home is in rises, you pay nothing more. Payments start again only when that block's structure is complete, on no-cost EMI as per your payment schedule. Conditions apply.",
+    a: "You pay 5% to book your home. While the block your home is in rises, you pay nothing more until that block's structure is complete. No-cost EMI is available on bookings till 31 December 2026, as per your payment schedule. Conditions apply.",
   },
   {
     q: "How much is the 5% for my home?",
-    a: "It depends on the size you choose. Use the calculator on this page for an approximate figure on the base price of ₹7,399 per sq ft; your cost sheet gives the exact booking amount for your home.",
+    a: "It depends on the home you choose. Homes start from ₹1.6 Cr; share your number and your cost sheet will show the exact 5% booking amount for your home.",
   },
   {
     q: "What does \"structure complete\" mean?",

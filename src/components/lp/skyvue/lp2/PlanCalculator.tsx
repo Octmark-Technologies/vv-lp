@@ -4,38 +4,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
 import { motion } from "motion/react";
-import { formatCr, formatLakh, skyvue, units } from "@/data/skyvue-landing";
+import { skyvue, units } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
 import { motionOn, revealOnEnter, useAnime } from "../lp1/anim";
 import { openEnquiry } from "../lp1/EnquiryDrawer";
 import { useHomeSize } from "./useHomeSize";
 import { Star } from "../Terms";
-
-/** A number that counts to its new value whenever it changes (anime.js); static without motion. */
-function Counter({ value, format }: { value: number; format: (n: number) => string }) {
-  const el = useRef<HTMLSpanElement>(null);
-  const from = useRef(value);
-  useEffect(() => {
-    const node = el.current;
-    if (!node) return;
-    if (!motionOn()) {
-      node.textContent = format(value);
-      from.current = value;
-      return;
-    }
-    const box = { v: from.current };
-    const a = animate(box, { v: value, duration: 700, ease: "outExpo", onUpdate: () => (node.textContent = format(box.v)) });
-    from.current = value;
-    return () => {
-      a.pause();
-    };
-  }, [value, format]);
-  return (
-    <span ref={el} className="sv-tnum">
-      {format(value)}
-    </span>
-  );
-}
 
 function useDaysLeft(iso: string) {
   const [days, setDays] = useState<number | null>(null);
@@ -49,8 +23,7 @@ function useDaysLeft(iso: string) {
 }
 
 /**
- * LP2 · "Your 5%, by size". Pick a home size; the base value and the 5% booking amount count
- * to the new figures. The size travels with the lead (sv_size) and into the payment scene.
+ * LP2 · "Your 5%, by size". Pick a home size (no prices shown; homes start from ₹1.6 Cr). The size travels with the lead (sv_size) and into the payment scene.
  * The deadline is real: days left until 31 Dec 2026.
  */
 export function PlanCalculator() {
@@ -59,7 +32,6 @@ export function PlanCalculator() {
   const days = useDaysLeft(lp2.offerEnds);
   useAnime(ref, revealOnEnter);
 
-  const value = size * skyvue.basePrice;
   const choose = (n: number) => {
     pick(n);
     (window.dataLayer = window.dataLayer || []).push({ event: "calculator_used", lp_id: lp2.id, home_size: n });
@@ -76,9 +48,8 @@ export function PlanCalculator() {
             Pick your home. See what it takes to make it yours.
           </h2>
           <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-[var(--sv-muted)]" data-reveal>
-            Every home is an exclusive 3 BHK with a study, from 2,010 to 2,890 sq ft. Pay 5% to book, then nothing more until your block&apos;s
-            structure is complete.
-            <Star /> No-cost EMI.
+            Every home is an exclusive 3 BHK, from 2,010 to 2,890 sq ft. Pay 5% to book, then nothing more until your block&apos;s structure is complete.
+            <Star /> No-cost EMI on bookings till 31 Dec 2026.
             <Star />
           </p>
           <p className="sv-offer mt-6 inline-flex items-center gap-3 rounded-full bg-white/80 px-4 py-2 text-[14px]" data-reveal>
@@ -122,32 +93,35 @@ export function PlanCalculator() {
           </div>
           <dl className="mt-8 grid grid-cols-2 gap-6">
             <div>
-              <dt className="text-[13px] text-[var(--sv-muted)]">Base value</dt>
-              <dd className="sv-display mt-1 text-[32px] font-light leading-none text-[var(--sv-ink)] sm:text-[40px]">
-                <Counter value={value} format={(n) => formatCr(n)} />
+              <dt className="text-[13px] text-[var(--sv-muted)]">Your home</dt>
+              <dd className="sv-display sv-tnum mt-1 text-[32px] font-light leading-none text-[var(--sv-ink)] sm:text-[40px]">
+                {size.toLocaleString("en-IN")} <span className="text-[18px]">sq ft</span>
               </dd>
             </div>
             <div>
-              <dt className="text-[13px] text-[var(--sv-muted)]">
-                5% to book
-                <Star />
-              </dt>
-              <dd className="sv-display mt-1 text-[32px] font-light leading-none text-[var(--sv-orange)] sm:text-[40px]">
-                <Counter value={value * 0.05} format={(n) => formatLakh(n)} />
-              </dd>
+              <dt className="text-[13px] text-[var(--sv-muted)]">Homes start from</dt>
+              <dd className="sv-display mt-1 text-[32px] font-light leading-none text-[var(--sv-orange)] sm:text-[40px]">{skyvue.priceFrom}</dd>
             </div>
           </dl>
-          <p className="mt-4 text-[14px] text-[var(--sv-ink)]">
-            Then nothing more to pay until your block&apos;s structure is complete.
-            <Star /> No-cost EMI on what follows.
-            <Star />
-          </p>
+          <ol className="mt-6 grid gap-2 text-[15px] text-[var(--sv-ink)]">
+            <li>
+              <strong>1.</strong> Pay 5% to book.
+              <Star />
+            </li>
+            <li>
+              <strong>2.</strong> Then nothing more until your block&apos;s structure is complete.
+              <Star />
+            </li>
+            <li>
+              <strong>3.</strong> No-cost EMI on bookings till 31 Dec 2026.
+              <Star />
+            </li>
+          </ol>
           <button type="button" onClick={() => openEnquiry("calculator", "payment_schedule")} className="sv-btn sv-btn-primary mt-6 w-full sm:w-auto">
             Get the payment schedule for {size.toLocaleString("en-IN")} sq ft
           </button>
           <p className="mt-4 text-[12px] leading-relaxed text-[var(--sv-muted)]">
-            Approximate, on the base price of ₹{skyvue.basePrice.toLocaleString("en-IN")} per sq ft only. GST, parking and other charges are extra. Your cost sheet shows the
-            exact booking amount for your home.{" "}
+            Your cost sheet shows the exact 5% booking amount for the home you choose. GST, parking and other charges are listed in it.{" "}
             <a href="#terms" className="underline underline-offset-2">
               *Conditions apply
             </a>

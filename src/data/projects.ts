@@ -79,7 +79,7 @@ export const projects: Project[] = [
     floors: "36 storeys",
     configurations: "3 BHK",
     sizeRange: "2,010 – 2,890 sq ft",
-    priceFrom: "₹1.49 Cr*",
+    priceFrom: "₹1.6 Cr",
     rera: "P01100010545",
     openSpace: "75%",
     featured: true,

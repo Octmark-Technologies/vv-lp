@@ -1454,3 +1454,41 @@ html.motion .sv-frames-cta {
     margin-top: 28px;
   }
 }
+
+/* Touch targets (all four pages): bigger hit areas without changing the layout. */
+html.motion .sv-story-dots {
+  gap: 14px;
+}
+.sv-story-dots button {
+  position: relative;
+}
+.sv-story-dots button::after {
+  content: "";
+  position: absolute;
+  inset: -7px -12px;
+}
+@media (pointer: coarse) {
+  a.underline {
+    padding-block: 7px;
+  }
+}
+
+/* Small phones (≈320×640): keep the LP2 hook inside the screen; the countdown is in the top bar too. */
+@media (max-width: 899px) and (max-height: 680px) {
+  html.motion .sv-story .sv-beat-hook .sv-size-line,
+  html.motion .sv-story .sv-beat-hook .sv-cd {
+    display: none;
+  }
+  html.motion .sv-story .sv-beat-hook h1 {
+    font-size: 23px !important;
+  }
+  html.motion .sv-story .sv-story-media {
+    height: 25svh;
+  }
+  html.motion .sv-story .sv-beat {
+    top: calc(64px + 25svh + 10px);
+  }
+  html.motion .sv-story-dots {
+    top: calc(64px + 12svh);
+  }
+}

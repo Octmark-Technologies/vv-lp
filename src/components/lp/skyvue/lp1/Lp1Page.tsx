@@ -9,7 +9,7 @@ import { Neighbourhood } from "./Neighbourhood";
 import { BalconyFilm, ClubhouseFilm, HorizonFilm, PodiumFilm, TowersFilm } from "./FrameScenes";
 import { Amenities } from "./Amenities";
 import { LpProvider } from "./PageConfig";
-import { Approvals, Builder, Care, Compare, Enquire, Faq, Footer, Homes, Location, PaymentPlan, Visit } from "./Sections";
+import { Approvals, Builder, Care, Compare, Enquire, Faq, Footer, Homes, Location, PaymentPlan, Visit, ProgressBlock } from "./Sections";
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "./Chrome";
 import { ScrollCue } from "../ScrollCue";
 import { EnquiryDrawer } from "./EnquiryDrawer";
@@ -42,6 +42,7 @@ export function Lp1Page() {
         <Care />
         <Location />
         <Approvals />
+        <ProgressBlock />
         <Builder />
         <PaymentPlan />
         <Enquire />

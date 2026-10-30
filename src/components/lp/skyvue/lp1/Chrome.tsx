@@ -54,8 +54,9 @@ export function Header() {
                 <a href={`tel:${skyvue.phone}`} className="hidden h-10 items-center gap-2 rounded-full border border-[var(--sv-line)] px-4 text-sm font-semibold text-[var(--sv-navy)] md:inline-flex">
                   <Phone /> {skyvue.phoneLabel}
                 </a>
-                <button type="button" onClick={() => openEnquiry("header", "site_visit")} className="sv-btn sv-btn-primary !min-h-10 !px-4 !text-[12px]">
-                  Book a site visit
+                <button type="button" onClick={() => openEnquiry("header", "site_visit")} className="sv-btn sv-btn-primary !min-h-10 !px-4 !text-[12px] max-[359px]:whitespace-nowrap max-[359px]:!px-3.5">
+                  <span className="max-[359px]:hidden">Book a site visit</span>
+                  <span className="hidden max-[359px]:inline">Book visit</span>
                 </button>
               </div>
             </div>
@@ -73,14 +74,11 @@ export function FactRail() {
       <div className="sv-wrap flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2 text-[11.5px] sv-tnum sm:text-[12.5px] md:flex-nowrap md:justify-between md:py-2.5">
         <ul className="flex min-w-0 flex-wrap items-center justify-center gap-x-3 gap-y-0.5 sm:gap-x-5 md:flex-nowrap md:justify-start md:whitespace-nowrap">
           <li>
-            <strong className="text-[var(--sv-ink)]">₹7,399</strong>/sq ft base
+            Starting from <strong className="text-[var(--sv-ink)]">{skyvue.priceFrom}</strong>
           </li>
           <li>
             <strong className="text-[var(--sv-ink)]">Exclusive 3 BHK</strong>
             <span className="hidden sm:inline"> · {skyvue.sizeRange}</span>
-          </li>
-          <li>
-            Possession <strong className="text-[var(--sv-ink)]">Mar 2030</strong>
           </li>
           <li className="hidden xl:list-item">{withStar(skyvue.offer.short)}</li>
           <li className="text-[var(--sv-muted)] xl:hidden">TS RERA {skyvue.rera}</li>

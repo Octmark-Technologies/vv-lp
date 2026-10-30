@@ -3,7 +3,7 @@ import { lpPaths } from "@/data/lp-paths";
 import "../lp1/lp1.css";
 import { lp2, lp2Faqs } from "@/data/skyvue-lp2";
 import { Amenities } from "../lp1/Amenities";
-import { Approvals, Builder, Compare, Faq, Footer, Homes, Location, Visit } from "../lp1/Sections";
+import { Approvals, Builder, Compare, Faq, Footer, Homes, Location, Visit, ProgressBlock } from "../lp1/Sections";
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "../lp1/Chrome";
 import { ScrollCue } from "../ScrollCue";
 import { EnquiryDrawer } from "../lp1/EnquiryDrawer";
@@ -37,6 +37,7 @@ export function Lp2Page() {
           <Homes />
           <Amenities />
           <Approvals />
+          <ProgressBlock />
           <Compare />
           <Lp2Enquire />
           <Location />

@@ -4,7 +4,7 @@ import { privacyUrl } from "@/data/lp-paths";
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { formatLakh, formOptions, skyvue, units } from "@/data/skyvue-landing";
+import { formOptions, skyvue, units } from "@/data/skyvue-landing";
 import { lp2, whatYouGet } from "@/data/skyvue-lp2";
 import { Check, WhatsApp } from "@/components/Icons";
 import { sendLead } from "../LeadForm";
@@ -100,7 +100,6 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
                 {units.map((u) => (
                   <button key={u.size} type="button" className={choice(u.size === size)} aria-pressed={u.size === size} onClick={() => pick(u.size)}>
                     <span className="sv-tnum block font-semibold">{u.size.toLocaleString("en-IN")} sq ft</span>
-                    <span className="sv-tnum block text-[12px] opacity-70">5% ≈ {formatLakh(u.size * skyvue.basePrice * 0.05)}</span>
                   </button>
                 ))}
               </div>

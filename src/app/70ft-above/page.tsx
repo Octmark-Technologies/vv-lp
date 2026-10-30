@@ -1,8 +1,8 @@
-import { SkyvueLanding, skyvueMetadata } from "@/components/lp/skyvue/SkyvueLanding";
+import { Lp3Page, lp3Metadata } from "@/components/lp/skyvue/lp3/Lp3Page";
 
-// LP3 · 70 ft Above (Lifestyle)  →  https://skyvue.vaishnoventures.com/70ft-above/  (draft, to be rebuilt)
-export const metadata = skyvueMetadata("lp3");
+// LP3 · "Life starts 70 ft up."  →  https://skyvue.vaishnoventures.com/70ft-above/  (?v=buyer|family|parents)
+export const metadata = lp3Metadata;
 
 export default function Page() {
-  return <SkyvueLanding id="lp3" />;
+  return <Lp3Page />;
 }

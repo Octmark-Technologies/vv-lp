@@ -9,8 +9,6 @@ import {
   delivered,
   deliveredHomes,
   faqs,
-  formatCr,
-  formatLakh,
   landingPages,
   lifestyle,
   locationGuide,
@@ -26,6 +24,7 @@ import { HeroCopy, HeroText } from "./HeroCopy";
 import { LeadForm } from "./LeadForm";
 import { PlanTabs } from "./PlanTabs";
 import { FooterCredit } from "./FooterCredit";
+import { BangalorePortfolio, Progress, SiteMap } from "./Proof";
 import { OfferCountdown } from "./Countdown";
 
 const HERO_FORM = "enquire";
@@ -128,7 +127,7 @@ function Hero({ page }: { page: LandingPage }) {
             <HeroCopy copies={page.hero} fallback={page.defaultVersion} />
           </Suspense>
           <ul className="mt-8 flex flex-wrap gap-2 text-[13px] text-white">
-            {["3 BHK", skyvue.sizeRange, `From ₹${skyvue.basePrice.toLocaleString("en-IN")}/sq ft`, `Possession ${skyvue.possession}`].map((t) => (
+            {["3 BHK", skyvue.sizeRange, skyvue.priceLine].map((t) => (
               <li key={t} className="rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 backdrop-blur">
                 {t}
               </li>
@@ -222,7 +221,7 @@ function PaymentPlan({ page }: { page: LandingPage }) {
             light
             eyebrow={`Offer · bookings till ${skyvue.offer.validTill}`}
             title={page.id === "lp2" ? "What 5% means for each home size." : "Pay 5%. Then stay hands-free until your tower's structure is complete."}
-            sub={page.id === "lp2" ? "Pay 5% to book, then stay hands-free until your tower's structure is complete, with no-cost EMI." : "No-cost EMI on what follows. Ask for the full payment schedule for the size you like."}
+            sub={page.id === "lp2" ? "Pay 5% to book, then stay hands-free until your tower's structure is complete. No-cost EMI on bookings till 31 Dec 2026." : "No-cost EMI on bookings till 31 Dec 2026. Ask for the full payment schedule for the size you like."}
           />
           <div className="mt-8 flex flex-wrap gap-3">
             <CtaButton href={`#${HERO_FORM}`}>Get my payment schedule</CtaButton>
@@ -236,31 +235,12 @@ function PaymentPlan({ page }: { page: LandingPage }) {
             </a>
           </div>
         </div>
-        <div className="overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/15">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-white/10 text-[11px] uppercase tracking-[0.16em] text-white/70">
-              <tr>
-                <th className="px-4 py-3 font-semibold">Home size</th>
-                <th className="px-4 py-3 font-semibold">Base value*</th>
-                <th className="px-4 py-3 font-semibold text-sv-orange">5% to book*</th>
-              </tr>
-            </thead>
-            <tbody>
-              {units.map((u) => {
-                const v = u.size * skyvue.basePrice;
-                return (
-                  <tr key={u.size} className="border-t border-white/10">
-                    <td className="px-4 py-3.5">{u.size.toLocaleString("en-IN")} sq ft</td>
-                    <td className="px-4 py-3.5">{formatCr(v)}</td>
-                    <td className="px-4 py-3.5 font-semibold text-sv-orange">{formatLakh(v * 0.05)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="border-t border-white/10 px-4 py-3 text-[11px] leading-relaxed text-white/55">
-            *Approximate, on the base price of ₹{skyvue.basePrice.toLocaleString("en-IN")} per sq ft only. GST, parking,
-            and other charges are extra and shown in the cost sheet. Offer valid on bookings till {skyvue.offer.validTill}.
+        <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/15">
+          <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Homes starting from</p>
+          <p className="mt-1 text-[40px] font-light leading-none text-sv-orange">{skyvue.priceFrom}</p>
+          <p className="mt-4 text-sm leading-relaxed text-white/70">
+            Exclusive 3 BHK homes from 2,010 to 2,890 sq ft. Your cost sheet shows the exact 5% booking amount for the home you choose. Offer on
+            bookings till {skyvue.offer.validTill}. *Conditions apply.
           </p>
         </div>
       </div>
@@ -310,8 +290,8 @@ function Comparison() {
   return (
     <Section tone="sky" id="compare">
       <Heading
-        eyebrow="Compare base to base"
-        title="A lower base price, a smaller community, a larger home."
+        eyebrow="Compare before you choose"
+        title="A smaller community, a larger home."
         sub="Before you decide, put SkyVue next to the other projects on your shortlist."
       />
       <div className="mt-10 overflow-hidden rounded-2xl bg-white">
@@ -383,9 +363,7 @@ function Location() {
             </a>
           </div>
         </div>
-        <a href={locationGuide.map} target="_blank" rel="noopener" className="relative block aspect-[1.4] overflow-hidden rounded-3xl bg-sv-mist">
-          <Image src={locationGuide.map} alt="SkyVue location map, Tellapur" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-        </a>
+        <SiteMap aspect="4 / 3" />
       </div>
     </Section>
   );
@@ -427,16 +405,9 @@ function Builder() {
             title={`Homes for ${Math.floor(deliveredHomes / 100) * 100}+ families, already delivered.`}
             sub="Vaishno Ventures has built and handed over homes across East Bangalore, from Hoodi and KR Puram to Varthur. SkyVue brings the same team to Tellapur."
           />
-          <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-3">
-            {delivered.map((d) => (
-              <li key={d.name}>
-                <span className="block font-semibold">{d.name.replace("Vaishno ", "")}</span>
-                <span className="text-white/60">
-                  {d.area} · {d.homes} homes
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8">
+            <BangalorePortfolio tone="dark" />
+          </div>
         </div>
         <figure>
           <video
@@ -604,6 +575,7 @@ export function SkyvueLanding({ id }: { id: LandingPage["id"] }) {
     location: <Location key="location" />,
     approvals: <Approvals key="approvals" />,
     builder: <Builder key="builder" />,
+    progress: <Progress key="progress" tone="light" ctaHref={`#${VISIT_FORM}`} />,
     faq: <FaqSection key="faq" />,
     visit: <Visit key="visit" page={page} />,
   };

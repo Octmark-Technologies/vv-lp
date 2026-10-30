@@ -117,15 +117,11 @@ export function PlanTabs({ formAnchor }: { formAnchor: string }) {
                 Tower {v.tower} · {v.unit}
               </dd>
             </div>
-            <div>
-              <dt className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">Price</dt>
-              <dd className="mt-1 text-xl font-light">₹{skyvue.basePrice.toLocaleString("en-IN")} / sq ft</dd>
-            </div>
           </dl>
           <div className="rounded-xl border-l-4 border-sv-orange bg-sv-orange/5 px-4 py-3.5">
             <p className="text-lg font-semibold text-sv-navy">Book this home with just 5%.</p>
             <p className="mt-1 text-sm leading-relaxed text-sv-navy/80">
-              {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI* meanwhile, so your savings stay with you while your home goes up.")}
+              {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* Your savings stay with you while your home goes up.")}
             </p>
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-sv-orange">Only on bookings made by 31 Dec 2026.</p>
           </div>

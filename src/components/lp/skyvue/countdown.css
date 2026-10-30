@@ -129,6 +129,14 @@
     display: none;
   }
 }
+@media (max-width: 399px) {
+  .sv-cd-bar-min {
+    display: none;
+  }
+}
+.sv-cd-bar {
+  flex-shrink: 0;
+}
 /* inside a dark strip (LP3/LP4 offer strip) */
 .sv-cd-bar.sv-cd-bar-dark {
   color: #fff;

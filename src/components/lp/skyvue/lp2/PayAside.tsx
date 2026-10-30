@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { formatLakh, skyvue } from "@/data/skyvue-landing";
+import { skyvue } from "@/data/skyvue-landing";
 import { payStatus, paySteps } from "@/data/skyvue-lp2";
 import { withStar } from "../Terms";
 import { openEnquiry } from "../lp1/EnquiryDrawer";
@@ -15,7 +15,6 @@ import { useHomeSize } from "./useHomeSize";
  */
 export function PayAside({ floors, phase }: { floors: number; phase: number }) {
   const [size] = useHomeSize();
-  const booking = size * skyvue.basePrice * 0.05;
   const stepOn = phase === 0 ? 1 : phase === 1 ? 2 : 3;
   const s = payStatus[phase];
   return (
@@ -34,7 +33,7 @@ export function PayAside({ floors, phase }: { floors: number; phase: number }) {
         </div>
         <p className="mt-1 flex items-baseline gap-3">
           <span className="sv-display sv-tnum text-[52px] font-light leading-none text-[var(--sv-orange)]">5%</span>
-          <span className="sv-tnum text-[17px] text-[var(--sv-ink)]">≈ {formatLakh(booking)}</span>
+          <span className="text-[17px] text-[var(--sv-ink)]">to book</span>
         </p>
         <div className="sv-pay-bar mt-4" aria-hidden="true">
           <span style={{ transform: `scaleX(${floors / 36})` }} />

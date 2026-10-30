@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState } from "react";
 import { animate } from "animejs";
-import { formatLakh, skyvue, trackRecord } from "@/data/skyvue-landing";
+import { skyvue, trackRecord } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
 import { HeroCopy, HeroText } from "../HeroCopy";
 import { motionOn, pinnedScroll, seg, useAnime } from "../lp1/anim";
@@ -57,7 +57,6 @@ export function Story3D() {
   const [floors, setFloors] = useState(36);
   const [size] = useHomeSize();
   const last = useRef({ beat: 0, floors: 36 });
-  const booking = size * skyvue.basePrice * 0.05;
 
   useAnime(ref, (root) => {
     const panels = [...root.querySelectorAll<HTMLElement>("[data-beat]")];
@@ -68,9 +67,11 @@ export function Story3D() {
       panels.forEach((el, i) => {
         const c = i / (BEATS - 1);
         const d = Math.abs(p - c) * (BEATS - 1);
-        const o = i === 0 ? (p < 0.02 ? 1 : Math.max(0, 1 - d * 2.2)) : Math.max(0, 1 - d * 2.2);
+        // long hold, quick swap: some step is always on screen
+        const hold = (i === 0 && p < c) || (i === BEATS - 1 && p > c) ? 0 : d;
+        const o = Math.min(1, Math.max(0, 1 - (hold - 0.32) / 0.14));
         el.style.opacity = o.toFixed(3);
-        el.style.transform = `translateY(${((p - c) * -90).toFixed(1)}px)`;
+        el.style.transform = `translateY(${((1 - o) * (p < c ? 28 : -28)).toFixed(1)}px)`;
         el.style.visibility = o < 0.02 ? "hidden" : "visible";
         if (i === 0 && hookScrim) hookScrim.style.opacity = o.toFixed(3);
       });
@@ -145,8 +146,7 @@ export function Story3D() {
               <Star />
             </h2>
             <p className="sv-beat-p">
-              About <strong className="sv-tnum text-white">{formatLakh(booking)}</strong> for a {size.toLocaleString("en-IN")} sq ft exclusive 3 BHK, on the base
-              price.
+              Just 5% to reserve a {size.toLocaleString("en-IN")} sq ft exclusive 3 BHK. Homes start from {skyvue.priceFrom}.
             </p>
           </div>
 
@@ -167,16 +167,16 @@ export function Story3D() {
           <div data-beat className="sv-beat">
             <p className="sv-beat-k">Step 3</p>
             <h2 className="sv-beat-h">
-              Structure complete. Now no-cost EMI.
+              No-cost EMI, on bookings till 31 Dec 2026.
               <Star />
             </h2>
-            <p className="sv-beat-p">What follows is spread on no-cost EMI, as per the payment schedule for your home.</p>
+            <p className="sv-beat-p">Your payment schedule shows how it works for your home.</p>
           </div>
 
           {/* Beat 4 · possession */}
           <div data-beat className="sv-beat">
             <p className="sv-beat-k">Step 4</p>
-            <h2 className="sv-beat-h">Move in, March 2030.</h2>
+            <h2 className="sv-beat-h">Move in by 31 March 2030.</h2>
             <p className="sv-beat-p">A luxury community of only 570 exclusive 3 BHK homes, with 40 amenities and 75% open space.</p>
             <button type="button" onClick={() => openEnquiry("story-end", "payment_schedule")} className="sv-btn sv-btn-primary mt-6">
               Get my 5% payment schedule

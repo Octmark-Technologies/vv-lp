@@ -84,7 +84,12 @@ export function BuildScene({ mode = "parts", aside }: { mode?: "parts" | "pay"; 
   /** Scroll to the moment in the scene where this part is lit (works both ways). */
   const jumpTo = (i: number) => {
     const root = ref.current;
-    if (!root || !motionOn()) return;
+    if (!root) return;
+    // Without the scroll scene, a tap simply highlights that part of the building.
+    if (!motionOn()) {
+      setActive(i);
+      return;
+    }
     const range = root.offsetHeight - innerHeight;
     const step = (0.98 - 0.56) / buildHotspots.length;
     const top = root.getBoundingClientRect().top + scrollY;

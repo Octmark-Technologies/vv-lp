@@ -55,3 +55,6 @@ next-env.d.ts
 *.mp4
 *.mov
 !.env.example
+
+# Raw site photos (compressed copies live in public/progress)
+/WhatsApp Image*.jpeg

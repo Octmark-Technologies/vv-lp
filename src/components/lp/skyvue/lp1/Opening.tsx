@@ -116,7 +116,7 @@ export function Opening() {
               </Suspense>
             </div>
             <ul data-open-end className="mt-7 flex flex-wrap gap-2 text-[13px] sv-tnum">
-              {["Exclusive 3 BHK", skyvue.sizeRange, `₹${skyvue.basePrice.toLocaleString("en-IN")} per sq ft`, `Possession ${skyvue.possession}`].map((t) => (
+              {["Exclusive 3 BHK", skyvue.sizeRange, skyvue.priceLine].map((t) => (
                 <li key={t} className="rounded-full border border-[var(--sv-line)] bg-white/70 px-3.5 py-1.5 backdrop-blur">
                   {t}
                 </li>
@@ -144,9 +144,6 @@ export function Opening() {
               </li>
               <li>
                 <strong>{trackRecord.families}</strong> families in delivered homes
-              </li>
-              <li>
-                Possession <strong>Mar 2030</strong>
               </li>
             </ul>
           </div>

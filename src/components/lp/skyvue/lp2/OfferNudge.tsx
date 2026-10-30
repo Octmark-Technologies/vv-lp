@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { formatLakh, skyvue } from "@/data/skyvue-landing";
+import { skyvue } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
 import { Close } from "@/components/Icons";
 import { UNLOCK_EVENT, UNLOCK_KEY } from "../LeadForm";
@@ -99,7 +99,7 @@ export function OfferNudge() {
           </button>
           <p className="text-[12px] font-semibold text-[var(--sv-orange)]">Before you go</p>
           <p className="sv-display mt-1 pr-6 text-[20px] font-light leading-snug text-[var(--sv-ink)]">
-            Your 5% for {size.toLocaleString("en-IN")} sq ft is about {formatLakh(size * skyvue.basePrice * 0.05)}.
+            Book your {size.toLocaleString("en-IN")} sq ft home with just 5%.
           </p>
           <p className="mt-1 text-[13px] text-[var(--sv-muted)]">Get the full payment schedule on WhatsApp. Offer on bookings till {skyvue.offer.validTill}.</p>
           <button

@@ -25,6 +25,8 @@ type Props = {
   minVisibleW?: number;
   /** Vertical placement when the frame no longer fills the height (0 = top, 1 = bottom). */
   alignY?: number;
+  /** Load the poster eagerly (use for a scene on the first screen). */
+  eager?: boolean;
   /** Frame (1-based, desktop numbering) shown as the still under reduced motion. */
   still?: number;
   className?: string;
@@ -34,7 +36,7 @@ type Props = {
 const pad = (n: number) => String(n).padStart(4, "0");
 const src = (shot: string, mobile: boolean, n: number) => `/frames/${shot}${mobile ? "-m" : ""}/f_${pad(n)}.webp`;
 
-export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, focusX = 0.5, minVisibleW = 0, alignY = 0.5, still = 1, className = "", children }: Props) {
+export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, focusX = 0.5, minVisibleW = 0, alignY = 0.5, still = 1, eager = false, className = "", children }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -163,7 +165,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
     const first = () => {
       for (let i = 0; i < Math.min(10, n); i++) load(i, i === 0 ? "auto" : "low");
     };
-    if (document.readyState === "complete") first();
+    if (eager || document.readyState === "complete") first();
     else addEventListener("load", first, { once: true });
 
     // The rest when the section comes within ~1.5 screens; a few at a time, in scroll order.
@@ -204,7 +206,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
       io.disconnect();
       imgs.forEach((im) => im && (im.src = ""));
     };
-  }, [shot, frames, mobileFrames, focusX, minVisibleW, alignY]);
+  }, [shot, frames, mobileFrames, focusX, minVisibleW, alignY, eager]);
 
   // Poster (first frame for motion, `still` frame otherwise) so the stage is never empty.
   const stillM = Math.max(1, Math.round(((still - 1) / Math.max(1, frames - 1)) * (mobileFrames - 1)) + 1);
@@ -214,7 +216,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
         <picture>
           <source media="(max-width: 767px)" srcSet={src(shot, true, stillM)} />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="sv-frames-poster" src={src(shot, false, still)} alt={alt} style={{ objectPosition: `${focusX * 100}% 50%` }} loading="lazy" decoding="async" />
+          <img className="sv-frames-poster" src={src(shot, false, still)} alt={alt} style={{ objectPosition: `${focusX * 100}% 50%` }} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" />
         </picture>
         <canvas ref={canvas} className="sv-frames-canvas" aria-hidden="true" />
         {children}
