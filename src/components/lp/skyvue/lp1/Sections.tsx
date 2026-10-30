@@ -66,14 +66,53 @@ export function Compare() {
     });
   });
   const homesMax = 2100;
-  const bar = (from: number, to: number, max: number, cls: string, label: string) => (
-    <span
-      data-bar
-      className={`absolute inset-y-0 origin-left rounded-full ${cls}`}
-      style={{ left: `${(from / max) * 100}%`, width: `${((to - from) / max) * 100}%` }}
-      aria-label={label}
-    />
-  );
+  const [tip, setTip] = useState<string | null>(null);
+  const pointer = useRef("");
+  // a tap anywhere else closes an open info card (touch screens don't always blur the button)
+  useEffect(() => {
+    if (!tip) return;
+    const close = (e: PointerEvent) => {
+      if (!(e.target as Element).closest?.(".sv-bar-hit")) setTip(null);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [tip]);
+  /** One bar segment: grows in on scroll; hover (mouse), tap (touch) or focus (keyboard) opens its info card. */
+  const bar = (id: string, from: number, to: number, max: number, cls: string, label: string, info: { k: string; v: string; d: string }, align: "start" | "center" | "end") => {
+    const open = tip === id;
+    return (
+      <button
+        type="button"
+        className={`sv-bar-hit ${open ? "is-open" : ""}`}
+        style={{ left: `${(from / max) * 100}%`, width: `${((to - from) / max) * 100}%` }}
+        aria-label={label}
+        aria-describedby={`tip-${id}`}
+        aria-expanded={open}
+        onPointerDown={(e) => (pointer.current = e.pointerType)}
+        onPointerEnter={(e) => e.pointerType === "mouse" && setTip(id)}
+        onPointerLeave={(e) => e.pointerType === "mouse" && setTip((t) => (t === id ? null : t))}
+        onFocus={() => !pointer.current && setTip(id)}
+        onBlur={() => {
+          pointer.current = "";
+          setTip((t) => (t === id ? null : t));
+        }}
+        onClick={() => {
+          // mouse: hover already opened it, keep it; touch: tap toggles
+          if (pointer.current === "mouse") setTip(id);
+          else if (pointer.current) setTip((t) => (t === id ? null : id));
+          pointer.current = "";
+        }}
+        onKeyDown={(e) => e.key === "Escape" && setTip(null)}
+      >
+        <span data-bar className={`sv-bar-fill ${cls}`} />
+        <span role="tooltip" id={`tip-${id}`} className={`sv-bar-tip is-${align}`}>
+          <span className="sv-bar-tip-k">{info.k}</span>
+          <span className="sv-bar-tip-v sv-tnum">{info.v}</span>
+          <span className="sv-bar-tip-d">{info.d}</span>
+        </span>
+      </button>
+    );
+  };
   return (
     <section ref={ref} className="sv-section sv-sky" aria-labelledby="compare-title" id="compare">
       <div className="sv-wrap" data-reveal-group>
@@ -85,14 +124,21 @@ export function Compare() {
         />
         <div data-bars className="mt-12 grid gap-10">
           <div className="rounded-3xl bg-white/80 p-6 sm:p-8" data-reveal>
-            <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[var(--sv-muted)]">Homes in the community</p>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[var(--sv-muted)]">Homes in the community</p>
+              <p className="sv-bar-hint text-[12px] text-[var(--sv-muted)]">
+                <span className="sv-bar-hint-i" aria-hidden="true">i</span>
+                <span className="sv-hint-mouse">Hover over a bar for details</span>
+                <span className="sv-hint-touch">Tap a bar for details</span>
+              </p>
+            </div>
             <div className="mt-6 grid gap-5">
               <div>
                 <div className="flex justify-between text-sm">
                   <span className="font-semibold">SkyVue</span>
                   <span className="sv-tnum font-semibold text-[var(--sv-orange)]">570</span>
                 </div>
-                <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">{bar(0, 570, homesMax, "bg-[var(--sv-orange)]", "SkyVue 570 homes")}</div>
+                <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">{bar("sv", 0, 570, homesMax, "bg-[var(--sv-orange)]", "SkyVue: 570 homes", { k: "SkyVue", v: "570 homes", d: "The whole community. Fewer neighbours at the gate, the pool and the lifts." }, "start")}</div>
               </div>
               <div>
                 <div className="flex justify-between text-sm">
@@ -100,8 +146,8 @@ export function Compare() {
                   <span className="sv-tnum">759 – 2,055</span>
                 </div>
                 <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">
-                  {bar(0, 759, homesMax, "bg-[rgba(0,53,93,0.35)]", "Smallest 759 homes")}
-                  {bar(759, 2055, homesMax, "bg-[var(--sv-navy)]", "Up to 2,055 homes")}
+                  {bar("min", 0, 759, homesMax, "bg-[rgba(0,53,93,0.35)]", "Smallest other project nearby: 759 homes", { k: "Smallest other project nearby", v: "759 homes", d: "Even the smallest one is about 1.3× the size of SkyVue." }, "start")}
+                  {bar("max", 759, 2055, homesMax, "bg-[var(--sv-navy)]", "Other projects nearby range up to 2,055 homes", { k: "Largest other project nearby", v: "Up to 2,055 homes", d: "This darker stretch is the range from 759 to 2,055 homes, up to 3.6× SkyVue." }, "end")}
                 </div>
               </div>
             </div>
@@ -252,13 +298,13 @@ export function Homes() {
           </div>
         </div>
         <h3 className="mt-14 text-xl text-[var(--sv-ink)]" data-reveal>
-          Master plan & floor plates
+          Master plan
         </h3>
-        <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4" data-reveal>
+        <div className="mt-5 grid max-w-2xl grid-cols-2 gap-3" data-reveal>
           {masterPlans.map((m) => (
             <a key={m.title} href={m.img} target="_blank" rel="noopener" className="group block overflow-hidden rounded-2xl bg-white">
               <span className="relative block aspect-[3/4]">
-                <Image src={m.img} alt={`SkyVue ${m.title} plan`} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                <Image src={m.img} alt={`SkyVue ${m.title} plan`} fill sizes="(min-width: 768px) 336px, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
               </span>
               <span className="block px-4 py-3 text-sm font-semibold">{m.title}</span>
             </a>

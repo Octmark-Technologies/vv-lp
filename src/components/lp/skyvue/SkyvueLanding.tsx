@@ -197,12 +197,12 @@ function Homes() {
       <div className="mt-10">
         <PlanTabs formAnchor={HERO_FORM} />
       </div>
-      <h3 className="mt-14 font-sans text-xl font-light">Master plan & floor plates</h3>
-      <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+      <h3 className="mt-14 font-sans text-xl font-light">Master plan</h3>
+      <div className="mt-5 grid max-w-2xl grid-cols-2 gap-3">
         {masterPlans.map((m) => (
           <a key={m.title} href={m.img} target="_blank" rel="noopener" className="group block overflow-hidden rounded-2xl bg-white">
             <span className="relative block aspect-[3/4]">
-              <Image src={m.img} alt={`SkyVue ${m.title} plan`} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
+              <Image src={m.img} alt={`SkyVue ${m.title} plan`} fill sizes="(min-width: 768px) 336px, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
             </span>
             <span className="block px-4 py-3 text-sm font-semibold">{m.title}</span>
           </a>

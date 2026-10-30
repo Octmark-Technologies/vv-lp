@@ -121,8 +121,6 @@ export const units: { size: number; facing: string; label: string; units: string
 export const masterPlans = [
   { title: "Ground level", img: "/lp/skyvue/plans/master-plan-ground.jpg" },
   { title: "Podium level", img: "/lp/skyvue/plans/podium-plan.jpg" },
-  { title: "Typical floor", img: "/lp/skyvue/plans/typical-floor-plan.jpg" },
-  { title: "Typical floor · extended balcony", img: "/lp/skyvue/plans/typical-floor-plan-extended-balcony.jpg" },
 ] as const;
 
 const r = (f: string) => `/lp/skyvue/renders/${f}`;

@@ -1,5 +1,5 @@
 /**
- * Bottom line of every landing-page footer: rights to Vaishno Ventures, and the agency credit
+ * Bottom line of every landing-page footer: rights to Vaishno Ventures, and the marketing-partner credit
  * (Octmark logo only, linking to octmark.com). Sits on the dark footer, so the white logo is used.
  */
 export function FooterCredit({ year = 2026 }: { year?: number }) {
@@ -10,10 +10,10 @@ export function FooterCredit({ year = 2026 }: { year?: number }) {
         href="https://www.octmark.com/"
         target="_blank"
         rel="noopener"
-        aria-label="Designed and developed by Octmark (opens octmark.com)"
+        aria-label="Marketing partner: Octmark (opens octmark.com)"
         className="group inline-flex items-center gap-3 self-start text-white/50 transition-colors hover:text-white/80 sm:self-auto"
       >
-        <span className="text-[11px] uppercase tracking-[0.18em]">Designed &amp; developed by</span>
+        <span className="text-[11px] uppercase tracking-[0.18em]">Marketing Partner</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/brand/octmark-logo-white.png"

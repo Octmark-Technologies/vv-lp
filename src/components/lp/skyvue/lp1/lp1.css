@@ -1492,3 +1492,150 @@ html.motion .sv-story-dots {
     top: calc(64px + 12svh);
   }
 }
+
+/* Compare · "Homes in the community" bars with info cards (Sections.tsx › Compare). */
+.sv-bar-hit {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: help;
+  -webkit-tap-highlight-color: transparent;
+}
+.sv-bar-fill {
+  position: absolute;
+  inset: 10px 0;
+  border-radius: 999px;
+  transform-origin: 0 50%;
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+.sv-bar-hit:hover .sv-bar-fill,
+.sv-bar-hit.is-open .sv-bar-fill {
+  filter: brightness(1.12) saturate(1.1);
+  box-shadow: 0 0 0 3px rgba(249, 83, 0, 0.18);
+}
+.sv-bar-hit:focus-visible {
+  outline: none;
+}
+.sv-bar-hit:focus-visible .sv-bar-fill {
+  box-shadow: 0 0 0 3px var(--sv-orange);
+}
+.sv-bar-tip {
+  position: absolute;
+  bottom: calc(100% - 2px);
+  z-index: 20;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  max-width: min(280px, 78vw);
+  padding: 10px 14px 12px;
+  border-radius: 14px;
+  text-align: left;
+  white-space: normal;
+  color: #fff;
+  background: #0b2540;
+  box-shadow: 0 18px 40px -18px rgba(0, 27, 54, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+}
+.sv-bar-tip.is-start {
+  left: 0;
+}
+.sv-bar-tip.is-end {
+  right: 0;
+}
+.sv-bar-tip.is-center {
+  left: 50%;
+  translate: -50% 0;
+}
+.sv-bar-tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  border: 7px solid transparent;
+  border-top-color: #0b2540;
+}
+.sv-bar-tip.is-start::after {
+  left: 18px;
+}
+.sv-bar-tip.is-end::after {
+  right: 18px;
+}
+.sv-bar-tip.is-center::after {
+  left: 50%;
+  margin-left: -7px;
+}
+.sv-bar-hit.is-open .sv-bar-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.sv-bar-tip-k {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffb08a;
+}
+.sv-bar-tip-v {
+  font-size: 18px;
+  font-weight: 600;
+}
+.sv-bar-tip-d {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+/* dark pages: a light card so it stands off the navy */
+.sv-night .sv-bar-tip {
+  color: #0b2540;
+  background: #fff;
+}
+.sv-night .sv-bar-tip::after {
+  border-top-color: #fff;
+}
+.sv-night .sv-bar-tip-k {
+  color: var(--sv-orange);
+}
+.sv-night .sv-bar-tip-d {
+  color: rgba(11, 37, 64, 0.72);
+}
+.sv-bar-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sv-bar-hint-i {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+}
+.sv-hint-touch {
+  display: none;
+}
+@media (hover: none) {
+  .sv-hint-mouse {
+    display: none;
+  }
+  .sv-hint-touch {
+    display: inline;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-bar-tip {
+    transition: none;
+  }
+}
