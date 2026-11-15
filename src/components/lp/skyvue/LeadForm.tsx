@@ -98,8 +98,26 @@ export async function sendLead(f: {
     lead_budget: f.budget,
     lead_timeline: f.timeline,
     form_id: f.formId,
+    // Go to the thank-you page once GTM has fired its tags (or after 1.5 s if GTM is slow or blocked).
+    eventCallback: goThankYou,
+    eventTimeout: 1500,
   });
+  try {
+    sessionStorage.setItem(
+      "sv_ty",
+      JSON.stringify({ first: f.name.trim().split(/\s+/)[0], intent: f.intent, back: window.location.pathname + window.location.search, size: homeSize }),
+    );
+  } catch {}
+  setTimeout(goThankYou, 1600);
   return true;
+}
+
+let leaving = false;
+/** After a successful lead: the thank-you page (a real page, so ad platforms can count it as a conversion). */
+function goThankYou() {
+  if (leaving) return;
+  leaving = true;
+  window.location.assign("/thank-you/");
 }
 
 /**

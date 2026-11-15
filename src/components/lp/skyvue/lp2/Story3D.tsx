@@ -90,7 +90,12 @@ export function Story3D() {
 
   const jump = (i: number) => {
     const root = ref.current;
-    if (!root || !motionOn()) return;
+    if (!root) return;
+    if (!motionOn()) {
+      // Animations off: the steps are ordinary stacked content, so go straight to the one asked for.
+      root.querySelectorAll<HTMLElement>("[data-beat]")[i]?.scrollIntoView({ block: "start" });
+      return;
+    }
     const range = root.offsetHeight - innerHeight;
     const top = root.getBoundingClientRect().top + scrollY;
     window.scrollTo({ top: top + (range * i) / (BEATS - 1), behavior: "smooth" });

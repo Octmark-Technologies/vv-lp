@@ -181,6 +181,10 @@ html.motion .sv-open-pot {
     --pc: 30%;
   }
 }
+.sv-open-pillar,
+.sv-open-pot {
+  pointer-events: none;
+}
 .sv-open-pillar {
   position: absolute;
   left: 50%;
@@ -208,7 +212,9 @@ html.motion .sv-open-pillar {
   top: calc(var(--pc) + 2.95 * var(--pw));
   z-index: 4;
   text-align: center;
-  display: none;
+  display: none;  /* Decorative intro (logos, countdown): it fades out over the hero, so it must never block the
+     hero's buttons underneath. */
+  pointer-events: none;
 }
 html.motion .sv-open-intro {
   display: block;
@@ -1715,4 +1721,8 @@ html:not(.motion) .sv-story-note {
 }
 .sv1 form:not(.sv-form-dark) ::placeholder {
   color: rgba(0, 70, 112, 0.45);
+}
+
+html:not(.motion) .sv-beat {
+  scroll-margin-top: 84px;
 }
