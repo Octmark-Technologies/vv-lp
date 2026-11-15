@@ -11,7 +11,7 @@ import { motionBootScript } from "@/lib/motion";
  * and conversion tags live inside GTM. Leads push the `skyvue_lead` event to the dataLayer.
  */
 const siteUrl = "https://skyvue.vaishnoventures.com";
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-M52NSH9S";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
