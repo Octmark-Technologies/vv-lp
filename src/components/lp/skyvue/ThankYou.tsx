@@ -40,7 +40,6 @@ export function ThankYou() {
   const c = copy[ty.intent ?? "enquiry"] ?? copy.enquiry;
   const back = ty.back && ty.back.startsWith("/") ? ty.back : lpPaths.lp1;
   const backPath = back.split("?")[0];
-  const backHref = `${back}${back.includes("#") ? "" : "#homes"}`;
   const wa = `https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent(c.wa)}`;
   const steps = [
     { t: "We call you", d: `From ${skyvue.phoneLabel}. Save the number so you know it's us.` },
@@ -90,12 +89,7 @@ export function ThankYou() {
             ))}
           </ol>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-[var(--sv-line)] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <a href={backHref} className="sv-btn sv-btn-primary">
-              See my floor plans
-            </a>
-            <p className="text-[12px] text-[var(--sv-muted)]">TS RERA {skyvue.rera} · Starting from {skyvue.priceFrom}</p>
-          </div>
+          <p className="mt-8 border-t border-[var(--sv-line)] pt-6 text-[12px] text-[var(--sv-muted)]">TS RERA {skyvue.rera} · Starting from {skyvue.priceFrom}</p>
         </div>
       </main>
 
