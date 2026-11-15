@@ -61,7 +61,7 @@ export function Altitude() {
   const v = lp3.hero[lp3.defaultVersion];
   const lv = altitudeLevels[level];
   return (
-    <section ref={ref} className="sv-pin sv-alt sv-sky" style={{ ["--pin" as string]: "240svh" }} aria-label="Vaishno SkyVue, 70 ft above">
+    <section ref={ref} className="sv-pin sv-alt sv-sky" style={{ ["--pin" as string]: "160svh" }} aria-label="Vaishno SkyVue, 70 ft above">
       <div className="sv-stage sv-alt-stage">
         <div className="sv-wrap sv-alt-grid">
           <div className="sv-alt-copy">
@@ -72,8 +72,8 @@ export function Altitude() {
               <button type="button" onClick={() => openEnquiry("hero")} className="sv-btn sv-btn-primary">
                 {lp3.heroCta}
               </button>
-              <a href="#view" className="sv-btn sv-btn-ghost text-[var(--sv-navy)]">
-                See the view
+              <a href="#view" className="sv-btn sv-btn-ghost text-[var(--sv-heading)]">
+                Show me the view
               </a>
             </div>
             <OfferCountdown variant="hero" tone="light" className="sv-cd-start mt-7" />
@@ -169,7 +169,7 @@ export function ViewScene() {
   });
 
   return (
-    <section ref={ref} id="view" className="sv-pin sv-view" style={{ ["--pin" as string]: "260svh" }} aria-label="The view from a SkyVue balcony">
+    <section ref={ref} id="view" className="sv-pin sv-view" style={{ ["--pin" as string]: "170svh" }} aria-label="The view from a SkyVue balcony">
       <div className="sv-stage sv-view-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={`sv-view-poster ${ready ? "is-hidden" : ""}`} src="/lp/skyvue/3d/balcony-2400.webp" alt="A couple on a SkyVue balcony at night, the city lit up below" loading="lazy" />
@@ -207,7 +207,7 @@ export function PodiumBelow() {
         shot="podium-overhead"
         frames={88}
         mobileFrames={44}
-        heightClass="[html.motion_&]:h-[160vh] md:[html.motion_&]:h-[190vh]"
+        heightClass="[html.motion_&]:h-[120vh] md:[html.motion_&]:h-[130vh]"
         alt="Looking down on SkyVue's landscaped, car-free podium between the towers"
         focusX={0.5}
       >
@@ -224,15 +224,15 @@ export function RooftopAbove() {
         shot="rooftop"
         frames={86}
         mobileFrames={43}
-        heightClass="[html.motion_&]:h-[160vh] md:[html.motion_&]:h-[190vh]"
+        heightClass="[html.motion_&]:h-[120vh] md:[html.motion_&]:h-[130vh]"
         alt="The lit rooftop deck and pool at SkyVue at night"
         focusX={0.62}
       >
         <Copy
           eyebrow="Above you · G+5 clubhouse"
-          title="And a rooftop for your evenings."
+          title="Claim your evenings on the rooftop."
           body="A rooftop pool and deck on the clubhouse, part of 2 lakh sq ft set aside for lifestyle."
-          cta={{ label: "Book a site visit", onClick: () => openEnquiry("film-rooftop", "site_visit") }}
+          cta={{ label: "Book my site visit", onClick: () => openEnquiry("film-rooftop", "site_visit") }}
         />
       </ScrollFrames>
     </section>
@@ -249,8 +249,8 @@ export function DownUp() {
         <p className="sv-eyebrow" data-reveal>
           Chaos to calm
         </p>
-        <h2 id="downup-title" className="mt-3 max-w-[18ch] text-[30px] leading-[1.08] text-[var(--sv-ink)] sm:text-[46px]" data-reveal>
-          The same city. A different altitude.
+        <h2 id="downup-title" className="mt-3 max-w-[18ch] text-[30px] leading-[1.08] text-[var(--sv-heading)] sm:text-[46px]" data-reveal>
+          Leave the traffic at ground level.
         </h2>
         <div className="sv-downup-grid mt-10">
           <div className="sv-downup-col is-down" data-reveal>
@@ -271,7 +271,7 @@ export function DownUp() {
           </div>
         </div>
         <button type="button" onClick={() => openEnquiry("downup")} className="sv-btn sv-btn-primary mt-10" data-reveal>
-          Get floor plans & cost sheet
+          Send me floor plans & cost sheet
         </button>
       </div>
     </section>

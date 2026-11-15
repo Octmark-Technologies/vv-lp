@@ -21,7 +21,7 @@ import {
 import { useLp } from "./PageConfig";
 import { withStar } from "../Terms";
 import { FooterCredit } from "../FooterCredit";
-import { BangalorePortfolio, Progress, SiteMap } from "../Proof";
+import { BangalorePortfolio, ProjectFilms, Progress, SiteMap } from "../Proof";
 import { Check, Phone, Pin, Plus, WhatsApp } from "@/components/Icons";
 import { LeadForm, UNLOCK_EVENT, UNLOCK_KEY } from "../LeadForm";
 import { revealOnEnter, useAnime } from "./anim";
@@ -35,7 +35,7 @@ function Head({ eyebrow, title, sub, id, light }: { eyebrow: string; title: stri
       <p className="sv-eyebrow" data-reveal>
         {eyebrow}
       </p>
-      <h2 id={id} className={`mt-3 text-[30px] leading-[1.1] sm:text-[44px] ${light ? "text-white" : "text-[var(--sv-ink)]"}`} data-reveal>
+      <h2 id={id} className={`mt-3 text-[30px] leading-[1.1] sm:text-[44px] ${light ? "text-white" : "text-[var(--sv-heading)]"}`} data-reveal>
         {withStar(title)}
       </h2>
       {sub && (
@@ -119,7 +119,7 @@ export function Compare() {
         <Head
           id="compare-title"
           eyebrow="Compare before you choose"
-          title="A smaller community. A larger home."
+          title="Compare SkyVue with your shortlist. Count the neighbours."
           sub="Put SkyVue next to the other projects on your shortlist."
         />
         <div data-bars className="mt-12 grid gap-10">
@@ -146,21 +146,22 @@ export function Compare() {
                   <span className="sv-tnum">759 – 2,055</span>
                 </div>
                 <div className="relative mt-2 h-3 rounded-full bg-[var(--sv-mist)]">
-                  {bar("min", 0, 759, homesMax, "bg-[rgba(0,53,93,0.35)]", "Smallest other project nearby: 759 homes", { k: "Smallest other project nearby", v: "759 homes", d: "Even the smallest one is about 1.3× the size of SkyVue." }, "start")}
+                  {bar("min", 0, 759, homesMax, "bg-[rgba(20,45,71,0.35)]", "Smallest other project nearby: 759 homes", { k: "Smallest other project nearby", v: "759 homes", d: "Even the smallest one is about 1.3× the size of SkyVue." }, "start")}
                   {bar("max", 759, 2055, homesMax, "bg-[var(--sv-navy)]", "Other projects nearby range up to 2,055 homes", { k: "Largest other project nearby", v: "Up to 2,055 homes", d: "This darker stretch is the range from 759 to 2,055 homes, up to 3.6× SkyVue." }, "end")}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="mt-6 overflow-x-auto rounded-3xl bg-white/80" data-reveal>
-          <table className="w-full min-w-[520px] text-left text-[15px]">
+        {/* Phones: the label sits above SkyVue and Others, so nothing scrolls sideways. */}
+        <div className="mt-6 rounded-3xl bg-white/80" data-reveal>
+          <table className="w-full text-left text-[15px]">
             <tbody>
               {comparison.rows.slice(1).map((r) => (
-                <tr key={r.label} className="border-t border-[var(--sv-line)] first:border-t-0">
-                  <td className="px-6 py-4 text-[var(--sv-muted)]">{r.label}</td>
-                  <td className="px-6 py-4 font-semibold text-[var(--sv-navy)]">SkyVue: {r.skyvue}</td>
-                  <td className="px-6 py-4 text-[var(--sv-muted)]">Others: {r.others}</td>
+                <tr key={r.label} className="grid grid-cols-2 gap-x-4 border-t border-[var(--sv-line)] px-5 py-3.5 first:border-t-0 sm:table-row sm:p-0">
+                  <td className="col-span-2 pb-1 text-[var(--sv-muted)] sm:px-6 sm:py-4">{r.label}</td>
+                  <td className="font-semibold text-[var(--sv-heading)] sm:px-6 sm:py-4">SkyVue: {r.skyvue}</td>
+                  <td className="text-[var(--sv-muted)] sm:px-6 sm:py-4">Others: {r.others}</td>
                 </tr>
               ))}
             </tbody>
@@ -170,7 +171,7 @@ export function Compare() {
           {comparison.footnote}
         </p>
         <a href={wa("Hi, please send me the SkyVue comparison sheet.")} target="_blank" rel="noopener noreferrer" className="sv-btn sv-btn-wa mt-8" data-reveal>
-          <WhatsApp width={18} height={18} /> Get the named comparison sheet
+          <WhatsApp width={18} height={18} /> Send me the named comparison
         </a>
       </div>
     </section>
@@ -202,7 +203,7 @@ export function Homes() {
         <Head
           id="homes-title"
           eyebrow="Homes & floor plans"
-          title="Every home is an exclusive 3 BHK."
+          title="Pick your size. Every home is an exclusive 3 BHK."
           sub="2,010 to 2,890 sq ft. East- and west-facing homes, 10′4″ floor to floor, sculpted balconies with 180° views and extended balconies on select floors."
         />
         <div role="tablist" aria-label="Home sizes" className="mt-10 flex flex-wrap gap-2" data-reveal>
@@ -215,7 +216,7 @@ export function Homes() {
                 setI(n);
                 setJ(0);
               }}
-              className={`sv-tnum relative rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${n === i ? "text-white" : "text-[var(--sv-navy)] hover:bg-white"}`}
+              className={`sv-tnum relative rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${n === i ? "text-white" : "text-[var(--sv-heading)] hover:bg-white"}`}
             >
               {n === i && <motion.span layoutId="sv-size-pill" className="absolute inset-0 rounded-full bg-[var(--sv-navy)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
               <span className="relative">{x.size.toLocaleString("en-IN")} sq ft</span>
@@ -236,15 +237,15 @@ export function Homes() {
               </motion.div>
             </AnimatePresence>
             {unlocked ? (
-              <a href={v.img} target="_blank" rel="noopener" className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-[12px] font-semibold text-[var(--sv-navy)] shadow-sm">
+              <a href={v.img} target="_blank" rel="noopener" className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-[12px] font-semibold text-[var(--sv-heading)] shadow-sm">
                 Open full size
               </a>
             ) : (
               <div className="absolute inset-0 grid place-items-center bg-white/30 p-6 text-center">
                 <div>
-                  <p className="sv-display text-xl font-light text-[var(--sv-navy)]">See the full floor plan</p>
+                  <p className="sv-display text-xl font-light text-[var(--sv-heading)]">See the full floor plan</p>
                   <button type="button" onClick={() => openEnquiry("plans")} className="sv-btn sv-btn-primary mt-3">
-                    Unlock floor plans
+                    Unlock my floor plans
                   </button>
                 </div>
               </div>
@@ -263,7 +264,7 @@ export function Homes() {
                     aria-selected={x.img === v.img}
                     onClick={() => setJ(n)}
                     className={`sv-tnum rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${
-                      x.img === v.img ? "border-[var(--sv-orange)] bg-[var(--sv-orange)] text-white" : "border-[var(--sv-line)] text-[var(--sv-navy)] hover:border-[var(--sv-navy)]"
+                      x.img === v.img ? "border-[var(--sv-orange)] bg-[var(--sv-orange)] text-[var(--sv-on-orange)]" : "border-[var(--sv-line)] text-[var(--sv-heading)] hover:border-[var(--sv-navy)]"
                     }`}
                   >
                     {x.unit} · {x.facing}
@@ -297,7 +298,7 @@ export function Homes() {
             <p className="text-[12px] text-[var(--sv-muted)]">Typical unit plan from the SkyVue brochure. Furniture is indicative.</p>
           </div>
         </div>
-        <h3 className="mt-14 text-xl text-[var(--sv-ink)]" data-reveal>
+        <h3 className="mt-14 text-xl text-[var(--sv-heading)]" data-reveal>
           Master plan
         </h3>
         <div className="mt-5 grid max-w-2xl grid-cols-2 gap-3" data-reveal>
@@ -352,11 +353,11 @@ export function Location() {
       <div className="sv-wrap grid gap-10 lg:grid-cols-2 lg:items-start" data-reveal-group>
         <div className="min-w-0">
           <Head id="loc-title" eyebrow="Location guide · Tellapur" title="Close to work. Next to green." sub={locationGuide.intro} />
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6">
             {locationGuide.groups.map((g) => (
               <div key={g.title} data-reveal>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--sv-muted)]">{g.title}</p>
-                <ul className="mt-3 space-y-2 text-[15px]">
+                <ul className="mt-3 space-y-2 text-[14px] sm:text-[15px]">
                   {g.items.map((it) => (
                     <li key={it} className="flex items-start gap-2">
                       <span className="mt-0.5 text-[var(--sv-orange)]">
@@ -369,8 +370,8 @@ export function Location() {
               </div>
             ))}
           </div>
-          <a href={wa("Hi, please send me the SkyVue location pin.")} target="_blank" rel="noopener noreferrer" className="sv-btn sv-btn-ghost mt-8 text-[var(--sv-navy)]" data-reveal>
-            <Pin /> Get the location pin
+          <a href={wa("Hi, please send me the SkyVue location pin.")} target="_blank" rel="noopener noreferrer" className="sv-btn sv-btn-ghost mt-8 text-[var(--sv-heading)]" data-reveal>
+            <Pin /> Send me the location pin
           </a>
         </div>
         <div className="min-w-0" data-reveal>
@@ -389,13 +390,13 @@ export function Approvals() {
     <section ref={ref} className="sv-section bg-white" aria-labelledby="appr-title" id="approvals">
       <div className="sv-wrap" data-reveal-group>
         <Head id="appr-title" eyebrow="Approvals" title="Check every approval before you call us." sub="SkyVue is registered with Telangana RERA. Copies of the approvals below are shared with every buyer." />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5 [&>*:first-child]:col-span-2 lg:[&>*:first-child]:col-span-1">
           {approvals.map((a) => (
-            <div key={a.label} className="relative overflow-hidden rounded-2xl border border-[var(--sv-line)] bg-[var(--sv-paper)] p-5" data-reveal>
+            <div key={a.label} className="relative overflow-hidden rounded-2xl border border-[var(--sv-line)] bg-[var(--sv-paper)] p-4 sm:p-5" data-reveal>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/lp/skyvue/brand/pillar-of-trust.svg" alt="" aria-hidden="true" className="absolute right-4 top-4 h-8 w-auto opacity-80" />
               <p className="pr-8 text-[11px] uppercase tracking-[0.16em] text-[var(--sv-muted)]">{a.label}</p>
-              <p className={`mt-3 text-lg ${a.value ? "font-semibold text-[var(--sv-navy)]" : "text-[var(--sv-muted)]"}`}>{a.value ?? "Shared on request"}</p>
+              <p className={`mt-2 text-base sm:mt-3 sm:text-lg ${a.value ? "font-semibold text-[var(--sv-heading)]" : "text-[var(--sv-muted)]"}`}>{a.value ?? "Shared on request"}</p>
               {a.note && (
                 <a href={skyvue.reraUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs text-[var(--sv-orange)] underline">
                   {a.note}
@@ -434,18 +435,9 @@ export function Builder() {
             <BangalorePortfolio tone="dark" />
           </div>
         </div>
-        <figure className="min-w-0" data-reveal>
-          <video
-            className="aspect-video w-full rounded-2xl bg-black object-cover"
-            src="/lp/skyvue/vaishno-bangalore-construction-drone.mp4"
-            poster="/lp/skyvue/vaishno-bangalore-construction-drone-poster.jpg"
-            controls
-            muted
-            playsInline
-            preload="none"
-          />
-          <figcaption className="mt-3 text-xs text-white/55">Vaishno Ventures projects in Bangalore, filmed by drone.</figcaption>
-        </figure>
+        <div className="min-w-0" data-reveal>
+          <ProjectFilms tone="dark" />
+        </div>
       </div>
     </section>
   );
@@ -475,15 +467,15 @@ export function PaymentPlan() {
     <section ref={ref} className="sv-section bg-[var(--sv-navy)] text-white" aria-labelledby="plan-title" id="payment-plan">
       <div className="sv-wrap" data-reveal-group>
         <Head light id="plan-title" eyebrow={`Offer · bookings till ${skyvue.offer.validTill}`} title="Pay 5%. Then nothing more until your block's structure is complete.*" sub="No-cost EMI on bookings till 31 Dec 2026.* Ask for the full payment schedule for the size you like." />
-        <div data-plan className="relative mt-12">
+        <div data-plan className="relative mt-10">
           <svg className="absolute left-0 right-0 top-[18px] hidden h-2 w-full md:block" viewBox="0 0 1000 8" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M 12 4 L 988 4" stroke="rgba(255,255,255,0.18)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
+            <path d="M 12 4 L 988 4" stroke="rgba(255,255,255, 0.18)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
             <path data-plan-path d="M 12 4 L 988 4" stroke="var(--sv-orange)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
           </svg>
-          <ol className="relative grid gap-6 md:grid-cols-4">
+          <ol className="relative grid grid-cols-2 gap-x-5 gap-y-7 md:grid-cols-4">
             {steps.map((s, n) => (
               <li key={s.t} data-step className="md:pr-6">
-                <span className="sv-display sv-tnum grid h-10 w-10 place-items-center rounded-full bg-[var(--sv-orange)] text-lg font-light">{n + 1}</span>
+                <span className="sv-display sv-tnum grid h-10 w-10 place-items-center rounded-full bg-[var(--sv-orange)] text-lg font-light text-[var(--sv-on-orange)]">{n + 1}</span>
                 <p className="mt-4 text-lg font-semibold">{s.t}</p>
                 <p className="mt-1 text-[14px] text-white/65">{s.d}</p>
               </li>
@@ -503,7 +495,7 @@ export function PaymentPlan() {
           </p>
         </div>
         <button type="button" onClick={() => openEnquiry("payment-plan")} className="sv-btn sv-btn-primary mt-8" data-reveal>
-          Get my payment schedule
+          Get my 5% payment schedule
         </button>
       </div>
     </section>
@@ -514,6 +506,9 @@ export function PaymentPlan() {
 export function Faq({ items = faqs }: { items?: readonly { q: string; a: string }[] } = {}) {
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState<number | null>(0);
+  // The first questions show; the rest open with one tap (all answers stay in the HTML).
+  const FIRST = 6;
+  const [all, setAll] = useState(items.length <= FIRST + 1);
   useAnime(ref, revealOnEnter);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -523,18 +518,25 @@ export function Faq({ items = faqs }: { items?: readonly { q: string; a: string 
   return (
     <section ref={ref} className="sv-section bg-white" aria-labelledby="faq-title" id="faq">
       <div className="sv-wrap grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" data-reveal-group>
-        <Head id="faq-title" eyebrow="FAQ" title="Questions buyers ask us first." />
+        <Head id="faq-title" eyebrow="FAQ" title="Get your answers before you visit." />
         <div className="border-t border-[var(--sv-line)]">
           {items.map((f, n) => {
             const isOpen = open === n;
+            if (!all && n >= FIRST)
+              return (
+                <div key={f.q} className="sr-only">
+                  <h3>{f.q}</h3>
+                  <p>{f.a}</p>
+                </div>
+              );
             return (
-              <div key={f.q} className="border-b border-[var(--sv-line)]" data-reveal>
+              <div key={f.q} className="border-b border-[var(--sv-line)]" data-reveal={n < FIRST ? "" : undefined}>
                 <h3 className="!font-sans">
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpen(isOpen ? null : n)}
-                    className="flex w-full items-center justify-between gap-6 py-5 text-left text-[17px] font-medium text-[var(--sv-ink)]"
+                    className="flex w-full items-center justify-between gap-6 py-4 text-left text-[17px] font-medium text-[var(--sv-ink)]"
                   >
                     {f.q}
                     <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[var(--sv-line)] text-[var(--sv-orange)]">
@@ -554,6 +556,11 @@ export function Faq({ items = faqs }: { items?: readonly { q: string; a: string 
               </div>
             );
           })}
+          {!all && (
+            <button type="button" onClick={() => setAll(true)} className="sv-btn sv-btn-ghost mt-6 text-[var(--sv-heading)]">
+              {items.length - FIRST} more questions
+            </button>
+          )}
         </div>
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -570,7 +577,7 @@ export function Enquire() {
     <section ref={ref} id="enquire" className="sv-section sv-sky" aria-labelledby="enq-title">
       <div className="sv-wrap grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center" data-reveal-group>
         <div className="min-w-0">
-          <Head id="enq-title" eyebrow="Floor plans · cost sheet · RERA" title="Everything you need to decide, on WhatsApp." sub="Share your number and get the floor plans for your size, the cost sheet and the RERA certificate. A SkyVue advisor then calls to answer your questions." />
+          <Head id="enq-title" eyebrow="Floor plans · cost sheet · RERA" title="Get your floor plans, cost sheet and RERA details on WhatsApp." sub="Share your number and get the floor plans for your size, the cost sheet and the RERA certificate. A SkyVue advisor then calls to answer your questions." />
           <ul className="mt-8 grid gap-2 text-[15px]">
             {["Floor plans for the size you pick", "Cost sheet with the 5% plan", "RERA certificate and location pin", "Weekday and weekend site visits"].map((t) => (
               <li key={t} className="flex items-center gap-3" data-reveal>
@@ -595,12 +602,12 @@ export function Visit() {
   const lp = useLp();
   useAnime(ref, revealOnEnter);
   return (
-    <section ref={ref} id="visit" className="relative isolate overflow-hidden bg-[#001b36] py-20 text-white sm:py-28" aria-labelledby="visit-title">
+    <section ref={ref} id="visit" className="relative isolate overflow-hidden bg-[#142d47] py-20 text-white sm:py-28" aria-labelledby="visit-title">
       <Image src={lp.images?.visit ?? "/lp/skyvue/fr/pool.webp"} alt="" fill sizes="100vw" className="-z-10 object-cover opacity-45" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#001b36]/90 via-[#001b36]/60 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#142d47]/90 via-[#142d47]/60 to-transparent" />
       <div className="sv-wrap grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center" data-reveal-group>
         <div className="min-w-0">
-          <Head light id="visit-title" eyebrow="Site visit" title="See SkyVue for yourself. Bring the family." sub="Pick a weekday or weekend slot. Our team confirms it on WhatsApp and walks you through the site, the plans and the cost sheet." />
+          <Head light id="visit-title" eyebrow="Site visit" title="Walk the site before you book. Bring the family." sub="Pick a weekday or weekend slot. Our team confirms it on WhatsApp and walks you through the site, the plans and the cost sheet." />
           <div className="mt-8 flex flex-wrap gap-3" data-reveal>
             <a href={`tel:${skyvue.phone}`} className="sv-btn sv-btn-ghost">
               <Phone /> {skyvue.phoneLabel}
@@ -614,7 +621,7 @@ export function Visit() {
           </p>
         </div>
         <div data-reveal>
-          <LeadForm pageId={lp.id} pageSlug={lp.slug} formId={`${lp.id}-visit`} title="Book a site visit" cta="Book my visit" intent="site_visit" tone="dark" />
+          <LeadForm pageId={lp.id} pageSlug={lp.slug} formId={`${lp.id}-visit`} title="Book your site visit" cta="Book my site visit" intent="site_visit" tone="dark" />
         </div>
       </div>
     </section>
@@ -623,7 +630,7 @@ export function Visit() {
 
 export function Footer() {
   return (
-    <footer className="bg-[#001b36] pb-36 pt-12 text-white/60 md:pb-24">
+    <footer className="bg-[#142d47] pb-36 pt-12 text-white/60 md:pb-24">
       <div className="sv-wrap grid gap-8 text-sm md:grid-cols-[auto_1fr] md:items-start">
         <div className="flex items-center gap-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}

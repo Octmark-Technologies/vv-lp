@@ -215,15 +215,15 @@ export function Progress({ tone = "light", onCta, ctaHref }: { tone?: "light" | 
           <div className="sv-pg-cta-btns">
             {onCta ? (
               <button type="button" className="sv-pg-btn is-primary" onClick={onCta}>
-                Book a site visit
+                Book my site visit
               </button>
             ) : ctaHref ? (
               <a className="sv-pg-btn is-primary" href={ctaHref}>
-                Book a site visit
+                Book my site visit
               </a>
             ) : null}
             <a className="sv-pg-btn is-wa" href={wa} target="_blank" rel="noopener noreferrer">
-              Monthly updates on WhatsApp
+              Send me monthly updates
             </a>
           </div>
         </div>
@@ -267,17 +267,6 @@ export const blrDeliveredHomes = blrDelivered.reduce((s, p) => s + p.units, 0);
 export function BangalorePortfolio({ tone = "dark" }: { tone?: "light" | "dark" }) {
   return (
     <div className={`sv-port sv-port-${tone}`}>
-      <div className="sv-port-head">
-        <p>
-          <strong className="sv-tnum">{blrDelivered.length}</strong> projects delivered in Bangalore
-        </p>
-        <p>
-          <strong className="sv-tnum">{blrDeliveredHomes.toLocaleString("en-IN")}</strong> homes handed over
-        </p>
-        <p>
-          <strong className="sv-tnum">{blrOngoing.length}</strong> under construction
-        </p>
-      </div>
       <ul className="sv-port-list">
         {[...blrOngoing, ...blrDelivered].map((p) => (
           <li key={p.slug}>
@@ -293,5 +282,62 @@ export function BangalorePortfolio({ tone = "dark" }: { tone?: "light" | "dark" 
       </ul>
       <p className="sv-port-src">Source: vaishnoventures.com.</p>
     </div>
+  );
+}
+
+/* ───────────────────────── Project films (Bangalore drone film + Luxuria) ─────────────────────────
+ * One player, two films, switched by a pair of tabs, so adding a film adds no scroll.
+ * Both are muted with controls and load nothing until played (preload="none" + poster). */
+const films = [
+  {
+    id: "bangalore",
+    tab: "Bangalore projects",
+    src: "/lp/skyvue/vaishno-bangalore-construction-drone.mp4",
+    poster: "/lp/skyvue/vaishno-bangalore-construction-drone-poster.jpg",
+    caption: "Vaishno Ventures projects in Bangalore, filmed by drone.",
+  },
+  {
+    id: "luxuria",
+    tab: "Luxuria, Varthur",
+    src: "/lp/skyvue/vaishno-luxuria-film.mp4",
+    poster: "/lp/skyvue/vaishno-luxuria-film-poster.jpg",
+    caption: "Vaishno Luxuria, Varthur, Bangalore: 4 BHK triplex villas by Vaishno Ventures.",
+  },
+] as const;
+
+export function ProjectFilms({ tone = "dark" }: { tone?: "light" | "dark" }) {
+  const [on, setOn] = useState(0);
+  const vids = useRef<(HTMLVideoElement | null)[]>([]);
+  const pick = (i: number) => {
+    vids.current.forEach((v, k) => k !== i && v && !v.paused && v.pause());
+    setOn(i);
+  };
+  return (
+    <figure className={`sv-films sv-films-${tone} min-w-0`}>
+      <div className="sv-films-tabs" role="tablist" aria-label="Project films">
+        {films.map((f, i) => (
+          <button key={f.id} type="button" role="tab" aria-selected={i === on} aria-controls={`film-${f.id}`} className={i === on ? "is-on" : ""} onClick={() => pick(i)}>
+            {f.tab}
+          </button>
+        ))}
+      </div>
+      {films.map((f, i) => (
+        <div key={f.id} id={`film-${f.id}`} role="tabpanel" hidden={i !== on}>
+          <video
+            ref={(el) => {
+              vids.current[i] = el;
+            }}
+            className="sv-films-video"
+            src={f.src}
+            poster={f.poster}
+            controls
+            muted
+            playsInline
+            preload="none"
+          />
+          <figcaption className="sv-films-cap">{f.caption}</figcaption>
+        </div>
+      ))}
+    </figure>
   );
 }

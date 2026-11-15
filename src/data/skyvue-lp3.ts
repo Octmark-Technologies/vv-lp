@@ -29,9 +29,9 @@ export const lp3 = {
       size: "Every home from 2,010 sq ft. Up to 2,890.",
     },
   } satisfies Record<Version, HeroCopy>,
-  heroCta: "Get floor plans & cost sheet",
-  formTitle: "Get the floor plans & the view from your floor",
-  formCta: "Send me the details",
+  heroCta: "Send me floor plans & cost sheet",
+  formTitle: "Get your floor plans & the view from your floor",
+  formCta: "Send my floor plans & view",
   images: { visit: "/lp/skyvue/fr/miyawaki.webp" },
   seo: {
     title: "Vaishno SkyVue Tellapur | Homes Start 70 ft Above a Car-free Podium | RERA P01100010545",

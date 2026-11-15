@@ -1,4 +1,3 @@
-import "@fontsource-variable/jost";
 import { lpPaths } from "@/data/lp-paths";
 import "../lp1/lp1.css";
 import "./lp3.css";

@@ -30,8 +30,8 @@ export const lp1 = {
       size: "A room for everyone. Every home from 2,010 sq ft, with a study.",
     },
   } satisfies Record<Version, HeroCopy>,
-  formTitle: "Get the floor plans, cost sheet & RERA details",
-  formCta: "Send me the details",
+  formTitle: "Get your floor plans, cost sheet & RERA details",
+  formCta: "Send my floor plans & cost sheet",
   seo: {
     title: "Vaishno SkyVue Tellapur | 570 Exclusive 3 BHK Luxury Homes | RERA P01100010545",
     description:

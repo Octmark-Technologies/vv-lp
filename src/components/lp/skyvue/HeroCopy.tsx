@@ -22,14 +22,14 @@ export function HeroText({ copy, tone = "dark" }: { copy: Copy; tone?: Tone }) {
       <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sv-orange sm:text-xs">{copy.eyebrow}</p>
       <h1
         className={`mt-4 max-w-2xl text-[36px] leading-[1.06] tracking-tight sm:text-5xl lg:text-[64px] ${
-          light ? "text-[var(--sv-ink,#0b2540)] [font-family:var(--sv-display,inherit)] font-light" : "font-sans font-light text-white"
+          light ? "text-[var(--sv-heading,#004670)] [font-family:var(--sv-display,inherit)] font-light" : "font-sans font-light text-white"
         }`}
       >
         {withStar(copy.title)}
       </h1>
-      <p className={`mt-5 max-w-xl text-base leading-relaxed sm:text-lg ${light ? "text-[var(--sv-muted,#5a6b7c)]" : "text-white/80"}`}>{withStar(copy.sub)}</p>
+      <p className={`mt-5 max-w-xl text-base leading-relaxed sm:text-lg ${light ? "text-[var(--sv-muted,rgba(39,39,38,0.72))]" : "text-white/80"}`}>{withStar(copy.sub)}</p>
       {copy.size && (
-        <p className={`sv-size-line mt-4 max-w-xl text-[17px] font-medium leading-snug sm:text-[20px] ${light ? "text-[var(--sv-navy,#00355d)]" : "text-white"}`}>
+        <p className={`sv-size-line mt-4 max-w-xl text-[17px] font-medium leading-snug sm:text-[20px] ${light ? "text-[var(--sv-heading,#004670)]" : "text-white"}`}>
           <SizeLine text={copy.size} />
         </p>
       )}

@@ -32,7 +32,7 @@ export function ValueStack() {
           <p className="sv-eyebrow" data-reveal>
             Why 5% is enough
           </p>
-          <h2 id="vs-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-ink)] sm:text-[44px]" data-reveal>
+          <h2 id="vs-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[44px]" data-reveal>
             A luxury home, a builder you can check, and a small first step.
           </h2>
         </div>
@@ -41,7 +41,7 @@ export function ValueStack() {
             <div key={v.k} data-reveal>
               <span data-vs-line className="sv-vs-line" aria-hidden="true" />
               <dt className="text-[13px] font-semibold text-[var(--sv-muted)]">{v.k}</dt>
-              <dd className="sv-display mt-2 text-[24px] font-light leading-tight text-[var(--sv-navy)] sm:text-[28px]">{withStar(v.v)}</dd>
+              <dd className="sv-display mt-2 text-[24px] font-light leading-tight text-[var(--sv-heading)] sm:text-[28px]">{withStar(v.v)}</dd>
               <dd className="mt-2 text-[15px] leading-relaxed text-[var(--sv-muted)]">{withStar(v.d)}</dd>
             </div>
           ))}

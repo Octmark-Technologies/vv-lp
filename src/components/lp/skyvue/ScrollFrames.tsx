@@ -119,8 +119,8 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
         // Below the frame, fade the stretched ground into the copy scrim so moving cars don't streak.
         const y0 = dy + dh - 48;
         const g = ctx.createLinearGradient(0, y0, 0, Math.min(ch, y0 + 72));
-        g.addColorStop(0, "rgba(5,18,34,0)");
-        g.addColorStop(1, "rgba(5,18,34,0.94)");
+        g.addColorStop(0, "rgba(20, 45, 71, 0)");
+        g.addColorStop(1, "rgba(20, 45, 71, 0.94)");
         ctx.fillStyle = g;
         ctx.fillRect(0, y0, cw, ch - y0);
       }

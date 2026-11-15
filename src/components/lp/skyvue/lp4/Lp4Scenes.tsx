@@ -10,6 +10,7 @@ import { OfferCountdown } from "../Countdown";
 import { pinnedScroll, seg, useAnime } from "../lp1/anim";
 import { openEnquiry } from "../lp1/EnquiryDrawer";
 import { ScrollFrames } from "../ScrollFrames";
+import { ProjectFilms } from "../Proof";
 
 const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
@@ -24,7 +25,7 @@ export function SiteLive() {
         shot="site-live"
         frames={83}
         mobileFrames={41}
-        heightClass="[html.motion_&]:h-[170vh] md:[html.motion_&]:h-[210vh]"
+        heightClass="[html.motion_&]:h-[125vh] md:[html.motion_&]:h-[140vh]"
         alt="Drone view of the SkyVue construction site in Tellapur with Block A, Block B and the clubhouse marked, October 2026"
         focusX={0.55}
         eager
@@ -43,19 +44,13 @@ export function SiteLive() {
                   {lp4.heroCta}
                 </button>
                 <a href="#progress" className="sv-btn sv-btn-ghost text-white">
-                  Watch the monthly updates
+                  Watch the site rise
                 </a>
               </div>
               <OfferCountdown variant="hero" tone="dark" className="sv-cd-start mt-6" />
               <ul className="sv-live-proof" aria-label="Proof you can check">
                 <li>
                   <strong className="sv-tnum">{skyvue.rera}</strong> TS RERA
-                </li>
-                <li>
-                  <strong className="sv-tnum">943</strong> homes delivered
-                </li>
-                <li>
-                  <strong className="sv-tnum">9</strong> projects in Bangalore
                 </li>
               </ul>
             </div>
@@ -68,7 +63,7 @@ export function SiteLive() {
 
 /* ───────────────────────── 2 · The proof ledger ─────────────────────────
  * Vaishno Ventures' Bangalore projects enter one by one, oldest-looking list order from
- * vaishnoventures.com, while the "homes handed over" total counts up to 943. It closes on SkyVue.
+ * vaishnoventures.com, and a bar fills as the list completes. It closes on SkyVue.
  * Desktop: held on screen. Phones: each row lands as it scrolls in. Reduced motion: complete list. */
 const delivered = projects.filter((p) => p.city === "Bengaluru" && p.status === "completed");
 const ongoing = projects.filter((p) => p.city === "Bengaluru" && p.status === "ongoing");
@@ -109,6 +104,7 @@ export function Ledger() {
       update(0);
       pinnedScroll(root, update);
     } else {
+      let shown = 0;
       setTotal(0);
       rows.forEach((el, i) => {
         show(el, 0);
@@ -120,7 +116,7 @@ export function Ledger() {
             duration: 650,
             ease: "outCubic",
             onUpdate: () => show(el, st.t),
-            onComplete: () => setTotal(Math.max(Number(count?.textContent?.replace(/,/g, "") || 0), sums[i])),
+            onComplete: () => setTotal((shown = Math.max(shown, sums[i]))),
             autoplay: onScroll({ target: el, enter: "bottom-=8% top", repeat: false }),
           },
         );
@@ -130,7 +126,7 @@ export function Ledger() {
   });
 
   return (
-    <section ref={ref} className="sv-pin sv-ledger" style={{ ["--pin" as string]: "230svh" }} aria-labelledby="ledger-title" id="track-record">
+    <section ref={ref} className="sv-pin sv-ledger" style={{ ["--pin" as string]: "150svh" }} aria-labelledby="ledger-title" id="track-record">
       <div className="sv-stage sv-ledger-stage">
         <div className="sv-wrap sv-ledger-grid">
           <div className="min-w-0">
@@ -139,10 +135,6 @@ export function Ledger() {
               Every home we promised in Bangalore, handed over.
             </h2>
             <div className="sv-ledger-total">
-              <p className="sv-display sv-tnum">
-                <span data-total>{total.toLocaleString("en-IN")}</span>
-              </p>
-              <p className="text-[14px] text-white/70">homes handed over across {delivered.length} projects in East Bangalore</p>
               <span className="sv-ledger-bar" aria-hidden="true">
                 <span data-bar />
               </span>
@@ -154,7 +146,7 @@ export function Ledger() {
                 RERA {skyvue.rera}.
               </p>
               <button type="button" onClick={() => openEnquiry("ledger", "site_visit")} className="sv-btn sv-btn-primary mt-5">
-                Get the project addresses
+                Send me addresses to visit
               </button>
             </div>
           </div>
@@ -178,24 +170,16 @@ export function Ledger() {
 /** The Bangalore drone film, as a plain section (used after the ledger). */
 export function BangaloreFilm() {
   return (
-    <section className="sv-section bg-[#001b36] text-white" aria-labelledby="blr-title">
+    <section className="sv-section bg-[#142d47] text-white" aria-labelledby="blr-title">
       <div className="sv-wrap grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
         <div className="min-w-0">
           <p className="sv-eyebrow">Filmed by drone</p>
           <h2 id="blr-title" className="mt-3 text-[28px] leading-tight sm:text-[40px]">
-            See our Bangalore projects from the air.
+            Watch the homes we built in Bangalore.
           </h2>
           <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-white/70">Homes that families live in today, built by the same team that is building SkyVue.</p>
         </div>
-        <video
-          className="aspect-video w-full rounded-2xl bg-black object-cover"
-          src="/lp/skyvue/vaishno-bangalore-construction-drone.mp4"
-          poster="/lp/skyvue/vaishno-bangalore-construction-drone-poster.jpg"
-          controls
-          muted
-          playsInline
-          preload="none"
-        />
+        <ProjectFilms tone="dark" />
       </div>
     </section>
   );

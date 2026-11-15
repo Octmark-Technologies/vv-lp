@@ -49,7 +49,7 @@ export function EnquiryDrawer({ pageId, pageSlug, title, cta }: { pageId: string
     <AnimatePresence>
       {state.open && (
         <motion.div className="fixed inset-0 z-[60]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button type="button" aria-label="Close" onClick={close} className="absolute inset-0 bg-[rgba(0,27,54,0.55)] backdrop-blur-[2px]" />
+          <button type="button" aria-label="Close" onClick={close} className="absolute inset-0 bg-[rgba(20,45,71,0.55)] backdrop-blur-[2px]" />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -72,7 +72,7 @@ export function EnquiryDrawer({ pageId, pageSlug, title, cta }: { pageId: string
                 pageId={pageId}
                 pageSlug={pageSlug}
                 formId={`${pageId}-drawer-${state.source || "page"}`}
-                title={visit ? "Book a site visit" : title}
+                title={visit ? "Book your site visit" : title}
                 cta={visit ? "Book my visit" : cta}
                 intent={state.intent}
               />

@@ -97,7 +97,7 @@ export function BuildScene({ mode = "parts", aside }: { mode?: "parts" | "pay"; 
   };
 
   return (
-    <section ref={ref} className="sv-pin sv-build sv-sky" style={{ ["--pin" as string]: "260svh" }} aria-labelledby="build-title">
+    <section ref={ref} className="sv-pin sv-build sv-sky" style={{ ["--pin" as string]: "170svh" }} aria-labelledby="build-title">
       <div className="sv-stage">
         <div className="sv-wrap h-full py-[max(72px,9svh)]">
           <div className="sv-build-grid">
@@ -162,7 +162,7 @@ export function BuildScene({ mode = "parts", aside }: { mode?: "parts" | "pay"; 
                   {h && (
                     <motion.div
                       key={h.id}
-                      className="pointer-events-none absolute z-10 rounded-full bg-[var(--sv-orange)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white shadow-lg sm:text-xs"
+                      className="pointer-events-none absolute z-10 rounded-full bg-[var(--sv-orange)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--sv-on-orange)] shadow-lg sm:text-xs"
                       style={{ left: `${(h.x + 0.01) * 100}%`, top: `max(6px, calc(${h.y * 100}% - 40px))` }}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -180,11 +180,11 @@ export function BuildScene({ mode = "parts", aside }: { mode?: "parts" | "pay"; 
             ) : (
             <div className="min-w-0">
               <p className="sv-eyebrow">Built for 570 families</p>
-              <h2 id="build-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-ink)] sm:text-[40px]">
+              <h2 id="build-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-heading)] sm:text-[40px]">
                 Cars stay below. Homes begin 70&nbsp;ft up.
               </h2>
               <p className="mt-4 flex items-baseline gap-3 text-[var(--sv-muted)]">
-                <span className="sv-display sv-tnum text-[44px] font-light leading-none text-[var(--sv-navy)] sm:text-[56px]">
+                <span className="sv-display sv-tnum text-[44px] font-light leading-none text-[var(--sv-heading)] sm:text-[56px]">
                   {String(floors).padStart(2, "0")}
                 </span>
                 <span className="text-sm uppercase tracking-[0.2em]">of 36 storeys</span>

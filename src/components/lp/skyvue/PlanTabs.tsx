@@ -42,7 +42,7 @@ export function PlanTabs({ formAnchor }: { formAnchor: string }) {
               setJ(0);
             }}
             className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition ${
-              n === i ? "border-sv-navy bg-sv-navy text-white" : "border-sv-navy/20 text-sv-navy hover:border-sv-navy"
+              n === i ? "border-sv-navy bg-sv-navy text-white" : "border-sv-navy/20 text-[#004670] hover:border-sv-navy"
             }`}
           >
             {x.size.toLocaleString("en-IN")} sq ft
@@ -60,26 +60,26 @@ export function PlanTabs({ formAnchor }: { formAnchor: string }) {
             className={`object-contain transition duration-700 ${unlocked ? "" : "scale-105 blur-md"}`}
           />
           {unlocked ? (
-            <a href={v.img} target="_blank" rel="noopener" className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-sv-navy shadow-sm">
+            <a href={v.img} target="_blank" rel="noopener" className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-[#004670] shadow-sm">
               Open full size
             </a>
           ) : (
             <div className="absolute inset-0 grid place-items-center bg-white/30 p-6 text-center">
               <div>
-                <p className="text-lg font-light text-sv-navy">See the full floor plan</p>
+                <p className="text-lg font-light text-[#004670]">See the full floor plan</p>
                 <a
                   href={`#${formAnchor}`}
-                  className="mt-3 inline-flex rounded-full bg-sv-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white"
+                  className="mt-3 inline-flex rounded-full bg-sv-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#1a1a19]"
                 >
-                  Unlock floor plans
+                  Unlock my floor plans
                 </a>
               </div>
             </div>
           )}
         </div>
-        <div className="grid content-start gap-5 rounded-2xl bg-white p-6 text-sv-navy">
+        <div className="grid content-start gap-5 rounded-2xl bg-white p-6 text-[#004670]">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#004670]/50">
               {u.plans.length > 1 ? `${u.plans.length} plans in this size · choose a unit` : "Unit"}
             </p>
             <div role="tablist" aria-label={`Units of ${u.size} sq ft`} className="mt-3 flex flex-wrap gap-2">
@@ -90,7 +90,7 @@ export function PlanTabs({ formAnchor }: { formAnchor: string }) {
                   aria-selected={x.img === v.img}
                   onClick={() => setJ(n)}
                   className={`rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition ${
-                    x.img === v.img ? "border-sv-orange bg-sv-orange text-white" : "border-sv-navy/20 text-sv-navy hover:border-sv-navy"
+                    x.img === v.img ? "border-sv-orange bg-sv-orange text-[#1a1a19]" : "border-sv-navy/20 text-[#004670] hover:border-sv-navy"
                   }`}
                 >
                   {x.unit} · {x.facing}
@@ -100,35 +100,35 @@ export function PlanTabs({ formAnchor }: { formAnchor: string }) {
           </div>
           <dl className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <dt className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">Home</dt>
+              <dt className="text-xs uppercase tracking-[0.2em] text-[#004670]/50">Home</dt>
               <dd className="mt-1 text-xl font-light">{u.label}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">Size</dt>
+              <dt className="text-xs uppercase tracking-[0.2em] text-[#004670]/50">Size</dt>
               <dd className="mt-1 text-xl font-light">{u.size.toLocaleString("en-IN")} sq ft</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">Facing</dt>
+              <dt className="text-xs uppercase tracking-[0.2em] text-[#004670]/50">Facing</dt>
               <dd className="mt-1 text-xl font-light">{v.facing}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-[0.2em] text-sv-navy/50">Unit</dt>
+              <dt className="text-xs uppercase tracking-[0.2em] text-[#004670]/50">Unit</dt>
               <dd className="mt-1 text-xl font-light">
                 Tower {v.tower} · {v.unit}
               </dd>
             </div>
           </dl>
           <div className="rounded-xl border-l-4 border-sv-orange bg-sv-orange/5 px-4 py-3.5">
-            <p className="text-lg font-semibold text-sv-navy">Book this home with just 5%.</p>
-            <p className="mt-1 text-sm leading-relaxed text-sv-navy/80">
+            <p className="text-lg font-semibold text-[#004670]">Book this home with just 5%.</p>
+            <p className="mt-1 text-sm leading-relaxed text-[#004670]/80">
               {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* Your savings stay with you while your home goes up.")}
             </p>
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-sv-orange">Only on bookings made by 31 Dec 2026.</p>
           </div>
-          <a href={`#${formAnchor}`} className="inline-flex justify-center rounded-full bg-sv-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white">
+          <a href={`#${formAnchor}`} className="inline-flex justify-center rounded-full bg-sv-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#1a1a19]">
             Get my 5% payment schedule
           </a>
-          <p className="text-xs text-sv-navy/60">Typical unit plan from the SkyVue brochure. Furniture is indicative.</p>
+          <p className="text-xs text-[#004670]/60">Typical unit plan from the SkyVue brochure. Furniture is indicative.</p>
         </div>
       </div>
     </div>

@@ -1,7 +1,10 @@
 /*
  * SkyVue LP1 — page styles (scoped with .sv1).
- * Brand: navy #00355D / #002E58, orange #F95300, brochure dawn sky (blush → pale blue).
- * Display: Jost (thin geometric, closest web match to the brand's Rollgates Luxury). Body: Manrope.
+ * Brand: "Vaishno Ventures" design system (tokens.json): navy #142D47, headline-blue #004670,
+ * orange #E55E24, orange-line #EA7723, charcoal #272726, sky ground sky-blush #F4CCC6 → sky-blue #B3CFE2,
+ * page-mist #F6F4F2, page-blue #E8F0F6, on-orange #1A1A19.
+ * Type: display = Josefin Sans (the system's web stand-in for Rollgates Luxury, which has no web licence yet);
+ * stat numerals and wide capital labels = Montserrat; body = Figtree (stand-in for Circular Std).
  * Motion: anime.js v4 (scroll-synced scenes) + Motion for React (UI state).
  * Rule: every fact is in the HTML at full opacity without JS. Hidden start states apply
  * only under html.motion (set in <head> when JS runs and reduced motion is off).
@@ -11,19 +14,23 @@
 
 
 .sv1 {
-  --sv-navy: #00355d;
-  --sv-navy-2: #002e58;
-  --sv-ink: #0b2540;
-  --sv-orange: #f95300;
-  --sv-blush: #f6dcd6;
-  --sv-mauve: #e9e0ea;
-  --sv-sky: #cfe2f1;
-  --sv-paper: #fbfaf8;
-  --sv-mist: #f2f5f9;
-  --sv-muted: #5a6b7c;
-  --sv-line: rgba(0, 53, 93, 0.14);
-  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
-  --sv-display: "Jost Variable", "Futura", "Century Gothic", ui-sans-serif, sans-serif;
+  --sv-navy: #142d47;
+  --sv-navy-2: #142d47;
+  --sv-heading: #004670;
+  --sv-ink: #272726;
+  --sv-orange: #e55e24;
+  --sv-orange-line: #ea7723;
+  --sv-on-orange: #1a1a19;
+  --sv-blush: #f4ccc6;
+  --sv-mauve: #d4ced4;
+  --sv-sky: #b3cfe2;
+  --sv-paper: #f6f4f2;
+  --sv-mist: #e8f0f6;
+  --sv-muted: rgba(39, 39, 38, 0.72);
+  --sv-line: rgba(20, 45, 71, 0.14);
+  --font-sans: "Figtree Variable", "Figtree", system-ui, sans-serif;
+  --sv-display: "Josefin Sans Variable", "Josefin Sans", system-ui, sans-serif;
+  --sv-label: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
   background: var(--sv-paper);
   color: var(--sv-ink);
   font-family: var(--font-sans);
@@ -44,7 +51,7 @@
   background: linear-gradient(180deg, var(--sv-sky) 0%, var(--sv-mauve) 55%, var(--sv-blush) 100%);
 }
 .sv-eyebrow {
-  font: 600 11px/1.2 var(--font-sans);
+  font: 600 11px/1.2 var(--sv-label);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--sv-orange);
@@ -63,7 +70,7 @@
   }
 }
 .sv-section {
-  padding-block: clamp(72px, 10vw, 128px);
+  padding-block: clamp(48px, 7vw, 96px);
   scroll-margin-top: 72px;
 }
 .sv-btn {
@@ -74,7 +81,7 @@
   min-height: 46px;
   padding: 0 22px;
   border-radius: 999px;
-  font: 600 13px/1 var(--font-sans);
+  font: 600 13px/1 var(--sv-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: transform 0.25s, filter 0.25s, background 0.25s;
@@ -86,7 +93,7 @@
 }
 .sv-btn-primary {
   background: var(--sv-orange);
-  color: #fff;
+  color: var(--sv-on-orange);
 }
 .sv-btn-primary:hover {
   filter: brightness(1.08);
@@ -281,7 +288,7 @@ html.motion .sv-open [data-open-end] {
   height: 2px;
   top: var(--reveal, 0%);
   background: linear-gradient(90deg, transparent, var(--sv-orange) 15%, var(--sv-orange) 85%, transparent);
-  box-shadow: 0 0 18px rgba(249, 83, 0, 0.6);
+  box-shadow: 0 0 18px rgba(229, 94, 36, 0.6);
   opacity: 0;
 }
 .sv-hot-list {
@@ -334,7 +341,7 @@ html.motion .sv-build .sv-hot-list li.is-on {
 }
 .sv-hot-list .v {
   font: 300 30px/1 var(--sv-display);
-  color: var(--sv-navy);
+  color: var(--sv-heading);
 }
 .sv-hot-list li.is-on .v {
   color: var(--sv-orange);
@@ -453,7 +460,7 @@ html.motion .sv-build [data-build-frame][style*="--reveal"] .sv-build-render {
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(233, 224, 234, 0.94) 0%, rgba(233, 224, 234, 0.88) 52%, rgba(233, 224, 234, 0) 72%);
+      background: linear-gradient(180deg, rgba(212, 206, 212, 0.94) 0%, rgba(212, 206, 212, 0.88) 52%, rgba(212, 206, 212, 0) 72%);
       opacity: var(--copy-veil, 0);
     }
   }
@@ -488,8 +495,8 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
 @layer components {
   /* Amenities (Amenities.tsx) */
   .sv-amen-wrap {
-    padding-top: max(72px, 9svh);
-    padding-bottom: max(56px, 7svh);
+    padding-top: max(56px, 7svh);
+    padding-bottom: max(48px, 6svh);
   }
   .sv-amen-head {
     display: grid;
@@ -507,7 +514,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     padding: 9px 16px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--sv-navy);
+    color: var(--sv-heading);
     background: var(--sv-mist);
     transition: color 0.3s, background-color 0.3s;
   }
@@ -528,15 +535,15 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
   }
   .sv-amen-groups {
     display: grid;
-    gap: 56px;
-    margin-top: 32px;
+    gap: 36px;
+    margin-top: 24px;
   }
   .sv-amen-group {
     display: grid;
     gap: 20px;
   }
   .sv-amen-fig > span {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 21 / 9;
   }
   .sv-amen-list {
     display: grid;
@@ -545,7 +552,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
   }
   .sv-amen-list li {
     position: relative;
-    padding: 9px 0 9px 18px;
+    padding: 7px 0 7px 18px;
     font-size: 15px;
     color: var(--sv-ink);
     border-top: 1px solid var(--sv-line);
@@ -554,7 +561,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     content: "";
     position: absolute;
     left: 0;
-    top: 17px;
+    top: 15px;
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -650,7 +657,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     position: relative;
     height: 6px;
     border-radius: 99px;
-    background: rgba(0, 53, 93, 0.12);
+    background: rgba(20, 45, 71, 0.12);
     overflow: hidden;
   }
   .sv-pay-bar span {
@@ -763,7 +770,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     color: var(--sv-muted);
   }
   .sv-trust strong {
-    color: var(--sv-navy);
+    color: var(--sv-heading);
   }
   .sv-trust li {
     position: relative;
@@ -808,7 +815,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     background: #fff;
     color: var(--sv-ink);
     padding: 24px;
-    box-shadow: 0 30px 80px -30px rgba(0, 46, 88, 0.45);
+    box-shadow: 0 30px 80px -30px rgba(20, 45, 71, 0.45);
   }
   @media (min-width: 640px) {
     .sv-sform {
@@ -861,7 +868,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     width: 100%;
     min-height: 50px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 53, 93, 0.18);
+    border: 1px solid rgba(20, 45, 71, 0.18);
     background: #fff;
     padding: 0 14px;
     font-size: 16px;
@@ -870,10 +877,10 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
   }
   .sv-field:focus {
     border-color: var(--sv-orange);
-    box-shadow: 0 0 0 3px rgba(249, 83, 0, 0.18);
+    box-shadow: 0 0 0 3px rgba(229, 94, 36, 0.18);
   }
   .sv-sform .sv-btn-ghost {
-    color: var(--sv-navy);
+    color: var(--sv-heading);
     border-color: var(--sv-line);
   }
 
@@ -888,7 +895,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
     border-radius: 20px;
     background: #fff;
     padding: 20px;
-    box-shadow: 0 24px 60px -20px rgba(0, 46, 88, 0.5);
+    box-shadow: 0 24px 60px -20px rgba(20, 45, 71, 0.5);
   }
   @media (min-width: 768px) {
     .sv-nudge {
@@ -905,14 +912,15 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
  * form legibility).
  */
 .sv-night {
-  --sv-paper: #061a30;
-  --sv-mist: #0b2440;
-  --sv-ink: #f3efe8;
-  --sv-muted: #a9b7c6;
+  --sv-paper: #142d47;
+  --sv-mist: #142d47;
+  --sv-ink: #ffffff;
+  --sv-heading: #ffffff;
+  --sv-muted: rgba(255, 255, 255, 0.72);
   --sv-line: rgba(255, 255, 255, 0.12);
-  --sv-sky: #0b2a4a;
-  --sv-mauve: #0a2139;
-  --sv-blush: #071a2e;
+  --sv-sky: #142d47;
+  --sv-mauve: #142d47;
+  --sv-blush: #142d47;
   background: var(--sv-paper);
   color: var(--sv-ink);
 }
@@ -923,36 +931,38 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
 .sv-night [role="dialog"],
 .sv-night form,
 .sv-night [role="status"] {
-  --sv-paper: #fbfaf8;
-  --sv-mist: #f2f5f9;
-  --sv-ink: #0b2540;
-  --sv-muted: #5a6b7c;
-  --sv-line: rgba(0, 53, 93, 0.14);
+  --sv-paper: #f6f4f2;
+  --sv-mist: #e8f0f6;
+  --sv-ink: #272726;
+  --sv-heading: #004670;
+  --sv-muted: rgba(39, 39, 38, 0.72);
+  --sv-line: rgba(20, 45, 71, 0.14);
 }
 .sv-night .sv-head,
 .sv-night .sv-rail {
   color: var(--sv-ink);
 }
 .sv-night main .bg-white:not(form):not(form *):not([role="status"]) {
-  background-color: #0b2440;
+  background-color: #142d47;
 }
 .sv-night main .bg-white\/80 {
-  background-color: rgba(11, 36, 64, 0.8);
+  background-color: rgba(20, 45, 71, 0.8);
 }
 .sv-night main .bg-white\/70 {
-  background-color: rgba(11, 36, 64, 0.7);
+  background-color: rgba(20, 45, 71, 0.7);
 }
 .sv-night .sv-amen {
-  background: #071d35;
+  background: #142d47;
 }
 .sv-night .sv-amen-tabs button {
-  color: #dbe5ef;
+  color: #ffffff;
 }
 .sv-night .sv-amen-tabs button.is-on {
   background: var(--sv-orange);
+  color: var(--sv-on-orange);
 }
 .sv-night .sv-choice {
-  color: #0b2540;
+  color: #272726;
 }
 .sv-night .sv-choice.is-on {
   color: #fff;
@@ -968,7 +978,7 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
 
 /* The story: one held scene over the 3D aerial */
 .sv-story-stage {
-  background: #031326;
+  background: #142d47;
   color: #fff;
 }
 .sv-story-media {
@@ -987,7 +997,8 @@ html[data-bridge="true"] .sv-build [data-build-frame] > img {
   object-fit: cover;
   transition: opacity 0.6s ease;
 }
-.sv-story-poster.is-hidden {
+/* The render fades out only when the 3D view has taken over (motion on). */
+html.motion .sv-story-poster.is-hidden {
   opacity: 0;
 }
 .sv-story-canvas {
@@ -1000,7 +1011,7 @@ html.motion .sv-story-canvas {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(3, 19, 38, 0) 55%, rgba(3, 19, 38, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(20, 45, 71, 0) 55%, rgba(20, 45, 71, 0.9) 100%);
 }
 .sv-story-copy {
   position: relative;
@@ -1030,13 +1041,13 @@ html.motion .sv-story-canvas {
   max-width: 46ch;
   font-size: 17px;
   line-height: 1.6;
-  color: #c8d3df;
+  color: rgba(255, 255, 255, 0.78);
 }
 .sv-story h1 {
   font-family: var(--sv-display) !important;
 }
 .sv-trust-dark {
-  color: #c8d3df;
+  color: rgba(255, 255, 255, 0.78);
 }
 .sv-trust-dark strong {
   color: #fff;
@@ -1108,8 +1119,8 @@ html.motion .sv-story-note {
   }
   html.motion .sv-story .sv-story-scrim {
     background:
-      linear-gradient(90deg, #031326 0%, rgba(3, 19, 38, 0.55) 16%, rgba(3, 19, 38, 0) 34%),
-      linear-gradient(180deg, rgba(3, 19, 38, 0.4) 0%, rgba(3, 19, 38, 0) 18%, rgba(3, 19, 38, 0) 82%, rgba(3, 19, 38, 0.6) 100%);
+      linear-gradient(90deg, #142d47 0%, rgba(20, 45, 71, 0.55) 16%, rgba(20, 45, 71, 0) 34%),
+      linear-gradient(180deg, rgba(20, 45, 71, 0.4) 0%, rgba(20, 45, 71, 0) 18%, rgba(20, 45, 71, 0) 82%, rgba(20, 45, 71, 0.6) 100%);
   }
   /* the copy sits centred in the space left of the aerial, never over it */
   html.motion .sv-story .sv-beat {
@@ -1132,7 +1143,7 @@ html.motion .sv-story-note {
     height: 38svh;
   }
   html.motion .sv-story .sv-story-scrim {
-    background: linear-gradient(180deg, rgba(3, 19, 38, 0) 70%, #031326 100%);
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0) 70%, #142d47 100%);
   }
   html.motion .sv-story .sv-beat {
     left: 16px;
@@ -1161,13 +1172,13 @@ html.motion .sv-story-note {
   }
 }
 .sv-night .sv-sky {
-  background: linear-gradient(160deg, #0b2a4a 0%, #08203a 55%, #061a30 100%);
+  background: linear-gradient(160deg, #142d47 0%, #142d47 55%, #142d47 100%);
 }
-.sv-night main [class*="text-[var(--sv-navy)]"]:not(form *):not(.sv-sform *):not(.sv-choice) {
-  color: #9fc4e8;
+.sv-night main [class*="text-[var(--sv-heading)]"]:not(form *):not(.sv-sform *):not(.sv-choice) {
+  color: #ffffff;
 }
-.sv-night main .text-sv-navy:not(form *):not([role="status"] *) {
-  color: #9fc4e8;
+.sv-night main .text-sv-heading:not(form *):not([role="status"] *) {
+  color: #ffffff;
 }
 @media (max-width: 899px) {
   html.motion .sv-story-dots {
@@ -1276,7 +1287,7 @@ html.motion .sv-story-note {
 .sv-plan-offer-hook {
   font-size: 18px;
   font-weight: 600;
-  color: var(--sv-navy);
+  color: var(--sv-heading);
 }
 .sv-plan-offer-body {
   margin-top: 4px;
@@ -1293,7 +1304,7 @@ html.motion .sv-story-note {
   color: var(--sv-orange);
 }
 .sv-night .sv-plan-offer {
-  background: rgba(249, 83, 0, 0.12);
+  background: rgba(229, 94, 36, 0.12);
 }
 .sv-night .sv-plan-offer-hook {
   color: #fff;
@@ -1307,7 +1318,7 @@ html.motion .sv-story-note {
   position: relative;
   height: 100svh;
   overflow: hidden;
-  background: #0b2540;
+  background: #142d47;
   --p: 0;
 }
 html.motion .sv-frames-stage {
@@ -1344,7 +1355,7 @@ html.motion .sv-frames-stage {
   position: absolute;
   inset: auto 0 0 0;
   padding: 140px 0 calc(var(--sv-rail-h, 64px) + 40px);
-  background: linear-gradient(180deg, rgba(5, 18, 34, 0) 0%, rgba(5, 18, 34, 0.55) 45%, rgba(5, 18, 34, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(20, 45, 71, 0) 0%, rgba(20, 45, 71, 0.55) 45%, rgba(20, 45, 71, 0.82) 100%);
   color: #fff;
   pointer-events: none;
 }
@@ -1360,7 +1371,7 @@ html.motion .sv-frames-copy-inner {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #ffb08a;
+  color: #ea7723;
 }
 .sv-frames-title {
   margin-top: 10px;
@@ -1405,7 +1416,7 @@ html.motion .sv-frames-cta {
     margin-top: 28px;
   }
   html.motion .sv-hood-m {
-    height: 170svh;
+    height: 125svh;
   }
   .sv-hood-m-stage {
     display: flex;
@@ -1441,7 +1452,7 @@ html.motion .sv-frames-cta {
     background: #fff;
   }
   .sv-hood-m-chip b {
-    color: var(--sv-navy);
+    color: var(--sv-heading);
     font-weight: 600;
   }
   .sv-hood-m-chip.is-sv {
@@ -1514,7 +1525,7 @@ html.motion .sv-story-dots {
 .sv-bar-hit:hover .sv-bar-fill,
 .sv-bar-hit.is-open .sv-bar-fill {
   filter: brightness(1.12) saturate(1.1);
-  box-shadow: 0 0 0 3px rgba(249, 83, 0, 0.18);
+  box-shadow: 0 0 0 3px rgba(229, 94, 36, 0.18);
 }
 .sv-bar-hit:focus-visible {
   outline: none;
@@ -1535,8 +1546,8 @@ html.motion .sv-story-dots {
   text-align: left;
   white-space: normal;
   color: #fff;
-  background: #0b2540;
-  box-shadow: 0 18px 40px -18px rgba(0, 27, 54, 0.6);
+  background: #142d47;
+  box-shadow: 0 18px 40px -18px rgba(20, 45, 71, 0.6);
   opacity: 0;
   visibility: hidden;
   transform: translateY(6px);
@@ -1558,7 +1569,7 @@ html.motion .sv-story-dots {
   position: absolute;
   top: 100%;
   border: 7px solid transparent;
-  border-top-color: #0b2540;
+  border-top-color: #142d47;
 }
 .sv-bar-tip.is-start::after {
   left: 18px;
@@ -1581,7 +1592,7 @@ html.motion .sv-story-dots {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #ffb08a;
+  color: #ea7723;
 }
 .sv-bar-tip-v {
   font-size: 18px;
@@ -1594,7 +1605,7 @@ html.motion .sv-story-dots {
 }
 /* dark pages: a light card so it stands off the navy */
 .sv-night .sv-bar-tip {
-  color: #0b2540;
+  color: #272726;
   background: #fff;
 }
 .sv-night .sv-bar-tip::after {
@@ -1604,7 +1615,7 @@ html.motion .sv-story-dots {
   color: var(--sv-orange);
 }
 .sv-night .sv-bar-tip-d {
-  color: rgba(11, 37, 64, 0.72);
+  color: rgba(20, 45, 71, 0.72);
 }
 .sv-bar-hint {
   display: inline-flex;
@@ -1638,4 +1649,70 @@ html.motion .sv-story-dots {
   .sv-bar-tip {
     transition: none;
   }
+}
+
+/* ── Vaishno Ventures design system: fonts (OFL, self-hosted in /public/fonts) ── */
+@font-face {
+  font-family: "Josefin Sans Variable";
+  src: url("/fonts/josefin-sans-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat Variable";
+  src: url("/fonts/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Figtree Variable";
+  src: url("/fonts/figtree-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Stat numerals (570, 943, 5%, the countdown) in Montserrat SemiBold, as in the brochure. */
+.sv1 .sv-display.sv-tnum,
+.sv1 .sv-cd-units strong,
+.sv1 .sv-cd-bar strong {
+  font-family: var(--sv-label);
+  font-weight: 600;
+}
+.sv1 .sv-cd-label,
+.sv1 .sv-cd-units span {
+  font-family: var(--sv-label);
+}
+
+/* Animations off (prefers-reduced-motion, or no JS): every fact stays on screen. */
+html:not(.motion) .sv-alt-gauge li .sv-alt-d {
+  display: block;
+}
+html:not(.motion) .sv-alt-gauge li {
+  opacity: 1;
+}
+html:not(.motion) .sv-story-note {
+  display: block;
+  margin-top: 16px;
+}
+@media (min-width: 900px) {
+  html:not(.motion) .sv-story .sv-story-media {
+    aspect-ratio: auto;
+    height: min(62vh, 600px);
+  }
+}
+
+/* Forms and the enquiry drawer always use dark text on their white cards, whatever page theme
+   (LP2 night) sits behind them. */
+.sv1 form:not(.sv-form-dark),
+.sv1 [role="dialog"] .bg-white {
+  color: #004670;
+}
+.sv1 form:not(.sv-form-dark) input,
+.sv1 form:not(.sv-form-dark) select {
+  color: #004670;
+}
+.sv1 form:not(.sv-form-dark) ::placeholder {
+  color: rgba(0, 70, 112, 0.45);
 }

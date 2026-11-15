@@ -2,12 +2,12 @@
 
 import { privacyUrl } from "@/data/lp-paths";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { formOptions, skyvue, units } from "@/data/skyvue-landing";
 import { lp2, whatYouGet } from "@/data/skyvue-lp2";
 import { Check, WhatsApp } from "@/components/Icons";
-import { sendLead } from "../LeadForm";
+import { Honeypot, sendLead } from "../LeadForm";
 import { useHomeSize } from "./useHomeSize";
 
 type Step = 0 | 1 | 2;
@@ -29,6 +29,11 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState("");
+  const [hp, setHp] = useState("");
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
   const dark = tone === "dark";
 
   const go = (n: Step) => {
@@ -47,7 +52,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
     if (!consent) return setError("Please agree to be contacted.");
     setError("");
     setState("sending");
-    const ok = await sendLead({ name: name.trim(), phone: p, budget, timeline, intent: "payment_schedule", pageId: lp2.id, pageSlug: lp2.slug, formId, defaultVersion: lp2.defaultVersion });
+    const ok = await sendLead({ name: name.trim(), phone: p, budget, timeline, intent: "payment_schedule", pageId: lp2.id, pageSlug: lp2.slug, formId, defaultVersion: lp2.defaultVersion, hp, startedAt: startedAt.current });
     if (ok) setState("done");
     else {
       setState("error");
@@ -61,7 +66,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
   if (state === "done") {
     return (
       <div className={`sv-sform ${dark ? "is-dark" : ""}`} role="status">
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--sv-orange)] text-white">
+        <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--sv-orange)] text-[var(--sv-on-orange)]">
           <Check />
         </span>
         <p className="sv-display mt-5 text-[26px] font-light leading-tight">Thank you, {name.split(" ")[0]}. Your schedule is on its way.</p>
@@ -145,12 +150,14 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
 
           {step === 2 && (
             <form
+              className={dark ? "sv-form-dark" : undefined}
               noValidate
               onSubmit={(e) => {
                 e.preventDefault();
                 submit();
               }}
             >
+              <Honeypot id={`${formId}-website`} value={hp} onChange={setHp} />
               <p className="sv-display text-[24px] font-light leading-tight sm:text-[28px]">Where should we send it?</p>
               <div className="mt-5 grid gap-2">
                 <label className="sr-only" htmlFor={`${formId}-name`}>
@@ -175,7 +182,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
                   />
                 </div>
                 <label className="mt-1 flex items-start gap-2 text-[12px] leading-snug opacity-75">
-                  <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-[#f95300]" />
+                  <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-[#e55e24]" />
                   <span>
                     I agree to be contacted by Vaishno Ventures about SkyVue by call, SMS and WhatsApp. See our{" "}
                     <Link href={privacyUrl} className="underline">
@@ -210,7 +217,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-[11px] opacity-60">TS RERA {skyvue.rera} · No spam, ever.</p>
+      <p className="mt-4 text-[11px] opacity-60">No cost, no obligation, no spam. TS RERA {skyvue.rera}</p>
     </div>
   );
 }

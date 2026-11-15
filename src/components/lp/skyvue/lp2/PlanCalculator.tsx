@@ -44,7 +44,7 @@ export function PlanCalculator() {
           <p className="sv-eyebrow" data-reveal>
             Your 5%, by size
           </p>
-          <h2 id="calc-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-ink)] sm:text-[44px]" data-reveal>
+          <h2 id="calc-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[44px]" data-reveal>
             Pick your home. See what it takes to make it yours.
           </h2>
           <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-[var(--sv-muted)]" data-reveal>
@@ -84,7 +84,7 @@ export function PlanCalculator() {
                 role="radio"
                 aria-checked={u.size === size}
                 onClick={() => choose(u.size)}
-                className={`sv-tnum relative rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${u.size === size ? "text-white" : "text-[var(--sv-navy)] hover:bg-[var(--sv-mist)]"}`}
+                className={`sv-tnum relative rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${u.size === size ? "text-white" : "text-[var(--sv-heading)] hover:bg-[var(--sv-mist)]"}`}
               >
                 {u.size === size && <motion.span layoutId="sv-calc-pill" className="absolute inset-0 rounded-full bg-[var(--sv-navy)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                 <span className="relative">{u.size.toLocaleString("en-IN")} sq ft</span>

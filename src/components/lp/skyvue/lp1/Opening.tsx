@@ -70,7 +70,7 @@ export function Opening() {
 
   const v = lp.hero[lp.defaultVersion];
   return (
-    <section ref={ref} className="sv-pin sv-open sv-sky" style={{ ["--pin" as string]: "200svh" }} aria-label="Vaishno SkyVue">
+    <section ref={ref} className="sv-pin sv-open sv-sky" style={{ ["--pin" as string]: "150svh" }} aria-label="Vaishno SkyVue">
       <div className="sv-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -124,7 +124,7 @@ export function Opening() {
             </ul>
             <div data-open-end className="mt-8 flex flex-wrap gap-3">
               <button type="button" onClick={() => openEnquiry("hero", lp.intent === "site_visit" ? "site_visit" : "enquiry")} className="sv-btn sv-btn-primary">
-                {lp.heroCta ?? "Get floor plans & cost sheet"}
+                {lp.heroCta ?? "Send me floor plans & cost sheet"}
               </button>
               <a
                 href={`https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent("Hi, I'd like the SkyVue floor plans and cost sheet.")}`}

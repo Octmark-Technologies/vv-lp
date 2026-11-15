@@ -24,7 +24,7 @@ function draw(canvas: HTMLCanvasElement, cols: number, total: number, shown: num
     const y = h - (Math.floor(i / cols) * step + step / 2); // fill from the bottom, like floors
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = i < shown ? (i < mark ? color : faint) : "rgba(0,53,93,0.06)";
+    ctx.fillStyle = i < shown ? (i < mark ? color : faint) : "rgba(20, 45, 71, 0.06)";
     ctx.fill();
   }
 }
@@ -61,11 +61,11 @@ export function Neighbourhood() {
     const last = { a: 1, b: 1 };
     const paintA = (p: number) => {
       last.a = p;
-      if (a.current) draw(a.current, 15, 570, Math.round(570 * p), 570, "#F95300", "#F95300");
+      if (a.current) draw(a.current, 15, 570, Math.round(570 * p), 570, "#e55e24", "#e55e24");
     };
     const paintB = (p: number) => {
       last.b = p;
-      if (b.current) draw(b.current, 45, townshipMax, Math.round(townshipMax * p), townshipMin, "rgba(0,53,93,0.55)", "rgba(0,53,93,0.22)");
+      if (b.current) draw(b.current, 45, townshipMax, Math.round(townshipMax * p), townshipMin, "rgba(20, 45, 71, 0.55)", "rgba(20, 45, 71, 0.22)");
     };
     const onResize = () => {
       paintA(last.a);
@@ -188,7 +188,7 @@ export function Neighbourhood() {
 
   const [line1, line2] = lp1Angle.title.split(/(?<=\.)\s+/);
   return (
-    <section ref={ref} className="sv-hood sv-pin bg-white" style={{ ["--pin" as string]: "240svh" }} aria-labelledby="hood-title">
+    <section ref={ref} className="sv-hood sv-pin bg-white" style={{ ["--pin" as string]: "160svh" }} aria-labelledby="hood-title">
       <div className="sv-stage sv-hood-stage">
         <div className="sv-wrap sv-hood-wrap">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
@@ -196,7 +196,7 @@ export function Neighbourhood() {
               <p className="sv-eyebrow" data-eyebrow>
                 {lp1Angle.eyebrow}
               </p>
-              <h2 id="hood-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-ink)] sm:text-[46px]">
+              <h2 id="hood-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[46px]">
                 <span className="block" data-h1>
                   {line1}
                 </span>{" "}
@@ -212,7 +212,7 @@ export function Neighbourhood() {
                 {lp1Angle.points.map((pt) => (
                   <div key={pt.label} className="sv-hood-stat flex flex-col pt-4" data-stat>
                     <dt className="text-[13px] font-semibold text-[var(--sv-ink)]">{pt.label}</dt>
-                    <dd className="sv-display sv-tnum order-first mt-1 text-[38px] font-light leading-none text-[var(--sv-navy)]" data-stat-val data-value={pt.value}>
+                    <dd className="sv-display sv-tnum order-first mt-1 text-[38px] font-light leading-none text-[var(--sv-heading)]" data-stat-val data-value={pt.value}>
                       {pt.value}
                     </dd>
                     <dd className="mt-1 text-[13px] text-[var(--sv-muted)]">{pt.text}</dd>
@@ -221,7 +221,7 @@ export function Neighbourhood() {
               </dl>
               <div data-cta className="mt-10">
                 <button type="button" onClick={() => openEnquiry("neighbourhood")} className="sv-btn sv-btn-primary">
-                  Get floor plans & cost sheet
+                  Send me floor plans & cost sheet
                 </button>
               </div>
             </div>
@@ -237,7 +237,7 @@ export function Neighbourhood() {
                 </div>
                 <div className="min-w-0" data-fig-b>
                   <canvas ref={b} className="block w-full" aria-hidden="true" />
-                  <p className="mt-3 text-[13px] font-semibold text-[var(--sv-navy)]">Other projects nearby</p>
+                  <p className="mt-3 text-[13px] font-semibold text-[var(--sv-heading)]">Other projects nearby</p>
                   <p className="sv-display sv-tnum text-[28px] font-light leading-none">
                     <span data-min-b>{townshipMin.toLocaleString("en-IN")}–</span>
                     <span data-count-b>{townshipMax.toLocaleString("en-IN")}</span> homes
@@ -307,8 +307,8 @@ function HoodMobileChart({ min, max }: { min: number; max: number }) {
       for (let i = 0; i < max; i++) {
         const x = (i % cols) * step + step / 2;
         const y = h - (Math.floor(i / cols) * step + step / 2);
-        let fill = "rgba(0,53,93,0.07)";
-        if (i < n2) fill = "#F95300";
+        let fill = "rgba(20, 45, 71, 0.07)";
+        if (i < n2) fill = "#e55e24";
         else if (i < n1) fill = i < min ? `rgba(0,53,93,${(0.62 * k).toFixed(3)})` : `rgba(0,53,93,${(0.3 * k).toFixed(3)})`;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);

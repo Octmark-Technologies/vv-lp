@@ -2,7 +2,7 @@
 
 /* ── Site live (hero over the scroll-scrubbed drone frames) ───── */
 .sv-live .sv-frames-stage {
-  background: #0a1626;
+  background: #142d47;
 }
 .sv-live-badge {
   position: absolute;
@@ -18,23 +18,23 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   color: #fff;
-  background: rgba(0, 20, 40, 0.55);
+  background: rgba(20, 45, 71, 0.55);
   backdrop-filter: blur(6px);
 }
 .sv-live-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ff3b30;
-  box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6);
+  background: #e55e24;
+  box-shadow: 0 0 0 0 rgba(229, 94, 36, 0.6);
   animation: sv-live-pulse 1.8s infinite;
 }
 @keyframes sv-live-pulse {
   70% {
-    box-shadow: 0 0 0 8px rgba(255, 59, 48, 0);
+    box-shadow: 0 0 0 8px rgba(229, 94, 36, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    box-shadow: 0 0 0 0 rgba(229, 94, 36, 0);
   }
 }
 .sv-live-copy {
@@ -46,8 +46,8 @@
   padding-top: calc(var(--sv-head, 64px) + 24px);
   padding-bottom: calc(var(--sv-rail-h, 64px) + 36px);
   background:
-    linear-gradient(180deg, rgba(4, 16, 32, 0.7) 0%, rgba(4, 16, 32, 0) 24%),
-    linear-gradient(90deg, rgba(4, 16, 32, 0.86) 0%, rgba(4, 16, 32, 0.6) 40%, rgba(4, 16, 32, 0.05) 75%);
+    linear-gradient(180deg, rgba(20, 45, 71, 0.7) 0%, rgba(20, 45, 71, 0) 24%),
+    linear-gradient(90deg, rgba(20, 45, 71, 0.86) 0%, rgba(20, 45, 71, 0.6) 40%, rgba(20, 45, 71, 0.05) 75%);
 }
 .sv-live h1 {
   font-size: clamp(34px, 3.9vw, 56px);
@@ -76,7 +76,7 @@
 @media (max-width: 767px) {
   .sv-live-copy {
     padding-bottom: calc(var(--sv-rail-h, 104px) + 20px);
-    background: linear-gradient(180deg, rgba(4, 16, 32, 0.4) 0%, rgba(4, 16, 32, 0.3) 12%, rgba(4, 16, 32, 0.86) 28%, rgba(4, 16, 32, 0.95) 60%);
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0.4) 0%, rgba(20, 45, 71, 0.3) 12%, rgba(20, 45, 71, 0.86) 28%, rgba(20, 45, 71, 0.95) 60%);
   }
   .sv-live .sv-cd {
     display: none;
@@ -104,7 +104,7 @@
 
 /* ── Proof ledger ───────────────────────────────────────────── */
 .sv-ledger {
-  background: #001b36;
+  background: #142d47;
   color: #fff;
 }
 .sv-ledger-stage {
@@ -196,8 +196,8 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #3ddc84;
-  background: rgba(37, 211, 102, 0.16);
+  color: #ea7723;
+  background: rgba(234, 119, 35, 0.16);
   padding: 3px 8px;
   border-radius: 999px;
 }

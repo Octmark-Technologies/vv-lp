@@ -46,8 +46,8 @@ export const lp2 = {
     },
     visit: "/lp/skyvue/fr/entrance.webp",
   },
-  formTitle: "Get the payment schedule for your size",
-  formCta: "Send my payment schedule",
+  formTitle: "Get your 5% payment schedule for your size",
+  formCta: "Send my 5% payment schedule",
   offerEnds: "2026-12-31T23:59:59+05:30",
   seo: {
     title: "Vaishno SkyVue Tellapur | Pay 5% to Book | Exclusive 3 BHK Luxury Homes",

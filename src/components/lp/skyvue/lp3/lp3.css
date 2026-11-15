@@ -33,8 +33,8 @@
   min-height: 420px;
   border-radius: 28px;
   overflow: hidden;
-  background: #cfe2f1;
-  box-shadow: 0 40px 80px -40px rgba(0, 27, 54, 0.45);
+  background: #b3cfe2;
+  box-shadow: 0 40px 80px -40px rgba(20, 45, 71, 0.45);
 }
 .sv-alt-cam {
   position: absolute;
@@ -63,8 +63,8 @@ html:not(.motion) .sv-alt-cam img {
   right: 0;
   top: 14%;
   height: 2px;
-  background: linear-gradient(90deg, rgba(249, 83, 0, 0) 0%, var(--sv-orange) 18%, var(--sv-orange) 82%, rgba(249, 83, 0, 0) 100%);
-  box-shadow: 0 0 18px rgba(249, 83, 0, 0.75);
+  background: linear-gradient(90deg, rgba(229, 94, 36, 0) 0%, var(--sv-orange) 18%, var(--sv-orange) 82%, rgba(229, 94, 36, 0) 100%);
+  box-shadow: 0 0 18px rgba(229, 94, 36, 0.75);
   pointer-events: none;
 }
 .sv-alt-read {
@@ -75,7 +75,7 @@ html:not(.motion) .sv-alt-cam img {
   border-radius: 999px;
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: var(--sv-on-orange, #1a1a19);
   background: var(--sv-orange);
   white-space: nowrap;
 }
@@ -92,9 +92,9 @@ html:not(.motion) .sv-alt-cam img {
   padding: 12px 12px 12px 18px;
   list-style: none;
   border-radius: 18px;
-  background: rgba(251, 250, 248, 0.7);
+  background: rgba(246, 244, 242, 0.7);
   backdrop-filter: blur(8px);
-  border-left: 2px solid rgba(0, 53, 93, 0.15);
+  border-left: 2px solid rgba(20, 45, 71, 0.15);
 }
 .sv-alt-gauge li {
   position: relative;
@@ -111,8 +111,8 @@ html:not(.motion) .sv-alt-cam img {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #fbfaf8;
-  border: 2px solid rgba(0, 53, 93, 0.3);
+  background: #f6f4f2;
+  border: 2px solid rgba(20, 45, 71, 0.3);
 }
 .sv-alt-gauge li.is-done {
   opacity: 0.7;
@@ -128,13 +128,13 @@ html:not(.motion) .sv-alt-cam img {
 .sv-alt-gauge li.is-on::before {
   background: var(--sv-orange);
   border-color: var(--sv-orange);
-  box-shadow: 0 0 0 5px rgba(249, 83, 0, 0.2);
+  box-shadow: 0 0 0 5px rgba(229, 94, 36, 0.2);
 }
 .sv-alt-k {
   display: block;
   font-size: 13px;
   font-weight: 700;
-  color: var(--sv-navy);
+  color: var(--sv-heading);
 }
 .sv-alt-d {
   display: block;
@@ -179,7 +179,7 @@ html:not(.motion) .sv-alt-cam img {
 .sv-view-stage {
   height: 100svh;
   overflow: hidden;
-  background: #0a1730;
+  background: #142d47;
 }
 html:not(.motion) .sv-view-stage {
   height: auto;
@@ -203,7 +203,7 @@ html:not(.motion) .sv-view-stage {
 .sv-view-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(5, 18, 34, 0.75) 0%, rgba(5, 18, 34, 0.35) 42%, rgba(5, 18, 34, 0) 70%);
+  background: linear-gradient(90deg, rgba(20, 45, 71, 0.75) 0%, rgba(20, 45, 71, 0.35) 42%, rgba(20, 45, 71, 0) 70%);
   pointer-events: none;
 }
 .sv-view-copy {
@@ -228,7 +228,7 @@ html:not(.motion) .sv-view-beat {
 }
 @media (max-width: 767px) {
   .sv-view-scrim {
-    background: linear-gradient(180deg, rgba(5, 18, 34, 0) 30%, rgba(5, 18, 34, 0.85) 75%);
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0) 30%, rgba(20, 45, 71, 0.85) 75%);
   }
   .sv-view-copy {
     align-items: end;
@@ -242,7 +242,7 @@ html:not(.motion) .sv-view-beat {
 
 /* ── Down there / Up here ───────────────────────────────────── */
 .sv-downup {
-  background: var(--sv-paper, #fbfaf8);
+  background: var(--sv-paper, #f6f4f2);
 }
 .sv-downup-grid {
   display: grid;
@@ -258,8 +258,8 @@ html:not(.motion) .sv-view-beat {
   padding: clamp(20px, 3vw, 32px);
 }
 .sv-downup-col.is-down {
-  background: #e9e6e1;
-  color: #4a4f57;
+  background: #e8f0f6;
+  color: #272726;
 }
 .sv-downup-col.is-up {
   background: var(--sv-navy);
@@ -272,7 +272,7 @@ html:not(.motion) .sv-view-beat {
   text-transform: uppercase;
 }
 .sv-downup-col.is-up .sv-downup-k {
-  color: #ffb08a;
+  color: #ea7723;
 }
 .sv-downup-col ul {
   margin: 18px 0 0;

@@ -20,8 +20,8 @@ export function PayAside({ floors, phase }: { floors: number; phase: number }) {
   return (
     <div>
       <p className="sv-eyebrow">How the 5% plan works</p>
-      <h2 id="build-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-ink)] sm:text-[40px]">
-        Your money moves with the building.
+      <h2 id="build-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-heading)] sm:text-[40px]">
+        Pay only as your building rises.
       </h2>
 
       <div className="sv-pay-meter mt-6">
@@ -39,7 +39,7 @@ export function PayAside({ floors, phase }: { floors: number; phase: number }) {
           <span style={{ transform: `scaleX(${floors / 36})` }} />
         </div>
         <p className="sv-tnum mt-2 text-[13px] text-[var(--sv-muted)]">
-          <strong className="text-[var(--sv-navy)]">{floors}</strong> of 36 storeys rise. You stay at 5%.
+          <strong className="text-[var(--sv-heading)]">{floors}</strong> of 36 storeys rise. You stay at 5%.
         </p>
         <AnimatePresence mode="wait">
           <motion.p
@@ -65,7 +65,7 @@ export function PayAside({ floors, phase }: { floors: number; phase: number }) {
         ))}
       </ol>
       <button type="button" onClick={() => openEnquiry("pay-scene", "payment_schedule")} className="sv-btn sv-btn-primary mt-6">
-        Get my payment schedule
+        Get my 5% payment schedule
       </button>
       <p className="mt-3 text-[12px] text-[var(--sv-muted)]">
         <a href="#terms" className="underline underline-offset-2">

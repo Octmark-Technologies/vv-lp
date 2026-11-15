@@ -87,13 +87,13 @@ export function Amenities() {
   };
 
   return (
-    <section ref={ref} className="sv-pin sv-amen bg-[var(--sv-paper)]" style={{ ["--pin" as string]: "280svh" }} aria-labelledby="amen-title" id="amenities">
+    <section ref={ref} className="sv-pin sv-amen bg-[var(--sv-paper)]" style={{ ["--pin" as string]: "180svh" }} aria-labelledby="amen-title" id="amenities">
       <div className="sv-stage">
         <div className="sv-wrap sv-amen-wrap">
           <div className="sv-amen-head">
             <div className="min-w-0">
               <p className="sv-eyebrow">Amenities · Exclusive to 570 families</p>
-              <h2 id="amen-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-ink)] sm:text-[40px]">
+              <h2 id="amen-title" className="mt-3 text-[28px] leading-tight text-[var(--sv-heading)] sm:text-[40px]">
                 <span data-amen-count className="sv-tnum">
                   {amenityCount}
                 </span>{" "}
@@ -120,7 +120,7 @@ export function Amenities() {
                   <figcaption className="mt-2 text-[12px] text-[var(--sv-muted)]">{pics[g.id]?.caption ?? g.caption}</figcaption>
                 </figure>
                 <div className="min-w-0">
-                  <h3 id={`amen-${g.id}`} className="text-[24px] leading-tight text-[var(--sv-ink)] sm:text-[30px]">
+                  <h3 id={`amen-${g.id}`} className="text-[24px] leading-tight text-[var(--sv-heading)] sm:text-[30px]">
                     {g.title}
                   </h3>
                   <p className="mt-2 text-[15px] text-[var(--sv-muted)]">{g.line}</p>
@@ -141,7 +141,7 @@ export function Amenities() {
               Also at SkyVue: {amenityExtras.join(", ")}. Listed from the SkyVue master plan.
             </p>
             <button type="button" onClick={() => openEnquiry("amenities")} className="sv-btn sv-btn-primary">
-              Get the amenities brochure
+              Send me the amenities brochure
             </button>
           </div>
         </div>

@@ -52,9 +52,13 @@ next-env.d.ts
 /.taste-skill/
 
 # Raw source video (never commit)
-*.mp4
-*.mov
+# raw footage at the folder root stays out; compressed web films in public/ are committed
+/*.mp4
+/*.mov
 !.env.example
 
 # Raw site photos (compressed copies live in public/progress)
 /WhatsApp Image*.jpeg
+
+# local launcher
+*.command

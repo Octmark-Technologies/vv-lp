@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import type { ReactNode } from "react";
-import "@fontsource-variable/manrope";
 import "./globals.css";
 import { motionBootScript } from "@/lib/motion";
 
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#00355d" };
+export const viewport: Viewport = { themeColor: "#142d47" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

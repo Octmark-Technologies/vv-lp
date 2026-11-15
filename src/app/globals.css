@@ -11,18 +11,21 @@
   --color-brass-light: #d6bd8f;
   --color-muted: #5f6b66;
 
-  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Josefin Sans Variable", "Josefin Sans", system-ui, sans-serif;
+  --font-sans: "Figtree Variable", "Figtree", system-ui, sans-serif;
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* SkyVue brand (Skyvue_Brand Guidelines.pdf) — used by /lp/ landing pages */
-  --color-sv-navy: #002e58;
-  --color-sv-navy-deep: #001b36;
-  --color-sv-orange: #f95300;
-  --color-sv-blush: #f5ddd8;
-  --color-sv-sky: #d2e3f1;
-  --color-sv-mist: #f4f7fb;
+  /* Vaishno Ventures design system (tokens.json) — used by the landing pages */
+  --color-sv-navy: #142d47;
+  --color-sv-heading: #004670;
+  --color-sv-orange-line: #ea7723;
+  --color-sv-on-orange: #1a1a19;
+  --color-sv-navy-deep: #142d47;
+  --color-sv-orange: #e55e24;
+  --color-sv-blush: #f4ccc6;
+  --color-sv-sky: #b3cfe2;
+  --color-sv-mist: #e8f0f6;
 }
 
 @layer base {
@@ -129,5 +132,5 @@ html.motion [data-anim="draw"] {
 
 /* SkyVue landing pages — brochure "sky" gradient */
 .sv-sky {
-  background: linear-gradient(115deg, var(--color-sv-blush) 0%, #ecdfe6 40%, var(--color-sv-sky) 100%);
+  background: linear-gradient(115deg, var(--color-sv-blush) 0%, #d4ced4 40%, var(--color-sv-sky) 100%);
 }

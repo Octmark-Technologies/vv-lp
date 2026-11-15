@@ -20,7 +20,7 @@ export function Lp2Enquire() {
           <p className="sv-eyebrow" data-reveal>
             {lp2.formTitle}
           </p>
-          <h2 id="enq-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-ink)] sm:text-[44px]" data-reveal>
+          <h2 id="enq-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[44px]" data-reveal>
             See your 5% plan for {size.toLocaleString("en-IN")} sq ft before the offer closes.
           </h2>
           <p className="mt-5 max-w-[54ch] text-[17px] leading-relaxed text-[var(--sv-muted)]" data-reveal>
@@ -29,22 +29,22 @@ export function Lp2Enquire() {
           </p>
           <ul className="mt-8 grid max-w-xl grid-cols-2 gap-4" data-reveal>
             <li>
-              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-navy)]">5%</span>
+              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-heading)]">5%</span>
               <span className="mt-1 block text-[13px] text-[var(--sv-muted)]">
                 to book, then nothing more till your block&apos;s structure is complete
                 <Star />
               </span>
             </li>
             <li>
-              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-navy)]">570</span>
+              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-heading)]">570</span>
               <span className="mt-1 block text-[13px] text-[var(--sv-muted)]">exclusive 3 BHK homes only</span>
             </li>
             <li>
-              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-navy)]">{trackRecord.families}</span>
+              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-heading)]">{trackRecord.families}</span>
               <span className="mt-1 block text-[13px] text-[var(--sv-muted)]">families in homes Vaishno delivered</span>
             </li>
             <li>
-              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-navy)]">31 Dec</span>
+              <span className="sv-display sv-tnum block text-[30px] font-light leading-none text-[var(--sv-heading)]">31 Dec</span>
               <span className="mt-1 block text-[13px] text-[var(--sv-muted)]">offer on bookings till {skyvue.offer.validTill}</span>
             </li>
           </ul>

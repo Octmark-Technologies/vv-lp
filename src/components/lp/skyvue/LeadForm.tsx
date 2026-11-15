@@ -2,7 +2,7 @@
 
 import { privacyUrl } from "@/data/lp-paths";
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { formOptions, skyvue } from "@/data/skyvue-landing";
 import { Check, WhatsApp } from "@/components/Icons";
 
@@ -43,6 +43,9 @@ export async function sendLead(f: {
   formId: string;
   /** The page's default message version, reported when the URL has no ?v. */
   defaultVersion?: string;
+  /** Bot checks: the honeypot field's value (humans leave it empty) and when the form appeared. */
+  hp?: string;
+  startedAt?: number;
 }): Promise<boolean> {
   const { sp, out } = readParams();
   let firstTouch: unknown = null;
@@ -72,6 +75,9 @@ export async function sendLead(f: {
     referrer: document.referrer || null,
     home_size: homeSize,
     otpVerified: false,
+    // Bot checks, enforced in /api/enquiry/ (never shown to people).
+    website: f.hp ?? "",
+    form_ms: f.startedAt ? Date.now() - f.startedAt : 0,
   };
   try {
     const res = await fetch("/api/enquiry/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
@@ -124,6 +130,10 @@ export function LeadForm({
 }) {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState("");
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   // Keep the first-touch source for the session (survives internal navigation).
   useEffect(() => {
@@ -147,7 +157,7 @@ export function LeadForm({
     setError("");
     setState("sending");
 
-    const ok = await sendLead({ name: fd.name.trim(), phone, budget: fd.budget, timeline: fd.timeline, intent, pageId, pageSlug, formId });
+    const ok = await sendLead({ name: fd.name.trim(), phone, budget: fd.budget, timeline: fd.timeline, intent, pageId, pageSlug, formId, hp: fd.website ?? "", startedAt: startedAt.current });
     if (ok) setState("done");
     else {
       setState("error");
@@ -159,7 +169,7 @@ export function LeadForm({
   const field = `w-full rounded-lg border px-4 py-3 text-[15px] outline-none transition focus:ring-2 ${
     dark
       ? "border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-sv-orange focus:ring-sv-orange/30"
-      : "border-sv-navy/15 bg-white text-sv-navy placeholder:text-sv-navy/40 focus:border-sv-orange focus:ring-sv-orange/20"
+      : "border-sv-navy/15 bg-white text-[#004670] placeholder:text-[#004670]/40 focus:border-sv-orange focus:ring-sv-orange/20"
   }`;
   const wa = `https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent(
     "Hi, I'd like the SkyVue brochure, floor plans and cost sheet.",
@@ -167,12 +177,12 @@ export function LeadForm({
 
   if (state === "done") {
     return (
-      <div className={`rounded-2xl p-7 ${dark ? "bg-white/10 text-white" : "bg-white text-sv-navy shadow-xl"}`} role="status">
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-sv-orange text-white">
+      <div className={`rounded-2xl p-7 ${dark ? "bg-white/10 text-white" : "bg-white text-[#004670] shadow-xl"}`} role="status">
+        <span className="grid h-12 w-12 place-items-center rounded-full bg-sv-orange text-[#1a1a19]">
           <Check />
         </span>
         <p className="mt-5 text-2xl font-light">Thank you. We&apos;ve got your details.</p>
-        <p className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : "text-sv-navy/70"}`}>
+        <p className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : "text-[#004670]/70"}`}>
           A SkyVue advisor will call you shortly. The floor plans on this page are now unlocked. Want everything
           on WhatsApp right away?
         </p>
@@ -193,16 +203,17 @@ export function LeadForm({
       id={formId}
       onSubmit={onSubmit}
       noValidate
-      className={`rounded-2xl p-6 sm:p-7 ${dark ? "bg-white/10 text-white backdrop-blur" : "bg-white text-sv-navy shadow-[0_30px_80px_-30px_rgba(0,46,88,0.45)]"}`}
+      className={`rounded-2xl p-6 sm:p-7 ${dark ? "sv-form-dark bg-white/10 text-white backdrop-blur" : "bg-white text-[#004670] shadow-[0_30px_80px_-30px_rgba(20,45,71,0.45)]"}`}
     >
       <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-sv-orange">Vaishno SkyVue · Tellapur</p>
       <h2 className="mt-2 font-sans text-2xl font-light leading-snug">{title}</h2>
+      <Honeypot id={`${formId}-website`} />
       <div className="mt-5 grid gap-3">
         <label className="sr-only" htmlFor={`${formId}-name`}>Name</label>
         <input id={`${formId}-name`} name="name" autoComplete="name" placeholder="Your name" className={field} required />
         <label className="sr-only" htmlFor={`${formId}-phone`}>Mobile number</label>
         <div className="flex gap-2">
-          <span className={`grid shrink-0 select-none place-items-center rounded-lg border px-3 text-[15px] ${dark ? "border-white/20 bg-white/10 text-white" : "border-sv-navy/15 bg-sv-mist text-sv-navy"}`}>+91</span>
+          <span className={`grid shrink-0 select-none place-items-center rounded-lg border px-3 text-[15px] ${dark ? "border-white/20 bg-white/10 text-white" : "border-sv-navy/15 bg-sv-mist text-[#004670]"}`}>+91</span>
           <input
             id={`${formId}-phone`}
             name="phone"
@@ -235,8 +246,8 @@ export function LeadForm({
             ))}
           </select>
         </div>
-        <label className={`flex items-start gap-2 text-[12px] leading-snug ${dark ? "text-white/70" : "text-sv-navy/60"}`}>
-          <input type="checkbox" name="consent" className="mt-0.5 accent-[#f95300]" />
+        <label className={`flex items-start gap-2 text-[12px] leading-snug ${dark ? "text-white/70" : "text-[#004670]/60"}`}>
+          <input type="checkbox" name="consent" className="mt-0.5 accent-[#e55e24]" />
           <span>
             I agree to be contacted by Vaishno Ventures about SkyVue by call, SMS and WhatsApp. See our{" "}
             <Link href={privacyUrl} className="underline">
@@ -254,13 +265,34 @@ export function LeadForm({
       <button
         type="submit"
         disabled={state === "sending"}
-        className="mt-5 w-full rounded-full bg-sv-orange px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:brightness-110 disabled:opacity-60"
+        className="mt-5 w-full rounded-full bg-sv-orange px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#1a1a19] transition hover:brightness-110 disabled:opacity-60"
       >
         {state === "sending" ? "Sending…" : cta}
       </button>
-      <p className={`mt-3 text-center text-[11px] ${dark ? "text-white/50" : "text-sv-navy/50"}`}>
-        TS RERA {skyvue.rera} · No spam, ever.
+      <p className={`mt-3 text-center text-[11px] ${dark ? "text-white/50" : "text-[#004670]/50"}`}>
+        No cost, no obligation, no spam. TS RERA {skyvue.rera}
       </p>
     </form>
+  );
+}
+
+/**
+ * Honeypot: a field people never see or reach (off-screen, out of the tab order, hidden from
+ * screen readers) that form-filling bots tend to complete. Anything typed in it marks the lead
+ * as a bot in /api/enquiry/. Not display:none, which many bots skip.
+ */
+export function Honeypot({ id, value, onChange }: { id: string; value?: string; onChange?: (v: string) => void }) {
+  return (
+    <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+      <label htmlFor={id}>Leave this field empty</label>
+      <input
+        id={id}
+        name="website"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        {...(onChange ? { value: value ?? "", onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value) } : { defaultValue: "" })}
+      />
+    </div>
   );
 }

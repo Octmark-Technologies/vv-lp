@@ -29,7 +29,7 @@ export function Gallery() {
           <p className="sv-eyebrow">
             Life at SkyVue
           </p>
-          <h2 id="life-title" className="mt-3 max-w-3xl text-[30px] leading-[1.1] text-[var(--sv-ink)] sm:text-[44px]">
+          <h2 id="life-title" className="mt-3 max-w-3xl text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[44px]">
             2 lakh sq ft for lifestyle. A forest inside the gate.
           </h2>
         </div>

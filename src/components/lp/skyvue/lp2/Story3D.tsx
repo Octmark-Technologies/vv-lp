@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
 import { skyvue, trackRecord } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
@@ -53,6 +53,9 @@ export function Story3D() {
   const ref = useRef<HTMLElement>(null);
   const state = useRef<AerialState>({ ...POSES[0] });
   const [ready, setReady] = useState(false);
+  // The 3D view only loads when motion is on; with animations off the render is a plain image.
+  const [use3d, setUse3d] = useState(false);
+  useEffect(() => setUse3d(motionOn()), []);
   const [beat, setBeat] = useState(0);
   const [floors, setFloors] = useState(36);
   const [size] = useHomeSize();
@@ -95,7 +98,7 @@ export function Story3D() {
 
   const v = lp2.hero[lp2.defaultVersion];
   return (
-    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "320svh" }} aria-label="Vaishno SkyVue, the 5% plan">
+    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "210svh" }} aria-label="Vaishno SkyVue, the 5% plan">
       <div className="sv-stage sv-story-stage">
         <div className="sv-story-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -105,7 +108,7 @@ export function Story3D() {
             alt="Aerial view of Vaishno SkyVue's two towers, podium and clubhouse among trees in Tellapur"
             fetchPriority="high"
           />
-          <Aerial3D className="sv-story-canvas" getState={() => state.current} onReady={() => setReady(true)} />
+          {use3d && <Aerial3D className="sv-story-canvas" getState={() => state.current} onReady={() => setReady(true)} />}
           <div className="sv-story-scrim" aria-hidden="true" />
         </div>
         <div data-hookscrim className="sv-story-hookscrim" aria-hidden="true" />
@@ -121,7 +124,7 @@ export function Story3D() {
                 {lp2.heroCta}
               </button>
               <button type="button" onClick={() => jump(1)} className="sv-btn sv-btn-ghost text-white">
-                See how it works
+                Show me how 5% works
               </button>
             </div>
             <OfferCountdown variant="hero" tone="dark" className="sv-cd-start mt-6" />
