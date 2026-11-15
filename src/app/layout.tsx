@@ -40,6 +40,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </noscript>
           </>
         )}
+        {/* Call and WhatsApp clicks → dataLayer (call_click / whatsapp_click) for GTM conversions. */}
+        <Script id="contact-clicks" strategy="afterInteractive">
+          {`document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href")||"";var ev=/^tel:/i.test(h)?"call_click":/(wa\\.me|whatsapp\\.com)/i.test(h)?"whatsapp_click":"";if(!ev)return;var s=a.closest("section[id],[id]");var p=new URLSearchParams(location.search);(window.dataLayer=window.dataLayer||[]).push({event:ev,link_url:h.split("?")[0],click_text:(a.textContent||a.getAttribute("aria-label")||"").trim().slice(0,60),click_location:s?s.id:(a.closest("header")?"header":a.closest("footer")?"footer":"page"),lp_path:location.pathname,lp_version:p.get("v")||"default"});},true);`}
+        </Script>
         {children}
       </body>
     </html>
