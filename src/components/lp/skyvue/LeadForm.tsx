@@ -98,6 +98,11 @@ export async function sendLead(f: {
     lead_budget: f.budget,
     lead_timeline: f.timeline,
     form_id: f.formId,
+    // Google Ads enhanced conversions (GTM "User-Provided Data" variable). Google hashes these before sending.
+    user_data: {
+      phone_number: `+91${f.phone}`,
+      address: { first_name: f.name.trim().split(/\s+/)[0], last_name: f.name.trim().split(/\s+/).slice(1).join(" ") },
+    },
     // Go to the thank-you page once GTM has fired its tags (or after 1.5 s if GTM is slow or blocked).
     eventCallback: goThankYou,
     eventTimeout: 1500,
