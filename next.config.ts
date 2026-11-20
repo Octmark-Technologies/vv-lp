@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   trailingSlash: true,
   cacheComponents: true,
+  experimental: {
+    // Set by the Next.js security upgrade (16.4.3 → 16.4.6, 20 Nov 2026).
+    agentUpgrade: "security",
+  },
   async redirects() {
     return [
       // The subdomain home opens LP1; old /lp/ paths (used while the pages lived on the main site) keep working.
