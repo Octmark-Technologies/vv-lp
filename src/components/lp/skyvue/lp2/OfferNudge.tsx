@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { skyvue } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
 import { Close } from "@/components/Icons";
 import { UNLOCK_EVENT, UNLOCK_KEY } from "../LeadForm";
 import { openEnquiry } from "../lp1/EnquiryDrawer";
-import { useHomeSize } from "./useHomeSize";
 
 const SEEN = "sv_nudge_seen";
 /** Set once the visitor starts any form (ScheduleForm also sets it on its first step). */
@@ -20,7 +18,6 @@ export const ENGAGED = "sv_engaged";
  */
 export function OfferNudge() {
   const [show, setShow] = useState(false);
-  const [size] = useHomeSize();
 
   useEffect(() => {
     const allowed = () => {
@@ -88,7 +85,7 @@ export function OfferNudge() {
         <motion.aside
           className="sv-nudge"
           role="complementary"
-          aria-label="Offer reminder"
+          aria-label="Pay Your Way reminder"
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16 }}
@@ -99,9 +96,9 @@ export function OfferNudge() {
           </button>
           <p className="text-[12px] font-semibold text-[var(--sv-orange)]">Before you go</p>
           <p className="sv-display mt-1 pr-6 text-[20px] font-light leading-snug text-[var(--sv-ink)]">
-            Book your {size.toLocaleString("en-IN")} sq ft home with just 5%.
+            Pay Your Way for your new home.
           </p>
-          <p className="mt-1 text-[13px] text-[var(--sv-muted)]">Get the full payment schedule on WhatsApp. Offer on bookings till {skyvue.offer.validTill}.</p>
+          <p className="mt-1 text-[13px] text-[var(--sv-muted)]">Tell us how you&apos;d like to pay and get a written quote. ₹7,399 per sq ft, no-cost EMI till 31 Dec.</p>
           <button
             type="button"
             className="sv-btn sv-btn-primary mt-4 w-full"
@@ -110,7 +107,7 @@ export function OfferNudge() {
               openEnquiry("nudge", "payment_schedule");
             }}
           >
-            Send me the schedule
+            Get my quote
           </button>
         </motion.aside>
       )}

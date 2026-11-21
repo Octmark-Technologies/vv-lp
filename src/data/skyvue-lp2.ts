@@ -1,41 +1,94 @@
 /**
- * LP2 · "Pay 5%" — page-specific content. Copy rebuilt 27 Oct 2026 (content-creation skill,
- * Hormozi value equation, GTM positioning: "a boutique community of exclusive 3 BHK luxury
- * homes for families moving up, in Tellapur").
+ * LP2 · "Pay Your Way" (replaces the withdrawn Pay 5% offer, 20 Nov 2026).
+ * Source: "Skyvue — Pay Your Way Offer" doc (main tab + Landing page tab).
  *
- * Offer, as Rahul gave it: pay 5% (no-cost EMI), then nothing more until the structure of the
- * block the buyer's home is in is complete. Every condition-bearing claim carries a "*" that
- * links to the terms note (skyvue.offer.terms). Base-vs-agreement value and the EMI partner are
- * not stated anywhere: the cost sheet gives the exact figures.
+ * The offer: one public price, ₹7,399 per sq ft. No-cost EMI on bookings till 31 Dec 2026 (the
+ * only dated part; corrected 21 Nov 2026, the earlier ₹7,149-till-31-Dec line was wrong).
+ * The buyer proposes how and when to pay; sales quotes a price for that schedule in writing.
+ * Rules (doc): show only ₹7,399 per sq ft and the no-cost EMI date; never a negotiated rate, a percentage
+ * off or "lowest price"; RERA in the hero and footer; no investment-return language; no Pay 5%.
+ * Every "*" links to the terms note (lp2.offer.terms).
  */
 import { faqs, type HeroCopy, type Version } from "./skyvue-landing";
 
+export const PRICE = 7399;
+const rate = "No-cost EMI till 31 Dec";
+
+/**
+ * Hero versions on ?v= (doc "Top 5 page versions" + default LP01). Headlines ≤ 12 words.
+ * Headlines match the 4 static ads (20 Nov 2026): buyer (default) = Ad 1 · plan = Ad 2 ·
+ * upgrade = Ad 3 · deadline = Ad 4. buyers = LP04 · nri = LP07. family/parents kept so older
+ * ad links still land on a match.
+ */
+const hero = {
+  buyer: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "Your flat. Your payment plan.",
+    sub: "Explore premium 3 BHK flats in Tellapur at Vaishno SkyVue, ranging from 2,010 to 2,890 sq. ft., starting at ₹7,399/sq. ft., with flexible payment plans and no-cost EMI on eligible bookings until 31 December 2026.*",
+  },
+  deadline: {
+    eyebrow: "TS RERA P01100010545 · No-cost EMI till 31 Dec",
+    title: "Pay your way. Till the structure's done.*",
+    sub: "3 BHK, 2,010 to 2,890 sq ft, near Tellapur. Bring your payment plan to the site and leave with a written quote.",
+    size: "₹7,399 per sq ft. No-cost EMI on bookings till 31 Dec 2026.*",
+  },
+  buyers: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "Same flat. Two buyers. Two payment plans. That's Pay Your Way.",
+    sub: "Tell us how you'd like to pay. We'll quote for your plan, in writing.",
+    size: "3 BHK only. 2,010 to 2,890 sq ft.",
+  },
+  upgrade: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "You choose the amounts. You choose the dates.*",
+    sub: "Pay Your Way at SkyVue: flexible payments until the structure is complete, written into your agreement.",
+    size: "3 BHK only. 2,010 to 2,890 sq ft.",
+  },
+  nri: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "NRIs: plan your SkyVue payments once, from wherever you are.",
+    sub: "One payment plan, one written quote, one registered agreement. Talk to us on WhatsApp in your time zone.",
+    size: "3 BHK only. 2,010 to 2,890 sq ft.",
+  },
+  plan: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "Pay on your dates, not slab dates.",
+    sub: "Own funds, home loan or both. Tell us your amounts and dates; we build your quote around them.",
+    size: "3 BHK only. 2,010 to 2,890 sq ft.",
+  },
+  family: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "Bring your dates. We'll bring the plan.",
+    sub: "Salary, bonus, FD, flat sale: Pay Your Way builds your SkyVue payments around them.",
+    size: "Every home starts at 2,010 sq ft. Up to 2,890.",
+  },
+  parents: {
+    eyebrow: `TS RERA P01100010545 · ${rate}`,
+    title: "Your parents paid the builder's way. You can Pay Your Way.",
+    sub: "3 BHK at SkyVue, near Tellapur. ₹7,399 per sq ft, no-cost EMI till 31 Dec.*",
+    size: "A room for everyone. Every home from 2,010 sq ft.",
+  },
+} satisfies Record<string, HeroCopy> & Record<Version, HeroCopy>;
+
 export const lp2 = {
   id: "lp2" as const,
-  slug: "skyvue-pay-5-percent",
+  slug: "skyvue-pay-your-way",
   defaultVersion: "buyer" as Version,
   intent: "payment_schedule" as const,
-  hero: {
-    buyer: {
-      eyebrow: "Offer on bookings till 31 Dec 2026",
-      title: "Pay 5%. Then nothing more until your block's structure is complete.*",
-      sub: "No-cost EMI on bookings till 31 Dec 2026.* Exclusive 3 BHK luxury homes in Tellapur, starting from ₹1.6 Cr.",
-      size: "3 BHK only. 2,010 to 2,890 sq ft. No small units.",
-    },
-    family: {
-      eyebrow: "Offer on bookings till 31 Dec 2026",
-      title: "Move up to an exclusive 3 BHK. Pay 5%, then relax while your block rises.*",
-      sub: "Nothing more to pay until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* A luxury community of only 570 homes in Tellapur.",
-      size: "Every home starts at 2,010 sq ft. Up to 2,890.",
-    },
-    parents: {
-      eyebrow: "TS RERA P01100010545 · Starting from ₹1.6 Cr",
-      title: "Book with 5%. Pay nothing more till your block's structure is complete.*",
-      sub: "Exclusive 3 BHK luxury homes with a clinic, pharmacy and senior citizen gym inside the gate. No-cost EMI on bookings till 31 Dec 2026.*",
-      size: "A room for everyone. Every home from 2,010 sq ft, with a study.",
-    },
-  } satisfies Record<Version, HeroCopy>,
-  heroCta: "Get my 5% payment schedule",
+  hero,
+  /** Keyword line at the start of the page's h1 (Google Ads relevance), above the ad-matched headline. */
+  h1: "3 BHK Flats for Sale in Tellapur",
+  /** Keyword eyebrows built into each section's h2 (21 Nov 2026). */
+  kw: {
+    price: "3 BHK Flat Prices in Tellapur",
+    life: "Amenities & Lifestyle at SkyVue, Tellapur",
+    plan: "3 BHK Payment Plan · Pay Your Way",
+    enquire: "Book a Site Visit · 3 BHK Flats in Tellapur",
+  },
+  heroCta: "Get my Pay Your Way quote",
+  /** Homes section paragraph on this page (21 Nov 2026 section copy). */
+  homesEyebrow: "3 BHK Floor Plans & Apartment Sizes",
+  homesSub: "Explore spacious 3 BHK apartments in Tellapur, ranging from 2,010 to 2,890 sq. ft., with east- and west-facing options, 10′4″ floor-to-floor heights and balconies offering 180° views. Explore the floor plans at Vaishno SkyVue.",
   /** LP2 never repeats LP1's pictures. */
   images: {
     amenities: {
@@ -46,71 +99,92 @@ export const lp2 = {
     },
     visit: "/lp/skyvue/fr/entrance.webp",
   },
-  formTitle: "Get your 5% payment schedule for your size",
-  formCta: "Send my 5% payment schedule",
+  formTitle: "Tell us how you'd like to pay. We'll call you with your quote.",
+  formCta: "Get my Pay Your Way quote",
   offerEnds: "2026-12-31T23:59:59+05:30",
+  /** Drawer form asks how and when the buyer will pay (sent in the budget / timeline columns). */
+  formFields: {
+    budget: {
+      label: "How will you pay?",
+      options: [
+        { label: "Own funds", value: "Pay: Own funds" },
+        { label: "Home loan", value: "Pay: Home loan" },
+        { label: "Both", value: "Pay: Own funds + home loan" },
+      ],
+    },
+    timeline: {
+      label: "When would you start?",
+      options: [
+        { label: "This month", value: "Start: This month" },
+        { label: "In 1–3 months", value: "Start: In 1–3 months" },
+        { label: "In 3–6 months", value: "Start: In 3–6 months" },
+      ],
+    },
+    error: "Please choose how you'll pay and when you'd like to start.",
+  },
+  /** Replaces the shared Pay 5% lines on this page (fact rail, plan card, footer terms). */
+  offer: {
+    price: "₹7,399/sq ft",
+    priceNote: "· No-cost EMI till 31 Dec",
+    rail: "Pay Your Way",
+    plansHook: "Pay Your Way for this home.",
+    plansBody: "Tell us how much you can pay and when: own funds, home loan or both. We quote a price for your schedule, in writing.",
+    plansWhen: "₹7,399 per sq ft. No-cost EMI on bookings till 31 Dec 2026.*",
+    plansCta: "Get my Pay Your Way quote",
+    terms:
+      "*Flexible payment schedule until the structure is complete, as set out in your written quote and registered sale agreement. The base price is ₹7,399 per sq ft. No-cost EMI applies to bookings made until 31 December 2026; conditions apply. Your rate and payment schedule are given in a written quote and in your registered sale agreement. The booking token is up to 10% of the price. GST, parking and other charges are extra.",
+  },
   seo: {
-    title: "Vaishno SkyVue Tellapur | Pay 5% to Book | Exclusive 3 BHK Luxury Homes",
+    title: "3 BHK Flats for Sale in Tellapur | Vaishno SkyVue | ₹7,399 per sq ft",
     description:
-      "Pay 5%, then nothing more until your block's structure is complete. No-cost EMI on bookings till 31 Dec 2026 (conditions apply). Exclusive 3 BHK luxury homes in Tellapur, starting from ₹1.6 Cr. RERA P01100010545.",
+      "Pay Your Way at Vaishno SkyVue: tell us how and when you'd like to pay, and get a written quote. 3 BHK homes, 2,010 to 2,890 sq ft, near Tellapur. ₹7,399 per sq ft, no-cost EMI on bookings till 31 Dec 2026. TS RERA P01100010545.",
   },
 };
 
-/** The payment story told beside the rising tower (BuildScene "pay" mode). "*" = conditions apply. */
-export const paySteps = [
-  { t: "Book with 5%", d: "Choose your home and pay 5% to book it.*" },
-  { t: "Pay nothing more", d: "Your block rises; you stay hands-free until its structure is complete." },
-  { t: "No-cost EMI*", d: "On bookings till 31 Dec 2026, as per your payment schedule." },
-  { t: "Possession", d: "Planned for 31 March 2030." },
+/** Pay Your Way in 3 steps (doc, "How it works"). */
+export const howItWorks = [
+  { t: "Tell us your amounts and dates", d: "Own funds, home loan or both. Salary dates, bonus month, FD maturity, a flat sale: whatever your money follows." },
+  { t: "Visit and get a written quote", d: "See the site and the homes. Sales prepares your quote for the schedule you propose, with a quote number." },
+  { t: "Book and register", d: "Book with a token of up to 10% of the price. Your rate and schedule go into the registered agreement." },
 ] as const;
 
-/** Meter status per phase of the scene (0 rising · 1 structure complete · 2 possession). */
-export const payStatus = [
-  { k: "Hands-free", t: "Your block is rising. Nothing more to pay until its structure is complete.*" },
-  { k: "Structure complete", t: "No-cost EMI* on bookings till 31 Dec 2026, as per your payment schedule." },
-  { k: "Possession", t: "Planned for 31 March 2030. Your exclusive 3 BHK, ready to move in." },
-] as const;
-
-/**
- * Hormozi value equation, as the buyer feels it: dream outcome ↑, likelihood ↑, time ↓, effort ↓.
- * Every line is a confirmed fact (no invented bonuses, no fake scarcity).
- */
+/** Why Pay Your Way (value stack). Confirmed facts only. */
 export const valueStack = [
-  { k: "What you get", v: "An exclusive 3 BHK", d: "2,010 to 2,890 sq ft, in a luxury community of only 570 homes with 40 amenities." },
-  { k: "Why you can trust it", v: "TS RERA P01100010545", d: "By Vaishno Ventures: 10+ projects across Bangalore and Hyderabad, 900+ families in delivered homes." },
-  { k: "What it takes today", v: "Only 5% to book*", d: "Then nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.*" },
-  { k: "How long you wait", v: "31 March 2030", d: "Track your block's progress against the RERA schedule before every payment." },
+  { k: "What you get", v: "An exclusive 3 BHK", d: "2,010 to 2,890 sq ft, 10'4\" floor to floor, extended balconies. 2 towers, 36 floors, 3.76 acres." },
+  { k: "What you decide", v: "Your payment schedule", d: "Not three plans to pick from. You propose how much and when; the quote follows your plan." },
+  { k: "Why you can trust it", v: "TS RERA P01100010545", d: "Your rate and schedule are written into a registered sale agreement." },
+  { k: "The one price", v: "₹7,399 per sq ft*", d: "No-cost EMI on bookings till 31 Dec 2026." },
 ] as const;
 
-/** Sent on WhatsApp after the form, for the size the visitor picked. */
+/** Sent after the form. */
 export const whatYouGet = [
-  "The payment schedule for your size",
-  "The floor plan and the cost sheet",
-  "The RERA certificate and the location pin",
+  "A call to understand how you'd like to pay",
+  "A written quote for your schedule",
+  "The floor plan for your size",
   "A weekday or weekend site visit slot",
 ] as const;
 
-/** Payment questions first, then the shared FAQ (minus its own payment-plan answer). */
+/** Pay Your Way questions first (doc FAQ), then the shared FAQ (minus its price and Pay 5% answers). */
 export const lp2Faqs = [
   {
-    q: "How does the 5% plan work?",
-    a: "You pay 5% to book your home. While the block your home is in rises, you pay nothing more until that block's structure is complete. No-cost EMI is available on bookings till 31 December 2026, as per your payment schedule. Conditions apply.",
+    q: "Is ₹7,399 the final price?",
+    a: "It is the base price per sq ft, before GST, parking and other charges, which your written quote lists.",
   },
   {
-    q: "How much is the 5% for my home?",
-    a: "It depends on the home you choose. Homes start from ₹1.6 Cr; share your number and your cost sheet will show the exact 5% booking amount for your home.",
+    q: "What is the no-cost EMI offer?",
+    a: "Bookings made until 31 December 2026 can use no-cost EMI. Conditions apply; your written quote shows the details.",
   },
   {
-    q: "What does \"structure complete\" mean?",
-    a: "It is the stage when the structure of the block your home is in is complete. Your payment schedule shows this milestone for your block, and you can track progress against the RERA schedule.",
+    q: "Can I pay faster or slower than construction?",
+    a: "Tell us your plan; the sales team will quote for it, in writing.",
   },
   {
-    q: "Are GST and other charges included?",
-    a: "No. GST, parking and other charges are listed separately in the cost sheet for your home.",
+    q: "Does Pay Your Way work with a home loan?",
+    a: "Yes. Plan your own funds around your dates; the loan follows construction.",
   },
   {
-    q: "Till when is this offer valid?",
-    a: "On bookings made until 31 December 2026. Conditions apply.",
+    q: "How much do I pay to book?",
+    a: "A token of up to 10% of the price. Your rate and payment schedule then go into the registered sale agreement.",
   },
-  ...faqs.filter((f) => !/payment plan/i.test(f.q)),
+  ...faqs.filter((f) => !/payment plan|what is the price/i.test(f.q)),
 ] as const;

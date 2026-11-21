@@ -4,7 +4,7 @@
  */
 export const lpPaths = {
   lp1: "/570-homes/",
-  lp2: "/pay-5-percent/",
+  lp2: "/3-bhk-flats-for-sale/",
   lp3: "/70ft-above/",
   lp4: "/builder-proof/",
 } as const;

@@ -81,3 +81,8 @@ export const Social = {
     </svg>
   ),
 };
+export const Download = (p: P) => (
+  <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...p}>
+    <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+  </svg>
+);

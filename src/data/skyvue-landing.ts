@@ -36,6 +36,8 @@ export type SectionKey =
 
 export const skyvue = {
   name: "Vaishno SkyVue",
+  /** Web copy of "Vaishno SkyVue Latest.pdf" (62 pages, 9 MB). Unlocked after the brochure form. */
+  brochure: "/lp/skyvue/brochure/Vaishno-SkyVue-Brochure.pdf",
   developer: "Vaishno Ventures",
   location: "Tellapur, West Hyderabad",
   rera: "P01100010545",

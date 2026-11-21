@@ -28,8 +28,11 @@
   --sv-mist: #e8f0f6;
   --sv-muted: rgba(39, 39, 38, 0.72);
   --sv-line: rgba(20, 45, 71, 0.14);
-  --font-sans: "Figtree Variable", "Figtree", system-ui, sans-serif;
-  --sv-display: "Josefin Sans Variable", "Josefin Sans", system-ui, sans-serif;
+  /* Type (Vaishno Ventures design system): headlines Rollgates Luxury, body Figtree,
+     numbers + capital labels Montserrat. Josefin Sans stays as the fallback.
+     "SV Figures" (Montserrat, digits only) leads every stack, so all numerals use Montserrat. */
+  --font-sans: "SV Figures", "Figtree Variable", "Figtree", system-ui, sans-serif;
+  --sv-display: "SV Figures", "Rollgates Luxury", "Josefin Sans Variable", "Josefin Sans", system-ui, sans-serif;
   --sv-label: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
   background: var(--sv-paper);
   color: var(--sv-ink);
@@ -40,7 +43,7 @@
 .sv1 h2,
 .sv1 h3 {
   font-family: var(--sv-display);
-  font-weight: 300;
+  font-weight: 400; /* Rollgates Luxury has one weight (Regular); also keeps Montserrat digits from going thin */
   letter-spacing: -0.005em;
   text-wrap: balance;
 }
@@ -1672,6 +1675,25 @@ html.motion .sv-story-dots {
   font-style: normal;
   font-display: swap;
 }
+/* Headline font: Rollgates Luxury (design-system file, from the client's desktop TTF).
+   Licence: needs a MyFonts Webfonts licence for skyvue.vaishnoventures.com before launch. */
+@font-face {
+  font-family: "Rollgates Luxury";
+  src: url("/fonts/RollgatesLuxury-Regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Numbers font: Montserrat for the digits 0–9 and %, used inside every text stack (unicode-range). */
+@font-face {
+  font-family: "SV Figures";
+  src: url("/fonts/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0025, U+0030-0039;
+  size-adjust: 94%; /* Montserrat digits run large beside Figtree / Josefin Sans */
+}
 @font-face {
   font-family: "Figtree Variable";
   src: url("/fonts/figtree-latin-wght-normal.woff2") format("woff2-variations");
@@ -1679,7 +1701,11 @@ html.motion .sv-story-dots {
   font-style: normal;
   font-display: swap;
 }
-/* Stat numerals (570, 943, 5%, the countdown) in Montserrat SemiBold, as in the brochure. */
+/* Capital labels (eyebrows, chips, small caps) in Montserrat, as the design system sets them. */
+.sv1 .uppercase {
+  font-family: var(--sv-label);
+}
+/* Stat numerals (570, the countdown) in Montserrat SemiBold, as in the brochure. */
 .sv1 .sv-display.sv-tnum,
 .sv1 .sv-cd-units strong,
 .sv1 .sv-cd-bar strong {
@@ -1725,4 +1751,281 @@ html:not(.motion) .sv-story-note {
 
 html:not(.motion) .sv-beat {
   scroll-margin-top: 84px;
+}
+
+/* LP2 · Pay Your Way film hero (PayHero.tsx): copy on the right over a navy scrim on desktop,
+   at the bottom on phones. Visible from the first screen (no fade-in). */
+.sv-payhero .sv-payhero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(20, 45, 71, 0) 30%, rgba(20, 45, 71, 0.62) 55%, rgba(20, 45, 71, 0.9) 100%);
+}
+.sv-payhero .sv-payhero-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  padding: 72px 0 calc(var(--sv-rail-h, 64px) + 16px);
+  color: #fff;
+}
+.sv-payhero .sv-payhero-copy > .sv-wrap {
+  width: 100%;
+}
+.sv-payhero .sv-payhero-inner {
+  margin-left: auto;
+  max-width: 540px;
+}
+.sv-payhero h1 {
+  font-size: clamp(34px, 3.7vw, 54px) !important;
+  line-height: 1.06 !important;
+}
+@media (max-width: 899px) {
+  .sv-payhero .sv-payhero-scrim {
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0) 30%, rgba(20, 45, 71, 0.7) 52%, rgba(20, 45, 71, 0.94) 100%);
+  }
+  .sv-payhero .sv-payhero-copy {
+    align-items: flex-end;
+    padding: 72px 0 calc(var(--sv-rail-h, 104px) + 14px);
+  }
+  .sv-payhero .sv-payhero-inner {
+    margin-left: 0;
+  }
+  .sv-payhero h1 {
+    font-size: clamp(30px, 8.2vw, 40px) !important;
+  }
+  .sv-payhero .sv-size-line,
+  .sv-payhero .sv-trust {
+    display: none;
+  }
+}
+
+/* LP2 · price card on the night theme: a visible surface, outlined size pills, orange pick. */
+.sv-night #your-price .rounded-3xl {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.sv-night #your-price [role="radio"] {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+.sv-night #your-price [role="radio"] > span.absolute {
+  background: var(--sv-orange);
+}
+.sv-night #your-price [role="radio"][aria-checked="true"] {
+  color: var(--sv-on-orange, #1a1a19);
+  box-shadow: none;
+}
+@media (max-width: 639px) {
+  .sv-night #your-price [role="radio"] { padding: 8px 12px; font-size: 13px; }
+}
+
+/* Phones: hero trust strip keeps only RERA, so the hero stays uncluttered. */
+@media (max-width: 639px) {
+  .sv-trust li + li {
+    display: none;
+  }
+}
+
+/* LP2 · hero copy on the left (tower film): scrim from the left on desktop. */
+@media (min-width: 900px) {
+  .sv-payhero-left .sv-payhero-scrim {
+    background: linear-gradient(90deg, rgba(20, 45, 71, 0.9) 0%, rgba(20, 45, 71, 0.62) 40%, rgba(20, 45, 71, 0) 68%);
+  }
+  .sv-payhero-left .sv-payhero-inner {
+    margin-left: 0;
+  }
+}
+/* LP2 · second film (PayFilm.tsx): smaller heading than the hero h1. */
+.sv-payfilm h2 {
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.08;
+}
+@media (max-width: 899px) {
+  .sv-payfilm h2 {
+    font-size: clamp(28px, 7.6vw, 36px);
+  }
+}
+
+/* ScrollFrames poster follows the same horizontal focus as the canvas (phones can differ). */
+.sv-frames-poster {
+  object-position: var(--fx, 50%) 50%;
+}
+@media (max-width: 767px) {
+  .sv-frames-poster {
+    object-position: var(--fxm, var(--fx, 50%)) 50%;
+  }
+}
+/* Tower hero: a slightly stronger scrim so the copy reads over the lit balconies. */
+@media (min-width: 900px) {
+  .sv-payhero-left .sv-payhero-scrim {
+    background: linear-gradient(90deg, rgba(20, 45, 71, 0.94) 0%, rgba(20, 45, 71, 0.72) 42%, rgba(20, 45, 71, 0) 72%);
+  }
+}
+
+/* Phones: one strong button in the film heroes; the secondary action becomes a quiet text link
+   (still a 44px tap target), so the copy block stays light over the film. */
+@media (max-width: 899px) {
+  .sv-payhero .sv-payhero-link {
+    border-color: transparent;
+    background: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    min-height: 44px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-color: rgba(255, 255, 255, 0.45);
+  }
+  .sv-payhero .sv-payhero-copy .flex.flex-wrap.gap-3 {
+    align-items: center;
+    column-gap: 18px;
+  }
+  .sv-payhero .sv-payhero-scrim {
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0) 38%, rgba(20, 45, 71, 0.78) 58%, rgba(20, 45, 71, 0.96) 100%);
+  }
+}
+/* Phones: the portrait frames already fade into navy under the copy, so the scrim only firms up
+   the bottom and the picture above stays bright. */
+@media (max-width: 767px) {
+  .sv-payhero .sv-payhero-scrim {
+    background: linear-gradient(180deg, rgba(20, 45, 71, 0) 50%, rgba(20, 45, 71, 0.6) 68%, rgba(20, 45, 71, 0.9) 100%);
+  }
+}
+/* Short phones (e.g. 360 x 740): drop the sub-line under the film headlines so the copy stays
+   below the picture; the price is still in the bottom bar. */
+@media (max-width: 767px) and (max-height: 780px) {
+  .sv-payhero .sv-payhero-inner h1 + p,
+  .sv-payhero .sv-payhero-inner h2 + p {
+    display: none;
+  }
+  .sv-payhero .sv-payhero-inner .mt-6 {
+    margin-top: 18px;
+  }
+}
+
+/* LP2 · family still (PayFilm.tsx). Desktop: photo on the right fading into navy, copy left.
+   Phones: portrait composition full-bleed, copy over its navy lower part. */
+.sv-payimg {
+  position: relative;
+  overflow: hidden;
+  background: #142d47;
+  color: #fff;
+  min-height: min(82svh, 760px);
+  display: flex;
+  align-items: center;
+}
+.sv-payimg-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 66%;
+  object-fit: cover;
+  object-position: 62% 50%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+}
+.sv-payimg-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+.sv-payimg-inner {
+  max-width: 440px;
+}
+.sv-payimg h2 {
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.08;
+}
+@media (max-width: 767px) {
+  .sv-payimg {
+    min-height: 0;
+    display: block;
+  }
+  .sv-payimg-photo {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1080 / 1100;
+    object-fit: cover;
+    object-position: 50% 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .sv-payimg-copy {
+    margin-top: -64px;
+    padding-top: 0;
+    padding-bottom: 56px;
+  }
+  .sv-payimg h2 {
+    font-size: clamp(28px, 7.6vw, 36px);
+  }
+}
+
+/* Film hero copy legibility: a soft shadow on all text, and on phones a deeper navy scrim that
+   starts higher, so the eyebrow, headline and sub-line read over any frame. */
+.sv-payhero .sv-payhero-copy {
+  text-shadow: 0 1px 14px rgba(10, 24, 40, 0.55);
+}
+.sv-payhero .sv-payhero-copy .sv-btn {
+  text-shadow: none;
+}
+@media (max-width: 767px) {
+  .sv-payhero .sv-payhero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 45, 71, 0) 30%,
+      rgba(20, 45, 71, 0.72) 50%,
+      rgba(20, 45, 71, 0.94) 64%,
+      rgba(20, 45, 71, 0.98) 100%
+    );
+  }
+  .sv-payhero .sv-payhero-copy .text-sv-orange {
+    color: #ff8a52;
+  }
+}
+
+/* Night theme (LP2) · Homes size pills: outlined pills, orange for the picked size, a faint
+   white hover (never white-on-white), so every size stays readable. */
+.sv-night [aria-label="Home sizes"] [role="tab"] {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+.sv-night [aria-label="Home sizes"] [role="tab"]:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.sv-night [aria-label="Home sizes"] [role="tab"] > span.absolute {
+  background: var(--sv-orange);
+}
+.sv-night [aria-label="Home sizes"] [role="tab"][aria-selected="true"] {
+  color: var(--sv-on-orange, #1a1a19);
+  box-shadow: none;
+}
+
+/* Keyword line at the start of a hero h1 (LP2: "3 BHK Flats for Sale in Tellapur"). Body font,
+   so the ad-matched display headline below stays the visual lead. */
+.sv-h1-kicker {
+  display: block;
+  margin-bottom: 12px;
+  font: 600 17px/1.3 var(--font-sans);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+@media (max-width: 639px) {
+  .sv-h1-kicker {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+}
+.sv-payimg h2 .sv-h2-kicker {
+  font-size: 11px;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .sv-payimg h2 .sv-h2-kicker {
+    font-size: 12px;
+  }
 }

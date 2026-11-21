@@ -1,28 +1,26 @@
 import { lpPaths } from "@/data/lp-paths";
 import "../lp1/lp1.css";
 import { lp2, lp2Faqs } from "@/data/skyvue-lp2";
-import { Amenities } from "../lp1/Amenities";
-import { Approvals, Builder, Compare, Faq, Footer, Homes, Location, Visit, ProgressBlock } from "../lp1/Sections";
+import { Faq, Footer, Homes } from "../lp1/Sections";
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "../lp1/Chrome";
-import { ScrollCue } from "../ScrollCue";
 import { EnquiryDrawer } from "../lp1/EnquiryDrawer";
 import { LpProvider } from "../lp1/PageConfig";
-import { Story3D } from "./Story3D";
+import { PayHero } from "./PayHero";
+import { PayFilm } from "./PayFilm";
+import { Lp2Life } from "./Lp2Life";
 import { PlanCalculator } from "./PlanCalculator";
-import { ValueStack } from "./ValueStack";
 import { Lp2Enquire } from "./Lp2Enquire";
 import { OfferNudge } from "./OfferNudge";
 import { ScrollReveal } from "./ScrollReveal";
 
 /**
- * LP2 · "Pay 5%"  →  /lp/skyvue-pay-5-percent/  (versions: ?v=buyer | family | parents; default buyer)
+ * LP2 · "Pay Your Way" (replaced Pay 5% on 20 Nov 2026)  →  /3-bhk-flats-for-sale/ (old /pay-5-percent/ redirects here)
+ * Versions on ?v=: buyer (default) | deadline | buyers | upgrade | nri | plan | family | parents.
  * Own design (27 Oct 2026), deliberately unlike LP1: "night" theme (.sv-night), its own renders
- * (aerial, balcony, entrance, badminton, activity room, party hall, Miyawaki), and a 3D story in
- * place of LP1's pillar opening and tower rise: the client's aerial render in Three.js (projection
- * route of img2threejs, Depth Anything V2 depth, pixel-exact at the reference camera).
- * Order: Story3D (hook → 5% → nothing more while your block rises* → no-cost EMI* → possession) →
- * calculator → why 5% is enough → homes & plans → amenities → approvals → compare → 3-step form →
- * location → who is Vaishno → FAQ → site visit → footer (#terms). Plus the once-per-session nudge.
+ * and a short film hero cut from the SkyVue brand film.
+ * Order (short page, 20 Nov 2026): film hero (PayHero, one shot from the brand film) → how it
+ * works + your price → homes & plans → life at SkyVue (4 renders) → 3-step form → FAQ →
+ * footer (#terms). Plus the once-per-session nudge.
  */
 export function Lp2Page() {
   return (
@@ -30,24 +28,17 @@ export function Lp2Page() {
       <div className="sv1 sv-night" data-lp={lp2.id} id="top">
         <Header />
         <main>
-          <Story3D />
+          <PayHero />
           <PlanCalculator />
-          <ValueStack />
           <Homes />
-          <Amenities />
-          <Approvals />
-          <ProgressBlock />
-          <Compare />
+          <Lp2Life />
+          <PayFilm />
           <Lp2Enquire />
-          <Location />
-          <Builder />
           <Faq items={lp2Faqs} />
-          <Visit />
         </main>
         <Footer />
         <FactRail />
         <ProgressPillar />
-        <ScrollCue tone="dark" onImage />
         <DesktopWhatsApp />
         <OfferNudge />
         <ScrollReveal />

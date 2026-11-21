@@ -8,7 +8,6 @@ import { Approvals, Compare, Enquire, Faq, Footer, Homes, Location, PaymentPlan,
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "../lp1/Chrome";
 import { EnquiryDrawer } from "../lp1/EnquiryDrawer";
 import { LpProvider } from "../lp1/PageConfig";
-import { ScrollCue } from "../ScrollCue";
 import { BangaloreFilm, Ledger, SiteLive } from "./Lp4Scenes";
 
 /**
@@ -39,7 +38,6 @@ export function Lp4Page() {
         <Footer />
         <FactRail />
         <ProgressPillar />
-        <ScrollCue tone="dark" onImage />
         <DesktopWhatsApp />
         <EnquiryDrawer pageId={lp4.id} pageSlug={lp4.slug} title={lp4.formTitle} cta={lp4.formCta} />
       </div>

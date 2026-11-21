@@ -8,7 +8,6 @@ import { Approvals, Builder, Compare, Enquire, Faq, Footer, Homes, Location, Pay
 import { DesktopWhatsApp, FactRail, Header, ProgressPillar } from "../lp1/Chrome";
 import { EnquiryDrawer } from "../lp1/EnquiryDrawer";
 import { LpProvider } from "../lp1/PageConfig";
-import { ScrollCue } from "../ScrollCue";
 import { Altitude, DownUp, PodiumBelow, RooftopAbove, ViewScene } from "./Lp3Scenes";
 
 /**
@@ -42,7 +41,6 @@ export function Lp3Page() {
         <Footer />
         <FactRail />
         <ProgressPillar />
-        <ScrollCue tone="light" right />
         <DesktopWhatsApp />
         <EnquiryDrawer pageId={lp3.id} pageSlug={lp3.slug} title={lp3.formTitle} cta={lp3.formCta} />
       </div>

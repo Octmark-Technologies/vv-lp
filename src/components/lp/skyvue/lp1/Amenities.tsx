@@ -140,8 +140,8 @@ export function Amenities() {
             <p className="text-[13px] text-[var(--sv-muted)]">
               Also at SkyVue: {amenityExtras.join(", ")}. Listed from the SkyVue master plan.
             </p>
-            <button type="button" onClick={() => openEnquiry("amenities")} className="sv-btn sv-btn-primary">
-              Send me the amenities brochure
+            <button type="button" onClick={() => openEnquiry("amenities", "brochure")} className="sv-btn sv-btn-primary">
+              Download the brochure
             </button>
           </div>
         </div>

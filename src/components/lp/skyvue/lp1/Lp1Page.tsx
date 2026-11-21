@@ -51,7 +51,7 @@ export function Lp1Page() {
       <Footer />
       <FactRail />
       <ProgressPillar />
-      <ScrollCue tone="light" />
+      <ScrollCue tone="light" right />
       <DesktopWhatsApp />
       <EnquiryDrawer pageId={lp1.id} pageSlug={lp1.slug} title={lp1.formTitle} cta={lp1.formCta} />
     </div>

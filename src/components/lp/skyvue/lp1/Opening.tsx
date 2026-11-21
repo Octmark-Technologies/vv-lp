@@ -115,7 +115,7 @@ export function Opening() {
                 <HeroCopy copies={lp.hero} fallback={lp.defaultVersion} tone="light" />
               </Suspense>
             </div>
-            <ul data-open-end className="mt-7 flex flex-wrap gap-2 text-[13px] sv-tnum">
+            <ul data-open-end className="mt-7 flex flex-wrap gap-2 text-[13px] sv-tnum max-sm:hidden">
               {["Exclusive 3 BHK", skyvue.sizeRange, skyvue.priceLine].map((t) => (
                 <li key={t} className="rounded-full border border-[var(--sv-line)] bg-white/70 px-3.5 py-1.5 backdrop-blur">
                   {t}

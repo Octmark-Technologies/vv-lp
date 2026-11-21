@@ -144,10 +144,6 @@ export function Progress({ tone = "light", onCta, ctaHref }: { tone?: "light" | 
           </div>
           <dl className="sv-pg-facts">
             <div>
-              <dt>Last site visit</dt>
-              <dd>27 Oct 2026</dd>
-            </div>
-            <div>
               <dt>Drone updates</dt>
               <dd className="sv-tnum">{months.length} months</dd>
             </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { formOptions, skyvue } from "@/data/skyvue-landing";
 import { Check, WhatsApp } from "@/components/Icons";
+import { useLpMaybe } from "./lp1/PageConfig";
 
 const TRACK_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid", "gbraid", "wbraid"] as const;
 const FIRST_TOUCH = "sv_first_touch";
@@ -37,7 +38,7 @@ export async function sendLead(f: {
   phone: string;
   budget: string;
   timeline: string;
-  intent: "enquiry" | "site_visit" | "payment_schedule";
+  intent: "enquiry" | "site_visit" | "payment_schedule" | "brochure";
   pageId: string;
   pageSlug: string;
   formId: string;
@@ -148,11 +149,14 @@ export function LeadForm({
   formId: string;
   title: string;
   cta: string;
-  intent?: "enquiry" | "site_visit" | "payment_schedule";
+  intent?: "enquiry" | "site_visit" | "payment_schedule" | "brochure";
   tone?: "light" | "dark";
 }) {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState("");
+  const custom = useLpMaybe()?.formFields;
+  const budgetOpts = custom?.budget.options ?? formOptions.budget.map((o) => ({ label: o, value: o }));
+  const timelineOpts = custom?.timeline.options ?? formOptions.timeline.map((o) => ({ label: o, value: o }));
   const startedAt = useRef(0);
   useEffect(() => {
     startedAt.current = Date.now();
@@ -175,7 +179,7 @@ export function LeadForm({
     const phone = String(fd.phone ?? "").replace(/\D/g, "").slice(-10);
     if (!fd.name?.trim()) return setError("Please enter your name.");
     if (!/^[6-9]\d{9}$/.test(phone)) return setError("Please enter a valid 10-digit mobile number.");
-    if (!fd.budget || !fd.timeline) return setError("Please choose your budget and timeline.");
+    if (!fd.budget || !fd.timeline) return setError(custom?.error ?? "Please choose your budget and timeline.");
     if (!fd.consent) return setError("Please agree to be contacted.");
     setError("");
     setState("sending");
@@ -229,7 +233,7 @@ export function LeadForm({
       className={`rounded-2xl p-6 sm:p-7 ${dark ? "sv-form-dark bg-white/10 text-white backdrop-blur" : "bg-white text-[#004670] shadow-[0_30px_80px_-30px_rgba(20,45,71,0.45)]"}`}
     >
       <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-sv-orange">Vaishno SkyVue · Tellapur</p>
-      <h2 className="mt-2 font-sans text-2xl font-light leading-snug">{title}</h2>
+      <h2 className="mt-2 text-2xl font-normal leading-snug [font-family:var(--sv-display,inherit)]">{title}</h2>
       <Honeypot id={`${formId}-website`} />
       <div className="mt-5 grid gap-3">
         <label className="sr-only" htmlFor={`${formId}-name`}>Name</label>
@@ -250,22 +254,26 @@ export function LeadForm({
           />
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <label className="sr-only" htmlFor={`${formId}-budget`}>Budget</label>
+          <label className="sr-only" htmlFor={`${formId}-budget`}>{custom?.budget.label ?? "Budget"}</label>
           <select id={`${formId}-budget`} name="budget" defaultValue="" className={field} required>
             <option value="" disabled>
-              Budget
+              {custom?.budget.label ?? "Budget"}
             </option>
-            {formOptions.budget.map((o) => (
-              <option key={o}>{o}</option>
+            {budgetOpts.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
             ))}
           </select>
-          <label className="sr-only" htmlFor={`${formId}-timeline`}>Buying timeline</label>
+          <label className="sr-only" htmlFor={`${formId}-timeline`}>{custom?.timeline.label ?? "Buying timeline"}</label>
           <select id={`${formId}-timeline`} name="timeline" defaultValue="" className={field} required>
             <option value="" disabled>
-              Buying in
+              {custom?.timeline.label ?? "Buying in"}
             </option>
-            {formOptions.timeline.map((o) => (
-              <option key={o}>{o}</option>
+            {timelineOpts.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
             ))}
           </select>
         </div>

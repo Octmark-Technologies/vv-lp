@@ -21,6 +21,8 @@ type Props = {
   alt: string;
   /** Horizontal focus for the cover crop on narrow screens (0 = left, 0.5 = centre, 1 = right). */
   focusX?: number;
+  /** Horizontal focus on phones (≤ 767px) when it should differ from desktop. Defaults to focusX. */
+  focusXMobile?: number;
   /** On portrait screens, the smallest share of the frame's width that must stay visible (0 = plain cover crop). */
   minVisibleW?: number;
   /** Vertical placement when the frame no longer fills the height (0 = top, 1 = bottom). */
@@ -36,7 +38,7 @@ type Props = {
 const pad = (n: number) => String(n).padStart(4, "0");
 const src = (shot: string, mobile: boolean, n: number) => `/frames/${shot}${mobile ? "-m" : ""}/f_${pad(n)}.webp`;
 
-export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, focusX = 0.5, minVisibleW = 0, alignY = 0.5, still = 1, eager = false, className = "", children }: Props) {
+export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, focusX = 0.5, focusXMobile, minVisibleW = 0, alignY = 0.5, still = 1, eager = false, className = "", children }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -51,6 +53,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
 
     const mobile = matchMedia("(max-width: 767px)").matches;
     const n = mobile ? mobileFrames : frames;
+    const fx = mobile ? (focusXMobile ?? focusX) : focusX;
     const imgs: (HTMLImageElement | null)[] = new Array(n).fill(null);
     const ready: boolean[] = new Array(n).fill(false);
     const ctx = cv.getContext("2d", { alpha: false });
@@ -107,7 +110,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
       if (minVisibleW > 0 && cw < ch) s = Math.min(s, cw / (minVisibleW * iw)); // keep the subject in frame on phones
       const dw = iw * s;
       const dh = ih * s;
-      const dx = (cw - dw) * focusX;
+      const dx = (cw - dw) * fx;
       const dy = dh < ch ? (ch - dh) * alignY : (ch - dh) / 2;
       if (dh < ch) {
         // Fill above and below by stretching the frame's own top and bottom rows (sky, ground).
@@ -206,7 +209,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
       io.disconnect();
       imgs.forEach((im) => im && (im.src = ""));
     };
-  }, [shot, frames, mobileFrames, focusX, minVisibleW, alignY, eager]);
+  }, [shot, frames, mobileFrames, focusX, focusXMobile, minVisibleW, alignY, eager]);
 
   // Poster (first frame for motion, `still` frame otherwise) so the stage is never empty.
   const stillM = Math.max(1, Math.round(((still - 1) / Math.max(1, frames - 1)) * (mobileFrames - 1)) + 1);
@@ -216,7 +219,7 @@ export function ScrollFrames({ shot, frames, mobileFrames, heightClass, alt, foc
         <picture>
           <source media="(max-width: 767px)" srcSet={src(shot, true, stillM)} />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="sv-frames-poster" src={src(shot, false, still)} alt={alt} style={{ objectPosition: `${focusX * 100}% 50%` }} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" />
+          <img className="sv-frames-poster" src={src(shot, false, still)} alt={alt} style={{ ["--fx" as string]: `${focusX * 100}%`, ["--fxm" as string]: `${(focusXMobile ?? focusX) * 100}%` }} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" />
         </picture>
         <canvas ref={canvas} className="sv-frames-canvas" aria-hidden="true" />
         {children}

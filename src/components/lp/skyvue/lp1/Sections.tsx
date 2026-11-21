@@ -18,7 +18,7 @@ import {
   trackRecord,
   units,
 } from "@/data/skyvue-landing";
-import { useLp } from "./PageConfig";
+import { useLp, useLpMaybe } from "./PageConfig";
 import { withStar } from "../Terms";
 import { FooterCredit } from "../FooterCredit";
 import { BangalorePortfolio, ProjectFilms, Progress, SiteMap } from "../Proof";
@@ -29,15 +29,26 @@ import { openEnquiry } from "./EnquiryDrawer";
 
 const wa = (t: string) => `https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent(t)}`;
 
-function Head({ eyebrow, title, sub, id, light }: { eyebrow: string; title: string; sub?: string; id: string; light?: boolean }) {
+/** inHeading: the eyebrow is part of the h2 (keyword headings on LP2); it looks the same. */
+function Head({ eyebrow, title, sub, id, light, inHeading }: { eyebrow: string; title: string; sub?: string; id: string; light?: boolean; inHeading?: boolean }) {
+  const h2 = `text-[30px] leading-[1.1] sm:text-[44px] ${light ? "text-white" : "text-[var(--sv-heading)]"}`;
   return (
     <div className="max-w-3xl">
-      <p className="sv-eyebrow" data-reveal>
-        {eyebrow}
-      </p>
-      <h2 id={id} className={`mt-3 text-[30px] leading-[1.1] sm:text-[44px] ${light ? "text-white" : "text-[var(--sv-heading)]"}`} data-reveal>
-        {withStar(title)}
-      </h2>
+      {inHeading ? (
+        <h2 id={id} className={h2} data-reveal>
+          <span className="sv-eyebrow block">{eyebrow}</span>
+          <span className="mt-3 block">{withStar(title)}</span>
+        </h2>
+      ) : (
+        <>
+          <p className="sv-eyebrow" data-reveal>
+            {eyebrow}
+          </p>
+          <h2 id={id} className={`mt-3 ${h2}`} data-reveal>
+            {withStar(title)}
+          </h2>
+        </>
+      )}
       {sub && (
         <p className={`mt-4 max-w-[60ch] text-[17px] leading-relaxed ${light ? "text-white/70" : "text-[var(--sv-muted)]"}`} data-reveal>
           {withStar(sub)}
@@ -181,6 +192,8 @@ export function Compare() {
 /* ───────────── B6 · Homes & plans ───────────── */
 export function Homes() {
   const ref = useRef<HTMLElement>(null);
+  const cfg = useLpMaybe();
+  const offer = cfg?.offer;
   const [i, setI] = useState(0);
   const [unlocked, setUnlocked] = useState(false);
   useAnime(ref, revealOnEnter);
@@ -202,9 +215,10 @@ export function Homes() {
       <div className="sv-wrap" data-reveal-group>
         <Head
           id="homes-title"
-          eyebrow="Homes & floor plans"
+          eyebrow={cfg?.homesEyebrow ?? "Homes & floor plans"}
+          inHeading={Boolean(cfg?.homesEyebrow)}
           title="Pick your size. Every home is an exclusive 3 BHK."
-          sub="2,010 to 2,890 sq ft. East- and west-facing homes, 10′4″ floor to floor, sculpted balconies with 180° views and extended balconies on select floors."
+          sub={cfg?.homesSub ?? "2,010 to 2,890 sq ft. East- and west-facing homes, 10′4″ floor to floor, sculpted balconies with 180° views and extended balconies on select floors."}
         />
         <div role="tablist" aria-label="Home sizes" className="mt-10 flex flex-wrap gap-2" data-reveal>
           {units.map((x, n) => (
@@ -241,9 +255,10 @@ export function Homes() {
                 Open full size
               </a>
             ) : (
-              <div className="absolute inset-0 grid place-items-center bg-white/30 p-6 text-center">
+              <div className="absolute inset-0 grid place-items-center bg-white/45 p-6 text-center">
                 <div>
-                  <p className="sv-display text-xl font-light text-[var(--sv-heading)]">See the full floor plan</p>
+                  {/* Fixed navy: the blurred plan behind is always light, on every page theme. */}
+                  <p className="sv-display text-xl font-normal text-[#004670] sm:text-2xl">See the full floor plan</p>
                   <button type="button" onClick={() => openEnquiry("plans")} className="sv-btn sv-btn-primary mt-3">
                     Unlock my floor plans
                   </button>
@@ -286,14 +301,21 @@ export function Homes() {
               ))}
             </dl>
             <div className="sv-plan-offer">
-              <p className="sv-plan-offer-hook">Book this home with just 5%.</p>
+              <p className="sv-plan-offer-hook">{offer ? offer.plansHook : "Book this home with just 5%."}</p>
               <p className="sv-plan-offer-body">
-                {withStar("Then pay nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* Your savings stay with you while your home goes up.")}
+                {withStar(
+                  offer
+                    ? offer.plansBody
+                    : "Then pay nothing more until your block's structure is complete.* No-cost EMI on bookings till 31 Dec 2026.* Your savings stay with you while your home goes up.",
+                )}
               </p>
-              <p className="sv-plan-offer-when">Only on bookings made by 31 Dec 2026.</p>
+              <p className="sv-plan-offer-when">{offer ? withStar(offer.plansWhen) : "Only on bookings made by 31 Dec 2026."}</p>
             </div>
             <button type="button" onClick={() => openEnquiry("plans-offer", "payment_schedule")} className="sv-btn sv-btn-primary">
-              Get my 5% payment schedule
+              {offer ? offer.plansCta : "Get my 5% payment schedule"}
+            </button>
+            <button type="button" onClick={() => openEnquiry("plans-brochure", "brochure")} className="sv-btn sv-btn-ghost text-[var(--sv-heading)]">
+              Download the full brochure
             </button>
             <p className="text-[12px] text-[var(--sv-muted)]">Typical unit plan from the SkyVue brochure. Furniture is indicative.</p>
           </div>
@@ -629,6 +651,7 @@ export function Visit() {
 }
 
 export function Footer() {
+  const offer = useLpMaybe()?.offer;
   return (
     <footer className="bg-[#142d47] pb-36 pt-12 text-white/60 md:pb-24">
       <div className="sv-wrap grid gap-8 text-sm md:grid-cols-[auto_1fr] md:items-start">
@@ -642,13 +665,16 @@ export function Footer() {
             Doyens Lakeside Township, Serilingampally, Hyderabad, Telangana 500019.
           </p>
           <p>
-            Disclaimer: All images are artist&apos;s impressions and for representation only. Specifications, amenities, plans and prices are indicative and subject to change as per approvals.
+            Disclaimer: All images are for representation only. Specifications, amenities, plans and prices are indicative and subject to change as per approvals.
             Prices shown are base prices; GST, parking and other charges are extra. This page is not an offer or a contract.
           </p>
           <p id="terms" className="sv-terms scroll-mt-28 text-white/75">
-            {skyvue.offer.terms}
+            {offer ? offer.terms : skyvue.offer.terms}
           </p>
-          <p>
+          <p className="flex flex-wrap gap-x-5 gap-y-2">
+            <button type="button" onClick={() => openEnquiry("footer-brochure", "brochure")} className="font-semibold text-white underline underline-offset-2">
+              Download the SkyVue brochure
+            </button>
             <Link href={privacyUrl} className="underline">
               Privacy policy
             </Link>

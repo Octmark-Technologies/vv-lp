@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { skyvue } from "@/data/skyvue-landing";
 import { lpPaths } from "@/data/lp-paths";
-import { Check, Phone, WhatsApp } from "@/components/Icons";
+import { Check, Download, Phone, WhatsApp } from "@/components/Icons";
 import { FooterCredit } from "./FooterCredit";
 import "./lp1/lp1.css";
 
@@ -13,7 +13,7 @@ import "./lp1/lp1.css";
  * the skyvue_lead dataLayer event. The visitor's first name, intent and the page they came from are
  * read from sessionStorage (set by sendLead); nothing personal goes in the URL.
  */
-type Ty = { first?: string; intent?: "enquiry" | "site_visit" | "payment_schedule"; back?: string; size?: string | null };
+type Ty = { first?: string; intent?: "enquiry" | "site_visit" | "payment_schedule" | "brochure"; back?: string; size?: string | null };
 
 const copy = {
   enquiry: {
@@ -21,8 +21,12 @@ const copy = {
     wa: "Hi, I just filled the SkyVue form. Please send the floor plans, cost sheet and RERA details.",
   },
   payment_schedule: {
-    sub: "A SkyVue advisor will call you shortly with your 5% payment schedule, the floor plan and the cost sheet for your size.",
-    wa: "Hi, I just filled the SkyVue form. Please send my 5% payment schedule and cost sheet.",
+    sub: "A SkyVue advisor will call you shortly to understand how you'd like to pay, and to prepare your written quote and floor plan for your size.",
+    wa: "MY PLAN: Hi, I just filled the SkyVue form. I'd like a quote for my payment plan.",
+  },
+  brochure: {
+    sub: "Your SkyVue brochure is ready below. A SkyVue advisor will also call you shortly to answer questions and share the cost sheet for your size.",
+    wa: "Hi, I just downloaded the SkyVue brochure. Please send the cost sheet and RERA details.",
   },
   site_visit: {
     sub: "A SkyVue advisor will call you shortly to fix your site-visit slot, on a weekday or a weekend.",
@@ -70,6 +74,16 @@ export function ThankYou() {
           <p className="mt-4 text-[16px] leading-relaxed text-[var(--sv-muted)] sm:text-[17px]">{c.sub}</p>
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a
+              href={skyvue.brochure}
+              download="Vaishno-SkyVue-Brochure.pdf"
+              target="_blank"
+              rel="noopener"
+              onClick={() => (window.dataLayer = window.dataLayer || []).push({ event: "brochure_download", lp_path: backPath, lead_intent: ty.intent ?? "enquiry" })}
+              className={`sv-btn ${ty.intent === "brochure" ? "sv-btn-primary" : "sv-btn-ghost text-[var(--sv-heading)]"}`}
+            >
+              <Download width={18} height={18} /> Download the brochure (PDF, 9 MB)
+            </a>
             <a href={wa} target="_blank" rel="noopener noreferrer" className="sv-btn sv-btn-wa">
               <WhatsApp width={18} height={18} /> Get it on WhatsApp now
             </a>

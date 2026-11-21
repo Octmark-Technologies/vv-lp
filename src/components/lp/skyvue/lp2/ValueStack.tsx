@@ -8,9 +8,8 @@ import { openEnquiry } from "../lp1/EnquiryDrawer";
 import { withStar } from "../Terms";
 
 /**
- * LP2 · "Why 5% is enough" — the offer through Hormozi's value equation, as the buyer feels it:
- * what you get (dream outcome), why you can trust it (likelihood), what it takes today (effort),
- * how long you wait (time). Confirmed facts only. A thin orange line draws across the four as
+ * LP2 · "Why Pay Your Way" — the offer through Hormozi's value equation, as the buyer feels it:
+ * what you get, what you decide, why you can trust it, and the one price. Confirmed facts only. A thin orange line draws across the four as
  * the section arrives, then the CTA repeats.
  */
 export function ValueStack() {
@@ -26,14 +25,14 @@ export function ValueStack() {
     });
   });
   return (
-    <section ref={ref} className="sv-section bg-white" aria-labelledby="vs-title" id="why-5">
+    <section ref={ref} className="sv-section bg-white" aria-labelledby="vs-title" id="why-pay-your-way">
       <div className="sv-wrap" data-reveal-group>
         <div className="max-w-3xl">
           <p className="sv-eyebrow" data-reveal>
-            Why 5% is enough
+            Why Pay Your Way
           </p>
           <h2 id="vs-title" className="mt-3 text-[30px] leading-[1.1] text-[var(--sv-heading)] sm:text-[44px]" data-reveal>
-            A luxury home, a builder you can check, and a small first step.
+            Same home, same price. The payment plan is the part you write.
           </h2>
         </div>
         <dl data-vs className="sv-vs mt-12">
@@ -48,10 +47,10 @@ export function ValueStack() {
         </dl>
         <div className="mt-12 flex flex-wrap items-center gap-4" data-reveal>
           <button type="button" onClick={() => openEnquiry("value-stack", "payment_schedule")} className="sv-btn sv-btn-primary">
-            Get my 5% payment schedule
+            Get my Pay Your Way quote
           </button>
           <a href="#terms" className="text-[13px] text-[var(--sv-muted)] underline underline-offset-2">
-            *Conditions apply
+            *Price terms
           </a>
         </div>
       </div>

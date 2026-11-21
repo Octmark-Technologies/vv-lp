@@ -71,7 +71,7 @@
 }
 .sv-pg-facts {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   border: 1px solid var(--pg-line);
   border-radius: 16px;
   background: var(--pg-card);

@@ -4,7 +4,7 @@ import { privacyUrl } from "@/data/lp-paths";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { formOptions, skyvue, units } from "@/data/skyvue-landing";
+import { skyvue, units } from "@/data/skyvue-landing";
 import { lp2, whatYouGet } from "@/data/skyvue-lp2";
 import { Check, WhatsApp } from "@/components/Icons";
 import { Honeypot, sendLead } from "../LeadForm";
@@ -13,9 +13,10 @@ import { useHomeSize } from "./useHomeSize";
 type Step = 0 | 1 | 2;
 
 /**
- * LP2 · 3-step form ("progressive disclosure": one small decision per screen).
- * 1 · your home size (pre-set from the calculator) → shows your 5% amount
- * 2 · budget and buying timeline (big tap targets)
+ * LP2 · 3-step form ("progressive disclosure": one small decision per screen). Pay Your Way.
+ * 1 · your home size (pre-set from the calculator)
+ * 2 · how you'll pay (own funds / home loan / both) and when you'd like to start
+ *     (sent in the budget / timeline columns as "Pay: …" / "Start: …")
  * 3 · name, mobile, consent → the shared sendLead (same API, UTMs, click IDs, dataLayer)
  * Each step pushes a dataLayer event (schedule_form_step) so drop-off can be measured.
  */
@@ -60,7 +61,8 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
     }
   }
 
-  const wa = `https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent(`Hi, please send the SkyVue payment schedule for ${size.toLocaleString("en-IN")} sq ft.`)}`;
+  const wa = `https://wa.me/${skyvue.whatsapp}?text=${encodeURIComponent("MY PLAN: Hi, I'd like a SkyVue Pay Your Way quote.")}`;
+  const fields = lp2.formFields;
   const choice = (on: boolean) => `sv-choice ${on ? "is-on" : ""}`;
 
   if (state === "done") {
@@ -69,12 +71,12 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
         <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--sv-orange)] text-[var(--sv-on-orange)]">
           <Check />
         </span>
-        <p className="sv-display mt-5 text-[26px] font-light leading-tight">Thank you, {name.split(" ")[0]}. Your schedule is on its way.</p>
+        <p className="sv-display mt-5 text-[26px] font-light leading-tight">Thank you, {name.split(" ")[0]}. We&apos;ll call you with your quote.</p>
         <p className="mt-2 text-[15px] leading-relaxed opacity-80">
-          A SkyVue advisor will call you shortly with the payment schedule for {size.toLocaleString("en-IN")} sq ft. Want it on WhatsApp right now?
+          A SkyVue advisor will call you shortly about your plan. Want to send your plan on WhatsApp now?
         </p>
         <a href={wa} target="_blank" rel="noopener noreferrer" className="sv-btn sv-btn-wa mt-6">
-          <WhatsApp width={18} height={18} /> Get it on WhatsApp
+          <WhatsApp width={18} height={18} /> WhatsApp us your plan
         </a>
       </div>
     );
@@ -116,20 +118,20 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
 
           {step === 1 && (
             <fieldset>
-              <legend className="sv-display text-[24px] font-light leading-tight sm:text-[28px]">Your budget and timeline</legend>
-              <p className="mt-4 text-[13px] font-semibold opacity-75">Budget</p>
+              <legend className="sv-display text-[24px] font-light leading-tight sm:text-[28px]">How would you like to pay?</legend>
+              <p className="mt-4 text-[13px] font-semibold opacity-75">{fields.budget.label}</p>
               <div className="mt-2 grid gap-2 sm:grid-cols-3">
-                {formOptions.budget.map((o) => (
-                  <button key={o} type="button" className={choice(o === budget)} aria-pressed={o === budget} onClick={() => setBudget(o)}>
-                    {o}
+                {fields.budget.options.map((o) => (
+                  <button key={o.value} type="button" className={choice(o.value === budget)} aria-pressed={o.value === budget} onClick={() => setBudget(o.value)}>
+                    {o.label}
                   </button>
                 ))}
               </div>
-              <p className="mt-4 text-[13px] font-semibold opacity-75">Planning to buy</p>
+              <p className="mt-4 text-[13px] font-semibold opacity-75">{fields.timeline.label}</p>
               <div className="mt-2 grid gap-2 sm:grid-cols-3">
-                {formOptions.timeline.map((o) => (
-                  <button key={o} type="button" className={choice(o === timeline)} aria-pressed={o === timeline} onClick={() => setTimeline(o)}>
-                    {o}
+                {fields.timeline.options.map((o) => (
+                  <button key={o.value} type="button" className={choice(o.value === timeline)} aria-pressed={o.value === timeline} onClick={() => setTimeline(o.value)}>
+                    {o.label}
                   </button>
                 ))}
               </div>
@@ -140,7 +142,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
                 <button
                   type="button"
                   className="sv-btn sv-btn-primary"
-                  onClick={() => (budget && timeline ? go(2) : setError("Please choose your budget and timeline."))}
+                  onClick={() => (budget && timeline ? go(2) : setError(fields.error))}
                 >
                   Continue
                 </button>
@@ -158,7 +160,7 @@ export function ScheduleForm({ formId, tone = "light" }: { formId: string; tone?
               }}
             >
               <Honeypot id={`${formId}-website`} value={hp} onChange={setHp} />
-              <p className="sv-display text-[24px] font-light leading-tight sm:text-[28px]">Where should we send it?</p>
+              <p className="sv-display text-[24px] font-light leading-tight sm:text-[28px]">Where should we call you?</p>
               <div className="mt-5 grid gap-2">
                 <label className="sr-only" htmlFor={`${formId}-name`}>
                   Name

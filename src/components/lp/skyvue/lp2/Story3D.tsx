@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
-import { skyvue, trackRecord } from "@/data/skyvue-landing";
+import { skyvue } from "@/data/skyvue-landing";
 import { lp2 } from "@/data/skyvue-lp2";
 import { HeroCopy, HeroText } from "../HeroCopy";
 import { motionOn, pinnedScroll, seg, useAnime } from "../lp1/anim";
@@ -10,19 +10,18 @@ import { openEnquiry } from "../lp1/EnquiryDrawer";
 import { Star } from "../Terms";
 import { OfferCountdown } from "../Countdown";
 import { Aerial3D, type AerialState } from "./Aerial3D";
-import { useHomeSize } from "./useHomeSize";
 
 /**
  * LP2 · the story, told over the SkyVue aerial in 3D (Aerial3D). One held scene, five beats;
  * scrolling flies the camera a little and changes the beat. Different from LP1 by design:
  * no pillar, no tower rise, no line drawing — a dark, cinematic aerial instead.
  *
- * Beats (progress 0 → 1):
- *  0 · hook          reference camera (the render exactly as rendered)
- *  1 · book with 5%  camera eases in and left; towers warm up
- *  2 · pay nothing   an orange construction line climbs the towers, floors count 0 → 36
- *  3 · no-cost EMI   camera rises right; the line rests at the top
- *  4 · possession    camera settles back to the reference view; CTA
+ * Beats (progress 0 → 1) · Pay Your Way (20 Nov 2026):
+ *  0 · hook                 reference camera (the render exactly as rendered)
+ *  1 · your amounts & dates camera eases in and left; towers warm up
+ *  2 · written quote        an orange line climbs the towers
+ *  3 · book & register      camera rises right; the line rests at the top
+ *  4 · the deadline         ₹7,149 until 31 Dec, then ₹7,399; camera settles back; CTA
  *
  * Without motion: the image is a plain <img>, and the beats are ordinary stacked content.
  */
@@ -57,9 +56,7 @@ export function Story3D() {
   const [use3d, setUse3d] = useState(false);
   useEffect(() => setUse3d(motionOn()), []);
   const [beat, setBeat] = useState(0);
-  const [floors, setFloors] = useState(36);
-  const [size] = useHomeSize();
-  const last = useRef({ beat: 0, floors: 36 });
+  const last = useRef({ beat: 0 });
 
   useAnime(ref, (root) => {
     const panels = [...root.querySelectorAll<HTMLElement>("[data-beat]")];
@@ -80,8 +77,6 @@ export function Story3D() {
       });
       const b = Math.round(p * (BEATS - 1));
       if (b !== last.current.beat) setBeat((last.current.beat = b));
-      const f = Math.round(seg(p, 0.3, 0.72) * 36);
-      if (f !== last.current.floors) setFloors((last.current.floors = f));
     };
     update(0);
     // a stand-in animation carries the scroll observer (same pattern as the other scenes)
@@ -103,7 +98,7 @@ export function Story3D() {
 
   const v = lp2.hero[lp2.defaultVersion];
   return (
-    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "210svh" }} aria-label="Vaishno SkyVue, the 5% plan">
+    <section ref={ref} className="sv-pin sv-story" style={{ ["--pin" as string]: "210svh" }} aria-label="Vaishno SkyVue, Pay Your Way">
       <div className="sv-stage sv-story-stage">
         <div className="sv-story-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -129,7 +124,7 @@ export function Story3D() {
                 {lp2.heroCta}
               </button>
               <button type="button" onClick={() => jump(1)} className="sv-btn sv-btn-ghost text-white">
-                Show me how 5% works
+                How Pay Your Way works
               </button>
             </div>
             <OfferCountdown variant="hero" tone="dark" className="sv-cd-start mt-6" />
@@ -138,56 +133,49 @@ export function Story3D() {
                 <strong>TS RERA</strong> {skyvue.rera}
               </li>
               <li>
-                <strong>{trackRecord.projects}</strong> projects
+                <strong>₹7,149</strong> per sq ft until 31 Dec
+                <Star />
               </li>
               <li>
-                <strong>{trackRecord.families}</strong> families in delivered homes
+                <strong>3 BHK</strong> only, 2,010 to 2,890 sq ft
               </li>
             </ul>
           </div>
 
-          {/* Beat 1 · book */}
+          {/* Beat 1 · your plan */}
           <div data-beat className="sv-beat">
             <p className="sv-beat-k">Step 1</p>
-            <h2 className="sv-beat-h">
-              Book your home with 5%.
-              <Star />
-            </h2>
-            <p className="sv-beat-p">
-              Just 5% to reserve a {size.toLocaleString("en-IN")} sq ft exclusive 3 BHK. Homes start from {skyvue.priceFrom}.
-            </p>
+            <h2 className="sv-beat-h">Tell us your amounts and dates.</h2>
+            <p className="sv-beat-p">Own funds, home loan or both. Salary dates, bonus month, an FD or a flat sale: your plan follows your money.</p>
           </div>
 
-          {/* Beat 2 · hands-free */}
+          {/* Beat 2 · quote */}
           <div data-beat className="sv-beat">
             <p className="sv-beat-k">Step 2</p>
-            <h2 className="sv-beat-h">
-              Then pay nothing more while your block rises.
-              <Star />
-            </h2>
-            <p className="sv-beat-p">
-              <span className="sv-display sv-tnum text-[44px] font-light leading-none text-white">{floors}</span>
-              <span className="ml-2">of 36 storeys. You stay at 5% until your block&apos;s structure is complete.</span>
-            </p>
+            <h2 className="sv-beat-h">Visit the site. Leave with a written quote.</h2>
+            <p className="sv-beat-p">Sales prepares the quote for the schedule you propose, with a quote number. Not three plans to pick from. One plan: yours.</p>
           </div>
 
-          {/* Beat 3 · EMI */}
+          {/* Beat 3 · book */}
           <div data-beat className="sv-beat">
             <p className="sv-beat-k">Step 3</p>
             <h2 className="sv-beat-h">
-              No-cost EMI, on bookings till 31 Dec 2026.
+              Book your home, then register.
               <Star />
             </h2>
-            <p className="sv-beat-p">Your payment schedule shows how it works for your home.</p>
+            <p className="sv-beat-p">A token of up to 10% books your home. Your rate and schedule go into the registered sale agreement.</p>
           </div>
 
-          {/* Beat 4 · possession */}
+          {/* Beat 4 · deadline */}
           <div data-beat className="sv-beat">
-            <p className="sv-beat-k">Step 4</p>
-            <h2 className="sv-beat-h">Move in by 31 March 2030.</h2>
-            <p className="sv-beat-p">A luxury community of only 570 exclusive 3 BHK homes, with 40 amenities and 75% open space.</p>
+            <p className="sv-beat-k">The one price</p>
+            <h2 className="sv-beat-h">
+              ₹7,149 per sq ft until 31 December.
+              <Star />
+            </h2>
+            <p className="sv-beat-p">From 1 January 2027 it is ₹7,399 per sq ft. Possession planned for 31 March 2030.</p>
             <button type="button" onClick={() => openEnquiry("story-end", "payment_schedule")} className="sv-btn sv-btn-primary mt-6">
-              Get my 5% payment schedule
+              {lp2.heroCta}
             </button>
           </div>
         </div>
@@ -201,7 +189,7 @@ export function Story3D() {
         </ol>
         <p className="sv-story-note">
           <a href="#terms" className="underline underline-offset-2">
-            *Conditions apply
+            *Price terms
           </a>
         </p>
       </div>
